@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinicperiodo2024/modelo/dao/BDPDO.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinicperiodo2024/modelo/vo/UsuarioVO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/BDPDO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/UsuarioVO.php';
 
 class UsuarioDAO {
     
@@ -22,13 +22,13 @@ class UsuarioDAO {
                     . "VALUES (:nome, :cpf, :email, :senha, :foto)";
             
             $p_sql = BDPDO::getInstance() -> prepare($sql);
-            $p_sql->bindValue(":nome", $usuario.getNome());
-            $p_sql->bindValue(":cpf", $usuario.getCpf());
-            $p_sql->bindValue(":email", $usuario.getEmail());
-            $p_sql->bindValue(":senha", $usuario.getSenha());
-            $p_sql->bindValue(":foto", $usuario.getFoto());
+            $p_sql->bindValue(":nome", $usuario->getNome());
+            $p_sql->bindValue(":cpf", $usuario->getCpf());
+            $p_sql->bindValue(":email", $usuario->getEmail());
+            $p_sql->bindValue(":senha", $usuario->getSenha());
+            $p_sql->bindValue(":foto", $usuario->getFoto());
             
-            return $p_sql.execute();
+            return $p_sql->execute();
         } catch (Exception $e) {
             print "Erro ao executar a função de salvar" . $e->getMessage();
         }
@@ -41,12 +41,12 @@ class UsuarioDAO {
                     ."WHERE id=:id";
             $p_sql = BDPDO::getInstance()->prepare();
             $p_sql = BDPDO::getInstance() -> prepare($sql);
-            $p_sql->bindValue(":nome", $usuario.getNome());
-            $p_sql->bindValue(":cpf", $usuario.getCpf());
-            $p_sql->bindValue(":email", $usuario.getEmail());
-            $p_sql->bindValue(":senha", $usuario.getSenha());
-            $p_sql->bindValue(":foto", $usuario.getFoto());
-            $p_sql->bindValue(":id", $usuario.getId());
+            $p_sql->bindValue(":nome", $usuario->getNome());
+            $p_sql->bindValue(":cpf", $usuario->getCpf());
+            $p_sql->bindValue(":email", $usuario->getEmail());
+            $p_sql->bindValue(":senha", $usuario->getSenha());
+            $p_sql->bindValue(":foto", $usuario->getFoto());
+            $p_sql->bindValue(":id", $usuario->getId());
             
             return $p_sql->execute();
         } catch (Exception $e) {
@@ -57,7 +57,7 @@ class UsuarioDAO {
     public function delete($id) {
         try {
             $sql = "DELETE FROM usuario WHERE id=:id";
-            $p_sql = BDPDO::getInstance()->prepare();
+            $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":id", $id);
             return $p_sql->execute();
         } catch (Exception $e) {
@@ -101,7 +101,7 @@ class UsuarioDAO {
     
     public function listWhere($restanteDoSQL, $arrayDeParametros, $arrayDeValores) {
         try {
-            $sql = "SELECT * FROM paciente " . $restanteDoSQL;
+            $sql = "SELECT * FROM usuario " . $restanteDoSQL;
             $p_sql = BDPDO::getInstance()->prepare($sql);
             for ($i = 0; $i < sizeof($arrayDeParametros); $i++) {
                 $p_sql->bindValue($arrayDeParametros[$i], $arrayDeValores [$i]);
@@ -124,7 +124,7 @@ class UsuarioDAO {
         $obj = new UsuarioVO();
         $obj->setId($row['id']);
         $obj->setNome($row['nome']);
-        $obj->setCpf($row['login']);
+        $obj->setCpf($row['cpf']);
         $obj->setEmail($row['email']);
         $obj->setSenha($row['senha']);
         $obj->setFoto($row['foto']);

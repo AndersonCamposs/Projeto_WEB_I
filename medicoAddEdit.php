@@ -32,81 +32,14 @@
             <!-- Navbar-->
         </nav>
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePacientes" aria-expanded="false" aria-controls="collapsePacientes">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                                Pacientes
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePacientes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="pacienteAddEdit.html">
-                                        <i class="fa-regular fa-square-plus mx-2"></i>
-                                        Adicionar
-                                    </a>
-                                    <a class="nav-link" href="pacienteList.html">
-                                        <i class="fa-regular fa-rectangle-list mx-2"></i>
-                                        Listar
-                                    </a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMedicos" aria-expanded="false" aria-controls="collapseMedicos">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user-doctor"></i></div>
-                                Médicos
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseMedicos" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="medicoAddEdit.html">
-                                        <i class="fa-regular fa-square-plus mx-2"></i>
-                                        Adicionar
-                                    </a>
-                                    <a class="nav-link" href="medicoList.html">
-                                        <i class="fa-regular fa-rectangle-list mx-2"></i>
-                                        Listar
-                                    </a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios" aria-expanded="false" aria-controls="collapseMedicos">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
-                                Usuários
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseUsuarios" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="usuarioAddEdit.html">
-                                        <i class="fa-regular fa-square-plus mx-2"></i>
-                                        Adicionar
-                                    </a>
-                                    <a class="nav-link" href="usuarioList.html">
-                                        <i class="fa-regular fa-rectangle-list mx-2"></i>
-                                        Listar
-                                    </a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
-                </nav>
-            </div>
+            <?php include "./navBar.php" ;?>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Pacientes</h1>
+                        <h1 class="mt-4">Médicos</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Pacientes</li>
+                            <li class="breadcrumb-item active">Médicos</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
@@ -129,41 +62,60 @@
                                             <input class="form-control" type="text" name="name" maxlength="11" minlength="11">
                                         </div>
                                         <div class="col-3">
-                                            Estado civil:
-                                            <select class="form-select">
-                                                <option>Solteiro(a)</option>
-                                                <option>Casado(a)</option>
-                                                <option>Viúvo(a)</option>
-                                                <option>União Estável</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-3">
                                             Celular:
                                             <input type="text" class="form-control" maxlength="11" minlength="11">
                                         </div>
-                                        <div class="col-3">
-                                            Logradouro:
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-3">
-                                            Bairro:
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-3">
-                                            CEP:
-                                            <input type="text" class="form-control" maxlength="8" minlength="8">
-                                        </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-3">
-                                            Complemento:
+                                            Especialidade(s):
                                             <input type="text" class="form-control">
                                         </div>
                                         <div class="col-3">
-                                            Número:
-                                            <input type="number" class="form-control">
+                                            Conselho Regional:
+                                            <select class="form-select">
+                                                <option value="CRM">Conselho Regional de Medicina</option>
+                                                <option value="CRP">Conselho Regional de Psicologia</option>
+                                                <option value="CRO">Conselho Regional de Odontologia</option>
+                                                <option value="CREFITO">Conselho Regional de Fisioterapia e Terapia Ocupacional</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            Estado de Inscrição:
+                                            <select id="estado" name="estado" class="form-select">
+                                                <option value="AC">Acre</option>
+                                                <option value="AL">Alagoas</option>
+                                                <option value="AP">Amapá</option>
+                                                <option value="AM">Amazonas</option>
+                                                <option value="BA">Bahia</option>
+                                                <option value="CE">Ceará</option>
+                                                <option value="DF">Distrito Federal</option>
+                                                <option value="ES">Espírito Santo</option>
+                                                <option value="GO">Goiás</option>
+                                                <option value="MA">Maranhão</option>
+                                                <option value="MT">Mato Grosso</option>
+                                                <option value="MS">Mato Grosso do Sul</option>
+                                                <option value="MG">Minas Gerais</option>
+                                                <option value="PA">Pará</option>
+                                                <option value="PB">Paraíba</option>
+                                                <option value="PR">Paraná</option>
+                                                <option value="PE">Pernambuco</option>
+                                                <option value="PI">Piauí</option>
+                                                <option value="RJ">Rio de Janeiro</option>
+                                                <option value="RN">Rio Grande do Norte</option>
+                                                <option value="RS">Rio Grande do Sul</option>
+                                                <option value="RO">Rondônia</option>
+                                                <option value="RR">Roraima</option>
+                                                <option value="SC">Santa Catarina</option>
+                                                <option value="SP">São Paulo</option>
+                                                <option value="SE">Sergipe</option>
+                                                <option value="TO">Tocantins</option>
+                                                <option value="EX">Estrangeiro</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-3">
+                                            Número do documento:
+                                            <input type="text" class="form-control">
                                         </div>
                                     </div>
                                     <div class="row mb-3">

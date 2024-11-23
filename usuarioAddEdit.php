@@ -1,3 +1,11 @@
+<?php  
+$usuario = null;
+
+if(isset($_GET["id"])) {
+    $obj = UsuarioDAO::getInstance()->getById($_GET["id"]);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -6,7 +14,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Tables - SB Admin</title>
+        <title>Usuários</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -32,74 +40,7 @@
             <!-- Navbar-->
         </nav>
         <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Dashboard
-                            </a>
-                            
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePacientes" aria-expanded="false" aria-controls="collapsePacientes">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
-                                Pacientes
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapsePacientes" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="pacienteAddEdit.html">
-                                        <i class="fa-regular fa-square-plus mx-2"></i>
-                                        Adicionar
-                                    </a>
-                                    <a class="nav-link" href="pacienteList.html">
-                                        <i class="fa-regular fa-rectangle-list mx-2"></i>
-                                        Listar
-                                    </a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMedicos" aria-expanded="false" aria-controls="collapseMedicos">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user-doctor"></i></div>
-                                Médicos
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseMedicos" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="medicoAddEdit.html">
-                                        <i class="fa-regular fa-square-plus mx-2"></i>
-                                        Adicionar
-                                    </a>
-                                    <a class="nav-link" href="medicoList.html">
-                                        <i class="fa-regular fa-rectangle-list mx-2"></i>
-                                        Listar
-                                    </a>
-                                </nav>
-                            </div>
-                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios" aria-expanded="false" aria-controls="collapseMedicos">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
-                                Usuários
-                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                            </a>
-                            <div class="collapse" id="collapseUsuarios" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                                <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="usuarioAddEdit.html">
-                                        <i class="fa-regular fa-square-plus mx-2"></i>
-                                        Adicionar
-                                    </a>
-                                    <a class="nav-link" href="usuarioList.html">
-                                        <i class="fa-regular fa-rectangle-list mx-2"></i>
-                                        Listar
-                                    </a>
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
-                    </div>
-                </nav>
-            </div>
+            <?php include "./navBar.php" ;?>
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
@@ -114,42 +55,46 @@
                                 Adicionar Usuário
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form method="POST" action="./controller/usuarioController.php">
                                     <div class="row mb-3">
+                                        
                                         <div class="col-6">
                                             Nome:
-                                            <input class="form-control" type="text" name="name">
+                                            <input class="form-control" type="text" name="nome">
                                         </div>
                                         <div class="col-6">
                                             E-mail:
-                                            <input type="email" class="form-control" maxlength="11" minlength="11" placeholder="example@email.com">
+                                            <input type="email" class="form-control" placeholder="example@email.com"
+                                                   name="email">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-4">
                                             CPF:
-                                            <input class="form-control" type="text" name="name" maxlength="11" minlength="11">
+                                            <input class="form-control" type="text" maxlength="11" minlength="11"
+                                                   name="cpf">
                                         </div>
                                         <div class="col-4">
                                             Senha:
-                                            <input type="password" class="form-control" maxlength="11" minlength="11">
+                                            <input type="password" class="form-control"
+                                                   name="senha">
                                         </div>
                                         <div class="col-4">
                                             Repetir Senha:
-                                            <input type="password" class="form-control">
+                                            <input type="password" class="form-control" name="repetirSenha">
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-8">
                                             Foto de perfil:
-                                            <input type="file" class="form-control">
+                                            <input type="file" class="form-control" name="foto">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">
-                                                <button class="btn btn-success m-1">
+                                                <button type="submit" class="btn btn-success m-1">
                                                     Salvar  <i class="fa-solid fa-check"></i>
                                                 </button>
 
