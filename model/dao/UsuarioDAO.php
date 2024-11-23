@@ -30,16 +30,16 @@ class UsuarioDAO {
             
             return $p_sql->execute();
         } catch (Exception $e) {
-            print "Erro ao executar a função de salvar" . $e->getMessage();
+            print "Erro ao executar a função de salvar: " . $e->getMessage();
         }
     }
     
     public function update(UsuarioVO $usuario) {
         try {
-            $sql = "UPDATE usuario SET nome=:nome, cpf=:cpf, email=:email,"
+            $sql = "UPDATE usuario SET nome=:nome, email=:email, cpf=:cpf, "
                     ."senha=:senha, foto=:foto"
-                    ."WHERE id=:id";
-            $p_sql = BDPDO::getInstance()->prepare();
+                    ." WHERE id=:id";
+            
             $p_sql = BDPDO::getInstance() -> prepare($sql);
             $p_sql->bindValue(":nome", $usuario->getNome());
             $p_sql->bindValue(":cpf", $usuario->getCpf());
@@ -50,7 +50,7 @@ class UsuarioDAO {
             
             return $p_sql->execute();
         } catch (Exception $e) {
-            print "Erro ao executar a função de salvar" . $e->getMessage();
+            print "Erro ao executar a função de atualizar os dados: " . $e->getMessage();
         }
     }
     
@@ -68,7 +68,7 @@ class UsuarioDAO {
     public function getById($id) {
         try {
             $sql = "SELECT * FROM usuario WHERE id=:id";
-            $p_sql = BDPDO::getInstance()->prepare();
+            $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":id", $id);
             $p_sql->execute();
             
