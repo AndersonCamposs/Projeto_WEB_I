@@ -1,6 +1,6 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinicperiodo2024/modelo/dao/BDPDO.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinicperiodo2024/modelo/vo/EspecialidadeVO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/BDPDO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/EspecialidadeVO.php';
 
 class EspecialidadeDAO {
     public static $instance;
