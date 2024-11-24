@@ -19,59 +19,36 @@
                                 Adicionar Paciente
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form action="./controller/pacienteController.php" method="POST">
                                     <div class="row mb-3">
                                         <div class="col-3">
                                             Nome:
-                                            <input class="form-control" type="text" name="name">
+                                            <input class="form-control" type="text" name="nome">
                                         </div>
                                         <div class="col-3">
                                             Data de nascimento:
-                                            <input class="form-control" type="date" name="name">
+                                            <input class="form-control" type="date" name="dataNascimento">
                                         </div>
                                         <div class="col-3">
                                             CPF:
-                                            <input class="form-control" type="text" name="name" maxlength="11" minlength="11">
+                                            <input class="form-control" type="text" name="cpf" maxlength="11" minlength="11">
                                         </div>
                                         <div class="col-3">
-                                            Estado civil:
-                                            <select class="form-select">
-                                                <option>Solteiro(a)</option>
-                                                <option>Casado(a)</option>
-                                                <option>Viúvo(a)</option>
-                                                <option>União Estável</option>
-                                            </select>
+                                            RG:
+                                            <input class="form-control" type="text" name="rg" maxlength="11" minlength="11">
+
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-3">
                                             Celular:
-                                            <input type="text" class="form-control" maxlength="11" minlength="11">
+                                            <input type="text" class="form-control" name="celular" maxlength="11">
                                         </div>
                                         <div class="col-3">
-                                            Logradouro:
-                                            <input type="text" class="form-control">
+                                            E-mail:
+                                            <input type="text" class="form-control" name="email" placeholder="email@example.com">
                                         </div>
-                                        <div class="col-3">
-                                            Bairro:
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-3">
-                                            CEP:
-                                            <input type="text" class="form-control" maxlength="8" minlength="8">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-3">
-                                            Complemento:
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-3">
-                                            Número:
-                                            <input type="number" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
+                                    <div class="row my-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">
                                                 <button class="btn btn-success m-1">
