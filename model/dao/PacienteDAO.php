@@ -83,7 +83,8 @@ class PacienteDAO {
     }
 
     private function converterLinhaDaBaseDeDadosParaObjeto($row) {
-        $obj = new Paciente();
+        
+        $obj = new PacienteVO();
         $obj->setId($row['id']);
         $obj->setNome($row['nome']);
         $obj->setDataNascimento($row['dataNascimento']);
