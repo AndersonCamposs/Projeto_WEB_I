@@ -35,7 +35,7 @@
                                         </div>
                                         <div class="col-3">
                                             RG:
-                                            <input class="form-control" type="text" name="rg" maxlength="11" minlength="11">
+                                            <input class="form-control" type="text" name="rg">
 
                                         </div>
                                     </div>
