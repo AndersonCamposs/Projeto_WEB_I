@@ -64,7 +64,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
                                                 "<td>".$paciente->getCelular()."</td>".
                                                 "<td>".$paciente->getEmail()."</td>".
                                                 "<td>
-                                                    <a href='./controller/pacienteController".$paciente->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>.
+                                                    <a href='./controller/pacienteController".$paciente->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
                                                     <a href='./controller/pacienteController".$paciente->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
                                                 </td>".
                                             "</tr>";
