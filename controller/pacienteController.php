@@ -22,5 +22,4 @@ if(isset($_POST['nome'])) {
 } else {
     UsuarioDAO::getInstance()->delete($_GET["id"]);
 }
-
-//echo "<script> window.location.href='../pacienteList.php'; </script>";
+echo "<script> window.location.href='../pacienteList.php'; </script>";
