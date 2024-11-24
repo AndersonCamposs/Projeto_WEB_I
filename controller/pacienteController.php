@@ -20,6 +20,6 @@ if(isset($_POST['nome'])) {
         PacienteDAO::getInstance()->insert($paciente);
     }   
 } else {
-    UsuarioDAO::getInstance()->delete($_GET["id"]);
+    PacienteDAO::getInstance()->delete($_GET["id"]);
 }
 echo "<script> window.location.href='../pacienteList.php'; </script>";
