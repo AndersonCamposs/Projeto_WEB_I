@@ -72,16 +72,18 @@ class ConselhoDAO {
     }
 
     private function converterLinhaDaBaseDeDadosParaObjeto($row) {
-        $obj = new Conselho();
+        $obj = new ConselhoVO();
         $obj->setId($row['id']);
         $obj->setNome($row['nome']);
-        $obj->setEstado($row['estado']);
+        $obj->setSigla($row['sigla']);
+        $obj->setIdEstado($row['idEstado']);
         
         return $obj;
     }
 
     public function listAll() {
         try {
+            
             $sql = "SELECT * FROM conselho ";
             $p_sql = BDPDO::getInstance()->prepare($sql);
 

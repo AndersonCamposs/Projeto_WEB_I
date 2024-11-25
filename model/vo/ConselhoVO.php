@@ -1,22 +1,40 @@
 <?php
 
 class ConselhoVO {
-    private $conselho;
-    private $estado;
+    private $id;
+    private $sigla;
+    private $nome;
+    private $idEstado;
     
-    public function getConselho() {
-        return $this->conselho;
+    public function getId() {
+        return $this->id;
     }
 
-    public function getEstado() {
+    public function getNome() {
+        return $this->nome;
+    }
+
+    public function getIdEstado() {
         return $this->estado;
     }
-
-    public function setConselho($conselho): void {
-        $this->conselho = $conselho;
+    
+    public function getSigla() {
+        return $this->sigla;
     }
 
-    public function setEstado($estado): void {
-        $this->estado = $estado;
+    public function setId($id): void {
+        $this->id = $id;
+    }
+
+    public function setNome($nome): void {
+        $this->nome = $nome;
+    }
+
+    public function setSigla($sigla): void {
+        $this->sigla = $sigla;
+    }
+
+    public function setIdEstado($idEstado): void {
+        $this->idEstado = $idEstado;
     }
 }

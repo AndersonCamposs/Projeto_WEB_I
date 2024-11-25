@@ -1,3 +1,7 @@
+<?php
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <?php include('./head.php'); ?>
@@ -45,12 +49,22 @@
                                         </div>
                                         <div class="col-3">
                                             Conselho Regional:
-                                            <select class="form-select">
-                                                <option value="CRM">Conselho Regional de Medicina</option>
-                                                <option value="CRP">Conselho Regional de Psicologia</option>
-                                                <option value="CRO">Conselho Regional de Odontologia</option>
-                                                <option value="CREFITO">Conselho Regional de Fisioterapia e Terapia Ocupacional</option>
+                                            <select class='form-select' name='conselho'>
+                                            <?php
+                                            $listaConselhos = ConselhoDAO::getInstance()->listAll();
+                                            var_dump($listaConselhos);
+                                            foreach ($listaConselhos as $conselho){
+                                                echo 
+                                                "<option value='".$conselho->getSigla()."'>".
+                                                    $conselho->getNome().
+                                                "</option>";
+                                                
+
+                                                
+                                            }
+                                            ?>
                                             </select>
+                                            
                                         </div>
                                         <div class="col-3">
                                             Estado de Inscrição:

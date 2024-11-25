@@ -70,7 +70,7 @@ class EspecialidadeDAO {
     }
 
     private function converterLinhaDaBaseDeDadosParaObjeto($row) {
-        $obj = new Especialidade();
+        $obj = new EspecialidadeVO();
         $obj->setId($row['id']);
         $obj->setNome($row['nome']);
         
