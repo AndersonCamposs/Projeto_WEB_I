@@ -1,3 +1,13 @@
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
+
+$paciente = null;
+
+if(isset($_GET['id'])) {
+    $paciente = PacienteDAO::getInstance()->getById($_GET['id']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
     <?php include('./head.php'); ?>
@@ -20,33 +30,63 @@
                             </div>
                             <div class="card-body">
                                 <form action="./controller/pacienteController.php" method="POST">
+                                    <?php
+                                        if ($paciente != null) {
+                                            echo
+                                            "<input type='hidden' name='id' value='".$paciente->getId()."'>";
+                                        }
+                                    ?>
                                     <div class="row mb-3">
                                         <div class="col-3">
                                             Nome:
-                                            <input class="form-control" type="text" name="nome">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='nome' value='"
+                                            .($paciente == null ? '' : $paciente->getNome())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             Data de nascimento:
-                                            <input class="form-control" type="date" name="dataNascimento">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='date' name='dataNascimento' value='"
+                                            .($paciente == null ? '' : $paciente->getDataNascimento())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             CPF:
-                                            <input class="form-control" type="text" name="cpf" maxlength="11" minlength="11">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='cpf' minlength='11' maxlength='11' value='"
+                                            .($paciente == null ? '' : $paciente->getCpf())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             RG:
-                                            <input class="form-control" type="text" name="rg">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='rg' value='"
+                                            .($paciente == null ? '' : $paciente->getRg())."'>"
+                                            ?>
 
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-3">
                                             Celular:
-                                            <input type="text" class="form-control" name="celular" maxlength="11">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='celular' value='"
+                                            .($paciente == null ? '' : $paciente->getCelular())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             E-mail:
-                                            <input type="text" class="form-control" name="email" placeholder="email@example.com">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='email' placeholder='example@email.com' value='"
+                                            .($paciente == null ? '' : $paciente->getEmail())."'>"
+                                            ?>
                                         </div>
                                     <div class="row my-3">
                                         <div class="col-12">
