@@ -4,7 +4,6 @@ class ConselhoVO {
     private $id;
     private $sigla;
     private $nome;
-    private $idEstado;
     
     public function getId() {
         return $this->id;
@@ -14,10 +13,6 @@ class ConselhoVO {
         return $this->nome;
     }
 
-    public function getIdEstado() {
-        return $this->estado;
-    }
-    
     public function getSigla() {
         return $this->sigla;
     }
@@ -32,9 +27,5 @@ class ConselhoVO {
 
     public function setSigla($sigla): void {
         $this->sigla = $sigla;
-    }
-
-    public function setIdEstado($idEstado): void {
-        $this->idEstado = $idEstado;
     }
 }

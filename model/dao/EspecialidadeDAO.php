@@ -79,7 +79,7 @@ class EspecialidadeDAO {
 
     public function listAll() {
         try {
-            $sql = "SELECT * FROM especialidade ";
+            $sql = "SELECT * FROM especialidade ORDER BY nome";
             $p_sql = BDPDO::getInstance()->prepare($sql);
 
             $p_sql->execute();

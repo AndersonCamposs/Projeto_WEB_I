@@ -24,10 +24,11 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
+                                            <th>Especilidade</th>
                                             <th>Conselho Regional</th>
                                             <th>Estado</th>
                                             <th>Número do Documento</th>
-                                            <th>Especilidade(s)</th>
+                                            <th>Celular</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -35,10 +36,11 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
+                                            <th>Especilidade(s)</th>
                                             <th>Conselho Regional</th>
                                             <th>Estado</th>
                                             <th>Número do Documento</th>
-                                            <th>Especilidade(s)</th>
+                                            <th>Celular</th>
                                             <th>Ações</th>
                                         </tr>
                                     </tfoot>
@@ -46,10 +48,11 @@
                                         <tr>
                                             <td>1</td>
                                             <td>Antonio Ferreira</td>
+                                            <td>Cardiologista</td>
                                             <td>CRM</td>
                                             <td>PE</td>
                                             <td>10213456</td>
-                                            <td>Cardiologista</td>
+                                            <td>81985972122</td>
                                             <td>
                                                 <a href="#" class="btn btn-outline-warning"><i class="fas fa-pen"></i>Editar</a>
                                                 <a href="#" class="btn btn-outline-danger"><i class="fas fa-trash"></i>Apagar</a>

@@ -18,9 +18,9 @@ class ConselhoDAO {
 
     public function insert(ConselhoVO $conselho) {
         try {
-            $sql = "INSERT INTO conselho (nome, estado)"
+            $sql = "INSERT INTO conselho (sigla, nome)"
                     . "VALUES "
-                    . "(:nome, :estado)";
+                    . "(:sigla, :nome)";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":nome", $conselho->getNome());
@@ -34,11 +34,11 @@ class ConselhoDAO {
 
     public function update(ConselhoVO $conselho) {
         try {
-            $sql = "UPDATE conselho SET nome=:nome, estado=:estado where id=:id";
+            $sql = "UPDATE conselho SET nome=:nome, sigla=:sigla where id=:id";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":nome", $conselho->getNome());
-            $p_sql->bindValue(":estado", $conselho->getEstado());
+            $p_sql->bindValue(":sigla", $conselho->getEstado());
             
             return $p_sql->execute();
         } catch (Exception $e) {
@@ -76,7 +76,6 @@ class ConselhoDAO {
         $obj->setId($row['id']);
         $obj->setNome($row['nome']);
         $obj->setSigla($row['sigla']);
-        $obj->setIdEstado($row['idEstado']);
         
         return $obj;
     }

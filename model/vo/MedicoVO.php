@@ -7,8 +7,8 @@ class MedicoVO {
     private $cpf;
     private $celular;
     private $documentoLicenca;
-    private $especialidade;
-    private $conselho;
+    private $idEspecialidade;
+    private $idEstadoFormacao;
     
     public function getId() {
         return $this->id;
@@ -34,12 +34,12 @@ class MedicoVO {
         return $this->documentoLicenca;
     }
     
-    public function getEspecialidade() {
-        return $this->especialidade;
+    public function getIdEspecialidade() {
+        return $this->idEspecialidade;
     }
-    
-    public function getConselho() {
-        return $this->conselho;
+
+    public function getIdEstadoFormacao() {
+        return $this->idEstado;
     }
 
     public function setId($id): void {
@@ -66,11 +66,12 @@ class MedicoVO {
         $this->documentoLicenca = $documentoLicenca;
     }
     
-    public function setEspecialidade($especialidade) {
-        $this->especialidade = $especialidade;
+    public function setIdEspecialidade($idEspecialidade): void {
+        $this->idEspecialidade = $idEspecialidade;
     }
-    
-    public function setConselho($conselho) {
-        $this->conselho = $this->conselho;
+
+    public function setIdEstadoFormacao($idEstadoFormacao): void {
+        $this->idEstadoFormacao = $idEstadoFormacao;
     }
+
 }

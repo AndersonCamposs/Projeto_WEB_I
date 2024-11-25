@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.php";
 ?>
 
 <!DOCTYPE html>
@@ -24,40 +25,35 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
                                 Adicionar Paciente
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form action="./controller/medicoController.php" method="POST">
                                     <div class="row mb-3">
                                         <div class="col-3">
                                             Nome:
-                                            <input class="form-control" type="text" name="name">
+                                            <input class="form-control" type="text" name="nome">
                                         </div>
                                         <div class="col-3">
                                             Data de nascimento:
-                                            <input class="form-control" type="date" name="name">
+                                            <input class="form-control" type="date" name="dataNascimento">
                                         </div>
                                         <div class="col-3">
                                             CPF:
-                                            <input class="form-control" type="text" name="name" maxlength="11" minlength="11">
+                                            <input class="form-control" type="text" name="cpf" maxlength="11" minlength="11">
                                         </div>
                                         <div class="col-3">
                                             Celular:
-                                            <input type="text" class="form-control" maxlength="11" minlength="11">
+                                            <input class='form-control' type='text' name='celular'>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-3">
-                                            Especialidade(s):
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-3">
-                                            Conselho Regional:
-                                            <select class='form-select' name='conselho'>
+                                            Especialidade:
+                                            <select class='form-select' name='especialidade'>
                                             <?php
-                                            $listaConselhos = ConselhoDAO::getInstance()->listAll();
-                                            var_dump($listaConselhos);
-                                            foreach ($listaConselhos as $conselho){
-                                                echo 
-                                                "<option value='".$conselho->getSigla()."'>".
-                                                    $conselho->getNome().
+                                            $listaEspecialidades = EspecialidadeDAO::getInstance()->listAll();
+                                            foreach($listaEspecialidades as $especialidade) {
+                                                echo
+                                                "<option value='".$especialidade->getId()."'>".
+                                                    $especialidade->getNome().
                                                 "</option>";
                                             }
                                             ?>
@@ -65,14 +61,13 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
                                             
                                         </div>
                                         <div class="col-3">
-                                            Estado de Inscrição:
-                                            
+                                            Estado de Formação:
                                             <select id="estado" name="estado" class="form-select">
                                                 <?php
                                                 $listaEstados = EstadoDAO::getInstance()->listAll();
                                                 foreach ($listaEstados as $estado) {
                                                     echo
-                                                    "<option value='".$estado->getSigla()."'>".
+                                                    "<option value='".$estado->getId()."'>".
                                                         $estado->getNome().
                                                     "</option>";
                                                 }
@@ -80,8 +75,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
                                             </select>
                                         </div>
                                         <div class="col-3">
-                                            Número do documento:
-                                            <input type="text" class="form-control">
+                                            Número do documento da licença:
+                                            <input type="text" class="form-control" name="documentoLicenca">
                                         </div>
                                     </div>
                                     <div class="row my-3">
