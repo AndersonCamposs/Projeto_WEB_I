@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/EstadoVO.php</file>
-            <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/PacienteDAO.php</file>
-            <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/EstadoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/EspecialidadeVO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/controller/medicoController.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/MedicoVO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/MedicoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/EspecialidadeDAO.php</file>
             <file>file:/C:/xampp/htdocs/ac_clinic/medicoAddEdit.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/medicoList.php</file>
         </group>
     </open-files>
 </project-private>

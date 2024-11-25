@@ -13,8 +13,6 @@ if(isset($_POST['nome'])) {
     $medico->setIdEstadoFormacao($_POST["estado"]);
     $medico->setDocumentoLicenca($_POST["documentoLicenca"]);
     
-    
-    var_dump($medico);
     if(isset($_POST['id'])) {
         $medico->setId($_POST['id']);
         

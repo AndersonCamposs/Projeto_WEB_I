@@ -33,13 +33,13 @@ class MedicoVO {
     public function getDocumentoLicenca() {
         return $this->documentoLicenca;
     }
-    
+
     public function getIdEspecialidade() {
         return $this->idEspecialidade;
     }
 
     public function getIdEstadoFormacao() {
-        return $this->idEstado;
+        return $this->idEstadoFormacao;
     }
 
     public function setId($id): void {
@@ -65,7 +65,7 @@ class MedicoVO {
     public function setDocumentoLicenca($documentoLicenca): void {
         $this->documentoLicenca = $documentoLicenca;
     }
-    
+
     public function setIdEspecialidade($idEspecialidade): void {
         $this->idEspecialidade = $idEspecialidade;
     }
