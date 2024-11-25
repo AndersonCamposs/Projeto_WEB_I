@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
 ?>
 
 <!DOCTYPE html>
@@ -58,9 +59,6 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
                                                 "<option value='".$conselho->getSigla()."'>".
                                                     $conselho->getNome().
                                                 "</option>";
-                                                
-
-                                                
                                             }
                                             ?>
                                             </select>
@@ -68,35 +66,17 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
                                         </div>
                                         <div class="col-3">
                                             Estado de Inscrição:
+                                            
                                             <select id="estado" name="estado" class="form-select">
-                                                <option value="AC">Acre</option>
-                                                <option value="AL">Alagoas</option>
-                                                <option value="AP">Amapá</option>
-                                                <option value="AM">Amazonas</option>
-                                                <option value="BA">Bahia</option>
-                                                <option value="CE">Ceará</option>
-                                                <option value="DF">Distrito Federal</option>
-                                                <option value="ES">Espírito Santo</option>
-                                                <option value="GO">Goiás</option>
-                                                <option value="MA">Maranhão</option>
-                                                <option value="MT">Mato Grosso</option>
-                                                <option value="MS">Mato Grosso do Sul</option>
-                                                <option value="MG">Minas Gerais</option>
-                                                <option value="PA">Pará</option>
-                                                <option value="PB">Paraíba</option>
-                                                <option value="PR">Paraná</option>
-                                                <option value="PE">Pernambuco</option>
-                                                <option value="PI">Piauí</option>
-                                                <option value="RJ">Rio de Janeiro</option>
-                                                <option value="RN">Rio Grande do Norte</option>
-                                                <option value="RS">Rio Grande do Sul</option>
-                                                <option value="RO">Rondônia</option>
-                                                <option value="RR">Roraima</option>
-                                                <option value="SC">Santa Catarina</option>
-                                                <option value="SP">São Paulo</option>
-                                                <option value="SE">Sergipe</option>
-                                                <option value="TO">Tocantins</option>
-                                                <option value="EX">Estrangeiro</option>
+                                                <?php
+                                                $listaEstados = EstadoDAO::getInstance()->listAll();
+                                                foreach ($listaEstados as $estado) {
+                                                    echo
+                                                    "<option value='".$estado->getSigla()."'>".
+                                                        $estado->getNome().
+                                                    "</option>";
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <div class="col-3">
