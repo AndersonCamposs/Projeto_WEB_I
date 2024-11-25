@@ -50,7 +50,7 @@ if(isset($_GET["id"])) {
                                             E-mail:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='email' placeholde='example@email.com' value='"
+                                            "<input class='form-control' type='text' name='email' placeholder='example@email.com' value='"
                                             .($usuario == null ? '' : $usuario->getEmail()) . "'>"
                                             ?>
                                         </div>
@@ -92,7 +92,7 @@ if(isset($_GET["id"])) {
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                    <div class="row my-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">
                                                 <button type="submit" class="btn btn-success m-1">

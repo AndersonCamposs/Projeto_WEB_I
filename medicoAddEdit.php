@@ -90,7 +90,7 @@
                                             <input type="text" class="form-control">
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <div class="row my-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">
                                                 <button class="btn btn-success m-1">
