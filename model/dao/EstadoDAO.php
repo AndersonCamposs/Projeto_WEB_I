@@ -16,51 +16,6 @@ class EstadoDAO {
         return self::$instance;
     }
 
-    public function insert(EstadoVO $estado) {
-        try {
-            $sql = "INSERT INTO estado (nome,sigla)"
-                    . "VALUES "
-                    . "(:nome,:sigla)";
-            //perceba que na linha abaixo vai precisar de um import
-            $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":nome", $estado->getNome());
-            $p_sql->bindValue(":dataNascimento", $estado->getDataNascimento());
-            $p_sql->bindValue(":sigla", $estado->getSigla());
-            
-            
-        
-            return $p_sql->execute();
-        } catch (Exception $e) {
-            print "Erro ao executar a função de salvar" . $e->getMessage();
-        }
-    }
-
-    public function update(EstadoVO $estado) {
-        try {
-            $sql = "UPDATE estado SET nome=:nome, sigla=:sigla";
-            //perceba que na linha abaixo vai precisar de um import
-            $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":nome", $estado->getNome());
-            $p_sql->bindValue(":sigla", $estado->getSigla());
-            
-            return $p_sql->execute();
-        } catch (Exception $e) {
-            print "Erro ao executar a função de atualizar" . $e->getMessage();
-        }
-    }
-
-    public function delete($id) {
-        try {
-            $sql = "delete from estado where id = :id";
-            //perceba que na linha abaixo vai precisar de um import
-            $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":id", $id);
-            return $p_sql->execute();
-        } catch (Exception $e) {
-            print "Erro ao executar a função de deletar --" . $e->getMessage();
-        }
-    }
-
     public function getById($id) {
         try {
             $sql = "SELECT * FROM estado WHERE id = :id";

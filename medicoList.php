@@ -56,8 +56,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
                                                 "<td>".$medico->getEspecialidade()->getNome()."</td>".
                                                 "<td>".$medico->getEmail()."</td>".
                                                 "<td>
-                                                   <a href='./pacienteAddEdit.php?id=".$medico->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
-                                                   <a href='./controller/pacienteController.php?id=".$medico->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
+                                                   <a href='./medicoAddEdit.php?id=".$medico->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
+                                                   <a href='./controller/medicoController.php?id=".$medico->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
                                                    <a href='#' class='btn btn-outline-primary'><i class='fas fa-eye'></i>Ver mais</a>    
                                                 </td>".
                                             "</tr>";

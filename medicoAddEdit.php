@@ -2,6 +2,13 @@
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/MedicoDAO.php";
+
+$medico = null;
+
+if (isset($_GET["id"])) {
+    $medico = MedicoDAO::getInstance()->getById($_GET["id"]);
+}
 ?>
 
 <!DOCTYPE html>
@@ -25,22 +32,44 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.
                             </div>
                             <div class="card-body">
                                 <form action="./controller/medicoController.php" method="POST">
+                                    <?php
+                                        if ($medico != null) {
+                                            echo
+                                            "<input type='hidden' name='id' value='".$medico->getId()."'>";
+                                        }
+                                    ?>
                                     <div class="row mb-3">
                                         <div class="col-3">
                                             Nome:
-                                            <input class="form-control" type="text" name="nome">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='nome' value='"
+                                            .($medico == null ? '' : $medico->getNome())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             Data de nascimento:
-                                            <input class="form-control" type="date" name="dataNascimento">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='date' name='dataNascimento' value='"
+                                            .($medico == null ? '' : $medico->getDataNascimento())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             CPF:
-                                            <input class="form-control" type="text" name="cpf" maxlength="11" minlength="11">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='cpf' minlength='11' maxlength='11' value='"
+                                            .($medico == null ? '' : $medico->getCpf())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             E-mail:
-                                            <input class='form-control' type='text' name='email' placeholder="example@email.com">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='email' placeholder='example@email.com' value='"
+                                            .($medico == null ? '' : $medico->getEmail())."'>"
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
@@ -50,10 +79,17 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.
                                             <?php
                                             $listaEspecialidades = EspecialidadeDAO::getInstance()->listAll();
                                             foreach($listaEspecialidades as $especialidade) {
-                                                echo
-                                                "<option value='".$especialidade->getId()."'>".
-                                                    $especialidade->getNome().
-                                                "</option>";
+                                                if ($medico != null && $medico->getEspecialidade()->getId() == $especialidade->getId()) {
+                                                        echo
+                                                        "<option selected value='".$especialidade->getId()."'>".
+                                                            $especialidade->getNome().
+                                                        "</option>";
+                                                } else {
+                                                    echo
+                                                    "<option value='".$especialidade->getId()."'>".
+                                                        $especialidade->getNome().
+                                                    "</option>";
+                                                }
                                             }
                                             ?>
                                             </select>
@@ -65,17 +101,28 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.
                                                 <?php
                                                 $listaEstados = EstadoDAO::getInstance()->listAll();
                                                 foreach ($listaEstados as $estado) {
-                                                    echo
-                                                    "<option value='".$estado->getId()."'>".
-                                                        $estado->getNome().
-                                                    "</option>";
+                                                    if ($medico != null && $medico->getEstadoFormacao()->getId() == $estado->getId()) {
+                                                        echo
+                                                        "<option selected value='".$estado->getId()."'>".
+                                                            $estado->getNome().
+                                                        "</option>";
+                                                    } else {
+                                                        echo
+                                                        "<option value='".$estado->getId()."'>".
+                                                            $estado->getNome().
+                                                        "</option>";
+                                                    }
                                                 }
                                                 ?>
                                             </select>
                                         </div>
                                         <div class="col-3">
                                             Número do documento da licença:
-                                            <input type="text" class="form-control" name="documentoLicenca">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='documentoLicenca' value='"
+                                            .($medico == null ? '' : $medico->getDocumentoLicenca())."'>"
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="row my-3">

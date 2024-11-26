@@ -15,49 +15,7 @@ class ConselhoDAO {
 
         return self::$instance;
     }
-
-    public function insert(ConselhoVO $conselho) {
-        try {
-            $sql = "INSERT INTO conselho (sigla, nome)"
-                    . "VALUES "
-                    . "(:sigla, :nome)";
-            //perceba que na linha abaixo vai precisar de um import
-            $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":nome", $conselho->getNome());
-            $p_sql->bindValue(":estado", $conselho->getEstado());
-            
-            return $p_sql->execute();
-        } catch (Exception $e) {
-            print "Erro ao executar a função de salvar" . $e->getMessage();
-        }
-    }
-
-    public function update(ConselhoVO $conselho) {
-        try {
-            $sql = "UPDATE conselho SET nome=:nome, sigla=:sigla where id=:id";
-            //perceba que na linha abaixo vai precisar de um import
-            $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":nome", $conselho->getNome());
-            $p_sql->bindValue(":sigla", $conselho->getEstado());
-            
-            return $p_sql->execute();
-        } catch (Exception $e) {
-            print "Erro ao executar a função de atualizar" . $e->getMessage();
-        }
-    }
-
-    public function delete($id) {
-        try {
-            $sql = "delete from conselho where id = :id";
-            //perceba que na linha abaixo vai precisar de um import
-            $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":id", $id);
-            return $p_sql->execute();
-        } catch (Exception $e) {
-            print "Erro ao executar a função de deletar --" . $e->getMessage();
-        }
-    }
-
+    
     public function getById($id) {
         try {
             $sql = "SELECT * FROM conselho WHERE id = :id";

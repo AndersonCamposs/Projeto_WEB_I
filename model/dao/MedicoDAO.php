@@ -2,6 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/BDPDO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/MedicoVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/EspecialidadeDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/EstadoDAO.php';
 
 class MedicoDAO {
     public static $instance;
@@ -45,9 +46,9 @@ class MedicoDAO {
     
     public function update(MedicoVO $medico) {
         try {
-            $sql = "UPDATE Medico SET nome=:nome, SET dataNascimento=:dataNascimento,"
-                    ." SET cpf=:cpf, SET email=:email, SET idEspecialidade=:idEspeciaidade,"
-                    ." SET idEstado=:idEstado WHERE id=:id";
+            $sql = "UPDATE Medico SET nome=:nome, dataNascimento=:dataNascimento,
+                   cpf=:cpf, email=:email, documentoLicenca=:documentoLicenca,
+                   idEspecialidade=:idEspecialidade, idEstado=:idEstado WHERE id=:id";
             
             $p_sql = BDPDO::getInstance()->prepare($sql);
             
@@ -56,8 +57,9 @@ class MedicoDAO {
             $p_sql->bindValue(":cpf", $medico->getCpf());
             $p_sql->bindValue(":email", $medico->getEmail());
             $p_sql->bindValue(":documentoLicenca", $medico->getDocumentoLicenca());
-            $p_sql->bindValue(":idEspecialidade", $medico->getIdEspecialidade());
-            $p_sql->bindValue(":idEstado", $medico->getIdEstadoFormacao());
+            $p_sql->bindValue(":idEspecialidade", $medico->getEspecialidade());
+            $p_sql->bindValue(":idEstado", $medico->getEstadoFormacao());
+            $p_sql->bindValue(":id", $medico->getId());
             
             return $p_sql->execute();
         } catch (Exception $e) {
@@ -99,7 +101,7 @@ class MedicoDAO {
         $obj->setEmail($row['email']);
         $obj->setDocumentoLicenca($row['documentoLicenca']);
         $obj->setEspecialidade(EspecialidadeDAO::getInstance()->getById($row['idEspecialidade']));
-        $obj->setEstadoFormacao($row['idEstado']);
+        $obj->setEstadoFormacao(EstadoDAO::getInstance()->getById($row['idEstado']));
         
         return $obj;
     }
