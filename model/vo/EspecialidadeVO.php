@@ -3,7 +3,7 @@
 class EspecialidadeVO {
     private $id;
     private $nome;
-    private $idConselho;
+    private $conselho;
     private $descricao;
     
     public function getId() {
@@ -16,8 +16,8 @@ class EspecialidadeVO {
     }
     
     
-    public function getIdConselho() {
-        return $this->idConselho;
+    public function getConselho() {
+        return $this->conselho;
     }
     
     public function getDescricao() {
@@ -32,8 +32,8 @@ class EspecialidadeVO {
         $this->nome = $nome;
     }
     
-    public function setIdConselho($idConselho): void {
-        $this->idConselho = $idConselho;
+    public function setConselho($conselho): void {
+        $this->onselho = $conselho;
     }
 
     public function setDescricao($descricao): void {

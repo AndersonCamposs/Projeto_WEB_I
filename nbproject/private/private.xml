@@ -5,8 +5,8 @@
         <group>
             <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/ConselhoVO.php</file>
             <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/EspecialidadeVO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/MedicoVO.php</file>
             <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/MedicoDAO.php</file>
-            <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/EspecialidadeDAO.php</file>
             <file>file:/C:/xampp/htdocs/ac_clinic/medicoList.php</file>
         </group>
     </open-files>

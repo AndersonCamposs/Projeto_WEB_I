@@ -53,7 +53,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
                                                 "<td>".$medico->getId()."</td>".
                                                 "<td>".$medico->getNome()."</td>".
                                                 "<td>".$medico->getCpf()."</td>".
-                                                "<td>".$medico->getIdEspecialidade()->getNome()."</td>".
+                                                "<td>".$medico->getEspecialidade()->getNome()."</td>".
                                                 "<td>".$medico->getEmail()."</td>".
                                                 "<td>
                                                    <a href='./pacienteAddEdit.php?id=".$medico->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>

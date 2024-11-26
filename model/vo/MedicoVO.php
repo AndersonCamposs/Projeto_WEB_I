@@ -7,8 +7,8 @@ class MedicoVO {
     private $cpf;
     private $email;
     private $documentoLicenca;
-    private $idEspecialidade;
-    private $idEstadoFormacao;
+    private $especialidade; // ARMAZENA O ID DA ESPECIALIDADE
+    private $estadoFormacao; //ARMAZENA O ID DO ESTADO DE FORMAÇÃO ACADÊMICA
     
     public function getId() {
         return $this->id;
@@ -34,12 +34,12 @@ class MedicoVO {
         return $this->documentoLicenca;
     }
 
-    public function getIdEspecialidade() {
-        return $this->idEspecialidade;
+    public function getEspecialidade() {
+        return $this->especialidade;
     }
 
-    public function getIdEstadoFormacao() {
-        return $this->idEstadoFormacao;
+    public function getEstadoFormacao() {
+        return $this->estadoFormacao;
     }
 
     public function setId($id): void {
@@ -66,12 +66,12 @@ class MedicoVO {
         $this->documentoLicenca = $documentoLicenca;
     }
 
-    public function setIdEspecialidade($idEspecialidade): void {
-        $this->idEspecialidade = $idEspecialidade;
+    public function setEspecialidade($especialidade): void {
+        $this->especialidade = $especialidade;
     }
 
-    public function setIdEstadoFormacao($idEstadoFormacao): void {
-        $this->idEstadoFormacao = $idEstadoFormacao;
+    public function setEstadoFormacao($estadoFormacao): void {
+        $this->estadoFormacao = $estadoFormacao;
     }
 
 }

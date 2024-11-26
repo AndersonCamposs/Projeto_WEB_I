@@ -32,8 +32,8 @@ class MedicoDAO {
             $p_sql->bindValue(":cpf", $medico->getCpf());
             $p_sql->bindValue(":email", $medico->getEmail());
             $p_sql->bindValue(":documentoLicenca", $medico->getDocumentoLicenca());
-            $p_sql->bindValue(":idEspecialidade", $medico->getIdEspecialidade());
-            $p_sql->bindValue(":idEstado", $medico->getIdEstadoFormacao());
+            $p_sql->bindValue(":idEspecialidade", $medico->getEspecialidade());
+            $p_sql->bindValue(":idEstado", $medico->getEstadoFormacao());
             
             return $p_sql->execute();
                     
@@ -98,8 +98,8 @@ class MedicoDAO {
         $obj->setCpf($row['cpf']);
         $obj->setEmail($row['email']);
         $obj->setDocumentoLicenca($row['documentoLicenca']);
-        $obj->setIdEspecialidade(EspecialidadeDAO::getInstance()->getById($row['idEspecialidade']));
-        $obj->setIdEstadoFormacao($row['idEstado']);
+        $obj->setEspecialidade(EspecialidadeDAO::getInstance()->getById($row['idEspecialidade']));
+        $obj->setEstadoFormacao($row['idEstado']);
         
         return $obj;
     }
