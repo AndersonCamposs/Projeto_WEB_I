@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/BDPDO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/MedicoVO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/EspecialidadeDAO.php';
 
 class MedicoDAO {
     public static $instance;
@@ -18,9 +19,9 @@ class MedicoDAO {
     
     public function insert(MedicoVO $medico) {
         try {
-            $sql = "INSERT INTO Medico(nome, dataNascimento, cpf, celular, documentoLicenca,"
+            $sql = "INSERT INTO Medico(nome, dataNascimento, cpf, email, documentoLicenca,"
                     . "idEspecialidade, idEstado) "
-                    . "VALUES (:nome, :dataNascimento, :cpf, :celular, :documentoLicenca,"
+                    . "VALUES (:nome, :dataNascimento, :cpf, :email, :documentoLicenca,"
                     . ":idEspecialidade, :idEstado)";
                     
             
@@ -29,7 +30,7 @@ class MedicoDAO {
             $p_sql->bindValue(":nome", $medico->getNome());
             $p_sql->bindValue(":dataNascimento", $medico->getDataNascimento());
             $p_sql->bindValue(":cpf", $medico->getCpf());
-            $p_sql->bindValue(":celular", $medico->getCelular());
+            $p_sql->bindValue(":email", $medico->getEmail());
             $p_sql->bindValue(":documentoLicenca", $medico->getDocumentoLicenca());
             $p_sql->bindValue(":idEspecialidade", $medico->getIdEspecialidade());
             $p_sql->bindValue(":idEstado", $medico->getIdEstadoFormacao());
@@ -45,7 +46,7 @@ class MedicoDAO {
     public function update(MedicoVO $medico) {
         try {
             $sql = "UPDATE Medico SET nome=:nome, SET dataNascimento=:dataNascimento,"
-                    ." SET cpf=:cpf, SET celular=:celular, SET idEspecialidade=:idEspeciaidade,"
+                    ." SET cpf=:cpf, SET email=:email, SET idEspecialidade=:idEspeciaidade,"
                     ." SET idEstado=:idEstado WHERE id=:id";
             
             $p_sql = BDPDO::getInstance()->prepare($sql);
@@ -53,7 +54,7 @@ class MedicoDAO {
             $p_sql->bindValue(":nome", $medico->getNome());
             $p_sql->bindValue(":dataNascimento", $medico->getDataNascimento());
             $p_sql->bindValue(":cpf", $medico->getCpf());
-            $p_sql->bindValue(":celular", $medico->getCelular());
+            $p_sql->bindValue(":email", $medico->getEmail());
             $p_sql->bindValue(":documentoLicenca", $medico->getDocumentoLicenca());
             $p_sql->bindValue(":idEspecialidade", $medico->getIdEspecialidade());
             $p_sql->bindValue(":idEstado", $medico->getIdEstadoFormacao());
@@ -95,9 +96,9 @@ class MedicoDAO {
         $obj->setNome($row['nome']);
         $obj->setDataNascimento($row['dataNascimento']);
         $obj->setCpf($row['cpf']);
-        $obj->setCelular($row['celular']);
+        $obj->setEmail($row['email']);
         $obj->setDocumentoLicenca($row['documentoLicenca']);
-        $obj->setIdEspecialidade($row['idEspecialidade']);
+        $obj->setIdEspecialidade(EspecialidadeDAO::getInstance()->getById($row['idEspecialidade']));
         $obj->setIdEstadoFormacao($row['idEstado']);
         
         return $obj;

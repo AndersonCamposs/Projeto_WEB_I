@@ -39,8 +39,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.
                                             <input class="form-control" type="text" name="cpf" maxlength="11" minlength="11">
                                         </div>
                                         <div class="col-3">
-                                            Celular:
-                                            <input class='form-control' type='text' name='celular'>
+                                            E-mail:
+                                            <input class='form-control' type='text' name='email' placeholder="example@email.com">
                                         </div>
                                     </div>
                                     <div class="row mb-3">

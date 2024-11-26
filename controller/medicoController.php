@@ -8,7 +8,7 @@ if(isset($_POST['nome'])) {
     $medico->setNome($_POST["nome"]);
     $medico->setDataNascimento($_POST["dataNascimento"]);
     $medico->setCpf($_POST["cpf"]);
-    $medico->setCelular($_POST["celular"]);
+    $medico->setEmail($_POST["email"]);
     $medico->setIdEspecialidade($_POST["especialidade"]);
     $medico->setIdEstadoFormacao($_POST["estado"]);
     $medico->setDocumentoLicenca($_POST["documentoLicenca"]);

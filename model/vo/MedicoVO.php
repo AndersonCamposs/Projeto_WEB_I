@@ -5,7 +5,7 @@ class MedicoVO {
     private $nome;
     private $dataNascimento;
     private $cpf;
-    private $celular;
+    private $email;
     private $documentoLicenca;
     private $idEspecialidade;
     private $idEstadoFormacao;
@@ -26,8 +26,8 @@ class MedicoVO {
         return $this->cpf;
     }
 
-    public function getCelular() {
-        return $this->celular;
+    public function getEmail() {
+        return $this->email;
     }
 
     public function getDocumentoLicenca() {
@@ -58,8 +58,8 @@ class MedicoVO {
         $this->cpf = $cpf;
     }
 
-    public function setCelular($celular): void {
-        $this->celular = $celular;
+    public function setEmail($email): void {
+        $this->email = $email;
     }
 
     public function setDocumentoLicenca($documentoLicenca): void {

@@ -27,11 +27,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
-                                            <th>Especilidade</th>
-                                            <th>Conselho Regional</th>
-                                            <th>Estado</th>
-                                            <th>Número do Documento</th>
-                                            <th>Celular</th>
+                                            <th>CPF</th>
+                                            <th>Especialidade</th>
+                                            <th>E-mail</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -39,11 +37,9 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
-                                            <th>Especilidade</th>
-                                            <th>Conselho Regional</th>
-                                            <th>Estado</th>
-                                            <th>Número do Documento</th>
-                                            <th>Celular</th>
+                                            <th>CPF</th>
+                                            <th>Especialidade</th>
+                                            <th>E-mail</th>
                                             <th>Ações</th>
                                         </tr>
                                     </tfoot>
@@ -56,14 +52,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
                                             "<tr>".
                                                 "<td>".$medico->getId()."</td>".
                                                 "<td>".$medico->getNome()."</td>".
-                                                "<td>".$medico->getIdEspecialidade()."</td>".
-                                                "<td>".$medico->getIdEspecialidade()."</td>".
-                                                "<td>".$medico->getIdEstadoFormacao()."</td>".
-                                                "<td>".$medico->getDocumentoLicenca()."</td>".
-                                                "<td>".$medico->getCelular()."</td>".
+                                                "<td>".$medico->getCpf()."</td>".
+                                                "<td>".$medico->getIdEspecialidade()->getNome()."</td>".
+                                                "<td>".$medico->getEmail()."</td>".
                                                 "<td>
                                                    <a href='./pacienteAddEdit.php?id=".$medico->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
                                                    <a href='./controller/pacienteController.php?id=".$medico->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
+                                                   <a href='#' class='btn btn-outline-primary'><i class='fas fa-eye'></i>Ver mais</a>    
                                                 </td>".
                                             "</tr>";
                                         }

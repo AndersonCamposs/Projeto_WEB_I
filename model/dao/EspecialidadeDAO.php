@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/BDPDO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/EspecialidadeVO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/ConselhoDAO.php';
 
 class EspecialidadeDAO {
     public static $instance;
@@ -73,6 +74,8 @@ class EspecialidadeDAO {
         $obj = new EspecialidadeVO();
         $obj->setId($row['id']);
         $obj->setNome($row['nome']);
+        $obj->setIdConselho(ConselhoDAO::getInstance()->getById($row['idConselho']));
+        $obj->setDescricao($row['descricao']);
         
         return $obj;
     }
