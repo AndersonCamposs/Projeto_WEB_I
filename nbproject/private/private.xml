@@ -5,6 +5,11 @@
         <group>
             <file>file:/C:/xampp/htdocs/ac_clinic/medicoDetails.php</file>
             <file>file:/C:/xampp/htdocs/ac_clinic/usuarioAddEdit.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/ConselhoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/MedicoVO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/MedicoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/EstadoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/medicoList.php</file>
         </group>
     </open-files>
 </project-private>
