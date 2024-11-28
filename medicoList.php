@@ -48,6 +48,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
                                         $listaMedicos = MedicoDAO::getInstance()->listAll();
                                         
                                         foreach($listaMedicos as $medico) {
+                                            $arrayDataNasc = explode("-", $medico->getDataNascimento());
                                             echo 
                                             "<tr>".
                                                 "<td>".$medico->getId()."</td>".
@@ -58,7 +59,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
                                                 "<td>
                                                    <a href='./medicoAddEdit.php?id=".$medico->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
                                                    <a href='./controller/medicoController.php?id=".$medico->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
-                                                   <a href='./medicoDetails.php?id=".$medico->getId()."' class='btn btn-outline-primary'><i class='fas fa-eye'></i>Ver mais</a>    
+                                                   <a href='./medicoDetails.php?id=".$medico->getId()."' class='btn btn-outline-primary'></i><i class='fa-solid fa-eye'></i>Ver mais</a>
                                                 </td>".
                                             "</tr>";
                                         }

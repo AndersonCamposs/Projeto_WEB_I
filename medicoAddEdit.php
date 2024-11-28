@@ -28,7 +28,7 @@ if (isset($_GET["id"])) {
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fa-regular fa-square-plus me-1"></i>
-                                Adicionar Paciente
+                                Adicionar Médico
                             </div>
                             <div class="card-body">
                                 <form action="./controller/medicoController.php" method="POST">

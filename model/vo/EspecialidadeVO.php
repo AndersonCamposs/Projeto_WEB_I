@@ -33,7 +33,7 @@ class EspecialidadeVO {
     }
     
     public function setConselho($conselho): void {
-        $this->onselho = $conselho;
+        $this->conselho = $conselho;
     }
 
     public function setDescricao($descricao): void {
