@@ -8,7 +8,6 @@ if(isset($_POST['nome'])) {
     $repetirSenha = $_POST["repetirSenha"];
     //PROCESSANDO A FOTO ENVIADA PELO USUÁRIO
     if ($_FILES["foto"]["name"] != '') {
-        var_dump($_FILES);
         $foto = $_FILES["foto"];
         
         $extensoesPermitidas = ["jpg", "jpeg", "png"];
@@ -39,7 +38,6 @@ if(isset($_POST['nome'])) {
     $usuario->setEmail($_POST["email"]);
     $usuario->setCpf($_POST["cpf"]);
     $usuario->setSenha($_POST["senha"]);
-    
     if(isset($_POST['id'])) {
         $usuario->setId($_POST['id']);
         
@@ -51,4 +49,4 @@ if(isset($_POST['nome'])) {
     UsuarioDAO::getInstance()->delete($_GET["id"]);
 }
 
-echo "<script> window.location.href='../usuarioList.php'; </script>";
+//echo "<script> window.location.href='../usuarioList.php'; </script>";
