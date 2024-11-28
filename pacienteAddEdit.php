@@ -1,5 +1,14 @@
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
+
+$paciente = null;
+
+if(isset($_GET['id'])) {
+    $paciente = PacienteDAO::getInstance()->getById($_GET['id']);
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
     <?php include('./head.php'); ?>
     <body class="sb-nav-fixed">
         <?php include("./nav.php") ?>
@@ -19,59 +28,66 @@
                                 Adicionar Paciente
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form action="./controller/pacienteController.php" method="POST">
+                                    <?php
+                                        if ($paciente != null) {
+                                            echo
+                                            "<input type='hidden' name='id' value='".$paciente->getId()."'>";
+                                        }
+                                    ?>
                                     <div class="row mb-3">
                                         <div class="col-3">
                                             Nome:
-                                            <input class="form-control" type="text" name="name">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='nome' value='"
+                                            .($paciente == null ? '' : $paciente->getNome())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             Data de nascimento:
-                                            <input class="form-control" type="date" name="name">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='date' name='dataNascimento' value='"
+                                            .($paciente == null ? '' : $paciente->getDataNascimento())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             CPF:
-                                            <input class="form-control" type="text" name="name" maxlength="11" minlength="11">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='cpf' minlength='11' maxlength='11' value='"
+                                            .($paciente == null ? '' : $paciente->getCpf())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
-                                            Estado civil:
-                                            <select class="form-select">
-                                                <option>Solteiro(a)</option>
-                                                <option>Casado(a)</option>
-                                                <option>Viúvo(a)</option>
-                                                <option>União Estável</option>
-                                            </select>
+                                            RG:
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='rg' value='"
+                                            .($paciente == null ? '' : $paciente->getRg())."'>"
+                                            ?>
+
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-3">
                                             Celular:
-                                            <input type="text" class="form-control" maxlength="11" minlength="11">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='celular' value='"
+                                            .($paciente == null ? '' : $paciente->getCelular())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
-                                            Logradouro:
-                                            <input type="text" class="form-control">
+                                            E-mail:
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='email' placeholder='example@email.com' value='"
+                                            .($paciente == null ? '' : $paciente->getEmail())."'>"
+                                            ?>
                                         </div>
-                                        <div class="col-3">
-                                            Bairro:
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-3">
-                                            CEP:
-                                            <input type="text" class="form-control" maxlength="8" minlength="8">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-3">
-                                            Complemento:
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-3">
-                                            Número:
-                                            <input type="number" class="form-control">
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
+                                    <div class="row my-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">
                                                 <button class="btn btn-success m-1">

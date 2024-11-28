@@ -4,13 +4,9 @@ class PacienteVO {
     private $nome;
     private $dataNascimento;
     private $cpf;
-    private $estadoCivil;
+    private $rg;
     private $celular;
-    private $logradouro;
-    private $bairro;
-    private $cep;
-    private $complemento;
-    private $numeroEndereco;
+    private $email;
     
     public function getId() {
         return $this->id;
@@ -28,32 +24,16 @@ class PacienteVO {
         return $this->cpf;
     }
 
-    public function getEstadoCivil() {
-        return $this->estadoCivil;
+    public function getRg() {
+        return $this->rg;
     }
 
     public function getCelular() {
         return $this->celular;
     }
 
-    public function getLogradouro() {
-        return $this->logradouro;
-    }
-
-    public function getBairro() {
-        return $this->bairro;
-    }
-
-    public function getCep() {
-        return $this->cep;
-    }
-
-    public function getComplemento() {
-        return $this->complemento;
-    }
-
-    public function getNumeroEndereco() {
-        return $this->numero;
+    public function getEmail() {
+        return $this->email;
     }
 
     public function setId($id): void {
@@ -71,33 +51,17 @@ class PacienteVO {
     public function setCpf($cpf): void {
         $this->cpf = $cpf;
     }
-
-    public function setEstadoCivil($estadoCivil): void {
-        $this->estadoCivil = $estadoCivil;
+    
+    public function setRg($rg) {
+        $this->rg = $rg;
     }
 
     public function setCelular($celular): void {
         $this->celular = $celular;
     }
 
-    public function setLogradouro($logradouro): void {
-        $this->logradouro = $logradouro;
-    }
-
-    public function setBairro($bairro): void {
-        $this->bairro = $bairro;
-    }
-
-    public function setCep($cep): void {
-        $this->cep = $cep;
-    }
-
-    public function setComplemento($complemento): void {
-        $this->complemento = $complemento;
-    }
-
-    public function setNumeroEndereco($numero): void {
-        $this->numero = $numero;
+    public function setEmail($email): void {
+        $this->email = $email;
     }
 }
 ?>

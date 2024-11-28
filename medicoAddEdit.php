@@ -1,5 +1,17 @@
+<?php
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/MedicoDAO.php";
+
+$medico = null;
+
+if (isset($_GET["id"])) {
+    $medico = MedicoDAO::getInstance()->getById($_GET["id"]);
+}
+?>
+
 <!DOCTYPE html>
-<html lang="en">
     <?php include('./head.php'); ?>
     <body class="sb-nav-fixed">
         <?php include("./nav.php") ?>
@@ -16,81 +28,104 @@
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fa-regular fa-square-plus me-1"></i>
-                                Adicionar Paciente
+                                Adicionar Médico
                             </div>
                             <div class="card-body">
-                                <form>
+                                <form action="./controller/medicoController.php" method="POST">
+                                    <?php
+                                        if ($medico != null) {
+                                            echo
+                                            "<input type='hidden' name='id' value='".$medico->getId()."'>";
+                                        }
+                                    ?>
                                     <div class="row mb-3">
                                         <div class="col-3">
                                             Nome:
-                                            <input class="form-control" type="text" name="name">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='nome' value='"
+                                            .($medico == null ? '' : $medico->getNome())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             Data de nascimento:
-                                            <input class="form-control" type="date" name="name">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='date' name='dataNascimento' value='"
+                                            .($medico == null ? '' : $medico->getDataNascimento())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
                                             CPF:
-                                            <input class="form-control" type="text" name="name" maxlength="11" minlength="11">
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='cpf' minlength='11' maxlength='11' value='"
+                                            .($medico == null ? '' : $medico->getCpf())."'>"
+                                            ?>
                                         </div>
                                         <div class="col-3">
-                                            Celular:
-                                            <input type="text" class="form-control" maxlength="11" minlength="11">
+                                            E-mail:
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='email' placeholder='example@email.com' value='"
+                                            .($medico == null ? '' : $medico->getEmail())."'>"
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="row mb-3">
                                         <div class="col-3">
-                                            Especialidade(s):
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="col-3">
-                                            Conselho Regional:
-                                            <select class="form-select">
-                                                <option value="CRM">Conselho Regional de Medicina</option>
-                                                <option value="CRP">Conselho Regional de Psicologia</option>
-                                                <option value="CRO">Conselho Regional de Odontologia</option>
-                                                <option value="CREFITO">Conselho Regional de Fisioterapia e Terapia Ocupacional</option>
+                                            Especialidade:
+                                            <select class='form-select' name='especialidade'>
+                                            <?php
+                                            $listaEspecialidades = EspecialidadeDAO::getInstance()->listAll();
+                                            foreach($listaEspecialidades as $especialidade) {
+                                                if ($medico != null && $medico->getEspecialidade()->getId() == $especialidade->getId()) {
+                                                        echo
+                                                        "<option selected value='".$especialidade->getId()."'>".
+                                                            $especialidade->getNome().
+                                                        "</option>";
+                                                } else {
+                                                    echo
+                                                    "<option value='".$especialidade->getId()."'>".
+                                                        $especialidade->getNome().
+                                                    "</option>";
+                                                }
+                                            }
+                                            ?>
                                             </select>
+                                            
                                         </div>
                                         <div class="col-3">
-                                            Estado de Inscrição:
+                                            Estado de Formação:
                                             <select id="estado" name="estado" class="form-select">
-                                                <option value="AC">Acre</option>
-                                                <option value="AL">Alagoas</option>
-                                                <option value="AP">Amapá</option>
-                                                <option value="AM">Amazonas</option>
-                                                <option value="BA">Bahia</option>
-                                                <option value="CE">Ceará</option>
-                                                <option value="DF">Distrito Federal</option>
-                                                <option value="ES">Espírito Santo</option>
-                                                <option value="GO">Goiás</option>
-                                                <option value="MA">Maranhão</option>
-                                                <option value="MT">Mato Grosso</option>
-                                                <option value="MS">Mato Grosso do Sul</option>
-                                                <option value="MG">Minas Gerais</option>
-                                                <option value="PA">Pará</option>
-                                                <option value="PB">Paraíba</option>
-                                                <option value="PR">Paraná</option>
-                                                <option value="PE">Pernambuco</option>
-                                                <option value="PI">Piauí</option>
-                                                <option value="RJ">Rio de Janeiro</option>
-                                                <option value="RN">Rio Grande do Norte</option>
-                                                <option value="RS">Rio Grande do Sul</option>
-                                                <option value="RO">Rondônia</option>
-                                                <option value="RR">Roraima</option>
-                                                <option value="SC">Santa Catarina</option>
-                                                <option value="SP">São Paulo</option>
-                                                <option value="SE">Sergipe</option>
-                                                <option value="TO">Tocantins</option>
-                                                <option value="EX">Estrangeiro</option>
+                                                <?php
+                                                $listaEstados = EstadoDAO::getInstance()->listAll();
+                                                foreach ($listaEstados as $estado) {
+                                                    if ($medico != null && $medico->getEstadoFormacao()->getId() == $estado->getId()) {
+                                                        echo
+                                                        "<option selected value='".$estado->getId()."'>".
+                                                            $estado->getNome().
+                                                        "</option>";
+                                                    } else {
+                                                        echo
+                                                        "<option value='".$estado->getId()."'>".
+                                                            $estado->getNome().
+                                                        "</option>";
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                         <div class="col-3">
-                                            Número do documento:
-                                            <input type="text" class="form-control">
+                                            Número do documento da licença:
+                                            <?php
+                                            echo
+                                            "<input class='form-control' type='text' name='documentoLicenca' value='"
+                                            .($medico == null ? '' : $medico->getDocumentoLicenca())."'>"
+                                            ?>
                                         </div>
                                     </div>
-                                    <div class="row mb-3">
+                                    <div class="row my-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">
                                                 <button class="btn btn-success m-1">

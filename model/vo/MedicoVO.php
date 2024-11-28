@@ -5,10 +5,10 @@ class MedicoVO {
     private $nome;
     private $dataNascimento;
     private $cpf;
-    private $celular;
+    private $email;
     private $documentoLicenca;
-    private $especialidade;
-    private $conselho;
+    private $especialidade; // ARMAZENA O ID DA ESPECIALIDADE
+    private $estadoFormacao; //ARMAZENA O ID DO ESTADO DE FORMAÇÃO ACADÊMICA
     
     public function getId() {
         return $this->id;
@@ -26,20 +26,20 @@ class MedicoVO {
         return $this->cpf;
     }
 
-    public function getCelular() {
-        return $this->celular;
+    public function getEmail() {
+        return $this->email;
     }
 
     public function getDocumentoLicenca() {
         return $this->documentoLicenca;
     }
-    
+
     public function getEspecialidade() {
         return $this->especialidade;
     }
-    
-    public function getConselho() {
-        return $this->conselho;
+
+    public function getEstadoFormacao() {
+        return $this->estadoFormacao;
     }
 
     public function setId($id): void {
@@ -58,19 +58,20 @@ class MedicoVO {
         $this->cpf = $cpf;
     }
 
-    public function setCelular($celular): void {
-        $this->celular = $celular;
+    public function setEmail($email): void {
+        $this->email = $email;
     }
 
     public function setDocumentoLicenca($documentoLicenca): void {
         $this->documentoLicenca = $documentoLicenca;
     }
-    
-    public function setEspecialidade($especialidade) {
+
+    public function setEspecialidade($especialidade): void {
         $this->especialidade = $especialidade;
     }
-    
-    public function setConselho($conselho) {
-        $this->conselho = $this->conselho;
+
+    public function setEstadoFormacao($estadoFormacao): void {
+        $this->estadoFormacao = $estadoFormacao;
     }
+
 }

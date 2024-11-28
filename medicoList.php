@@ -1,5 +1,8 @@
+<?php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
+?>
+
 <!DOCTYPE html>
-<html lang="en">
     <?php include('./head.php'); ?>
     <body class="sb-nav-fixed">
         <?php include("./nav.php") ?>
@@ -24,10 +27,9 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
-                                            <th>Conselho Regional</th>
-                                            <th>Estado</th>
-                                            <th>Número do Documento</th>
-                                            <th>Especilidade(s)</th>
+                                            <th>CPF</th>
+                                            <th>Especialidade</th>
+                                            <th>E-mail</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -35,26 +37,33 @@
                                         <tr>
                                             <th>ID</th>
                                             <th>Nome</th>
-                                            <th>Conselho Regional</th>
-                                            <th>Estado</th>
-                                            <th>Número do Documento</th>
-                                            <th>Especilidade(s)</th>
+                                            <th>CPF</th>
+                                            <th>Especialidade</th>
+                                            <th>E-mail</th>
                                             <th>Ações</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Antonio Ferreira</td>
-                                            <td>CRM</td>
-                                            <td>PE</td>
-                                            <td>10213456</td>
-                                            <td>Cardiologista</td>
-                                            <td>
-                                                <a href="#" class="btn btn-outline-warning"><i class="fas fa-pen"></i>Editar</a>
-                                                <a href="#" class="btn btn-outline-danger"><i class="fas fa-trash"></i>Apagar</a>
-                                            </td>
-                                        </tr>                                        
+                                        <?php
+                                        $listaMedicos = MedicoDAO::getInstance()->listAll();
+                                        
+                                        foreach($listaMedicos as $medico) {
+                                            $arrayDataNasc = explode("-", $medico->getDataNascimento());
+                                            echo 
+                                            "<tr>".
+                                                "<td>".$medico->getId()."</td>".
+                                                "<td>".$medico->getNome()."</td>".
+                                                "<td>".$medico->getCpf()."</td>".
+                                                "<td>".$medico->getEspecialidade()->getNome()."</td>".
+                                                "<td>".$medico->getEmail()."</td>".
+                                                "<td>
+                                                   <a href='./medicoAddEdit.php?id=".$medico->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
+                                                   <a href='./controller/medicoController.php?id=".$medico->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
+                                                   <a href='./medicoDetails.php?id=".$medico->getId()."' class='btn btn-outline-primary'></i><i class='fa-solid fa-eye'></i>Ver mais</a>
+                                                </td>".
+                                            "</tr>";
+                                        }
+                                       ?>
                                     </tbody>
                                 </table>
                             </div>

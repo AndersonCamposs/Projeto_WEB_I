@@ -19,21 +19,17 @@ class PacienteDAO {
 
     public function insert(PacienteVO $paciente) {
         try {
-            $sql = "INSERT INTO paciente (nome,cpf,dataNascimento,celular,estadoCivil,logradouro,bairro,cep,complemento,numeroEndereco)"
+            $sql = "INSERT INTO paciente (nome,dataNascimento,cpf,rg,celular, email)"
                     . "VALUES "
-                    . "(:nome,:login,:dataNascimento,:celular,:estadoCivil,:logradouro,:bairro,:cep,:complemento,:numeroEndereco)";
+                    . "(:nome,:dataNascimento,:cpf,:rg,:celular,:email)";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":nome", $paciente->getNome());
-            $p_sql->bindValue(":login", $paciente->getCpf());
             $p_sql->bindValue(":dataNascimento", $paciente->getDataNascimento());
-            $p_sql->bindValue(":celular", $paciente->getCelular());
-            $p_sql->bindValue(":estadoCivil", $paciente->getEstadoCivil());
-            $p_sql->bindValue(":logradouro", $paciente->getLogradouro());
-            $p_sql->bindValue(":bairro", $paciente->getBairro());
-            $p_sql->bindValue(":cep", $paciente->getCep());
-            $p_sql->bindValue(":complemento", $paciente->getComplemento());
-            $p_sql->bindValue(":numeroEndereco", $paciente->getComplemento());
+            $p_sql->bindValue(":cpf", $paciente->getCpf());
+            $p_sql->bindValue(":rg", $paciente->getRg());
+            $p_sql->bindValue(":celular", ($paciente->getCelular()));
+            $p_sql->bindValue(":email", ($paciente->getEmail()));
             
         
             return $p_sql->execute();
@@ -44,22 +40,16 @@ class PacienteDAO {
 
     public function update(PacienteVO $paciente) {
         try {
-            $sql = "UPDATE paciente SET nome=:nome, dataNascimento=:dataNascimento, celular=:celular, "
-                    . "logradouro=:logradouro, bairro=:bairro, cep=:cep, complemento=:complemento, "
-                    . "numeroEndereco=:numeroEndereco"
-                    . "where id=:id";
+            $sql = "UPDATE paciente SET nome=:nome, dataNascimento=:dataNascimento, cpf=:cpf, rg=:rg,
+                celular=:celular, email=:email WHERE id=:id";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":nome", $paciente->getNome());
-            $p_sql->bindValue(":login", $paciente->getCpf());
             $p_sql->bindValue(":dataNascimento", $paciente->getDataNascimento());
+            $p_sql->bindValue(":cpf", $paciente->getCpf());
+            $p_sql->bindValue(":rg", $paciente->getRg());
             $p_sql->bindValue(":celular", ($paciente->getCelular()));
-            $p_sql->bindValue(":estadoCivil", ($paciente->getEstadoCivil()));
-            $p_sql->bindValue(":logradouro", ($paciente->getLogradouro()));
-            $p_sql->bindValue(":bairro", ($paciente->getBairro()));
-            $p_sql->bindValue(":cep", ($paciente->getCep()));
-            $p_sql->bindValue(":complemento", ($paciente->getComplemento()));
-            $p_sql->bindValue(":numeroEndereco", ($paciente->getNumeroEndereco()));
+            $p_sql->bindValue(":email", ($paciente->getEmail()));
             $p_sql->bindValue(":id", $paciente->getId());
             return $p_sql->execute();
         } catch (Exception $e) {
@@ -93,18 +83,16 @@ class PacienteDAO {
     }
 
     private function converterLinhaDaBaseDeDadosParaObjeto($row) {
-        $obj = new Paciente();
+        
+        $obj = new PacienteVO();
         $obj->setId($row['id']);
         $obj->setNome($row['nome']);
-        $obj->setCpf($row['login']);
         $obj->setDataNascimento($row['dataNascimento']);
+        $obj->setCpf($row['cpf']);
+        $obj->setRg($row['rg']);
         $obj->setCelular($row['celular']);
-        $obj->setEstadoCivil($row['estadoCivil']);
-        $obj->setLogradouro($row['logradouro']);
-        $obj->setBairro($row['bairro']);
-        $obj->setCep($row['cep']);
-        $obj->setComplemento($row['complemento']);
-        $obj->setNumeroEndereco($row['numeroEndereco']);
+        $obj->setEmail($row['email']);
+        
         return $obj;
     }
 

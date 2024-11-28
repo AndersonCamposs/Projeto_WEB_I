@@ -1,5 +1,9 @@
+<?php 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
+?>
+
+
 <!DOCTYPE html>
-<html lang="en">
     <?php include('./head.php'); ?>
     <body class="sb-nav-fixed">
         <?php include("./nav.php") ?>
@@ -26,8 +30,9 @@
                                             <th>Nome</th>
                                             <th>Data de Nascimento</th>
                                             <th>CPF</th>
-                                            <th>Estado Civil</th>
+                                            <th>RG</th>
                                             <th>Celular</th>
+                                            <th>E-mail</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
@@ -37,24 +42,33 @@
                                             <th>Nome</th>
                                             <th>Data de Nascimento</th>
                                             <th>CPF</th>
-                                            <th>Estado civil</th>
+                                            <th>RG</th>
                                             <th>Celular</th>
+                                            <th>E-mail</th>
                                             <th>Ações</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Helder Nunes</td>
-                                            <td>30/05/2000</td>
-                                            <td>123.456.789-10</td>
-                                            <td>Casado</td>
-                                            <td>87 99677-9122</td>
-                                            <td>
-                                                <a href="#" class="btn btn-outline-warning"><i class="fas fa-pen"></i>Editar</a>
-                                                <a href="#" class="btn btn-outline-danger"><i class="fas fa-trash"></i>Apagar</a>
-                                            </td>
-                                        </tr>                                        
+                                        <?php 
+                                        $listaPacientes = PacienteDAO::getInstance()->listAll();
+                                        
+                                        foreach ($listaPacientes as $paciente) {
+                                            echo 
+                                            "<tr>".
+                                                "<td>".$paciente->getId()."</td>".
+                                                "<td>".$paciente->getNome()."</td>".
+                                                "<td>". str_replace("-", "/", $paciente->getDataNascimento())."</td>".
+                                                "<td>".$paciente->getCpf()."</td>".
+                                                "<td>".$paciente->getRg()."</td>".
+                                                "<td>".$paciente->getCelular()."</td>".
+                                                "<td>".$paciente->getEmail()."</td>".
+                                                "<td>
+                                                    <a href='./pacienteAddEdit.php?id=".$paciente->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
+                                                    <a href='./controller/pacienteController.php?id=".$paciente->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
+                                                </td>".
+                                            "</tr>";
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                             </div>

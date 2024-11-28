@@ -1,8 +1,8 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/BDPDO.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/ConselhoVO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/EstadoVO.php';
 
-class ConselhoDAO {
+class EstadoDAO {
     public static $instance;
 
     private function __construct() {
@@ -11,14 +11,14 @@ class ConselhoDAO {
 
     public static function getInstance() {
         if (!isset(self::$instance))
-            self::$instance = new ConselhoDAO();
+            self::$instance = new EstadoDAO();
 
         return self::$instance;
     }
-    
+
     public function getById($id) {
         try {
-            $sql = "SELECT * FROM conselho WHERE id = :id";
+            $sql = "SELECT * FROM estado WHERE id = :id";
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":id", $id);
             $p_sql->execute();
@@ -30,7 +30,8 @@ class ConselhoDAO {
     }
 
     private function converterLinhaDaBaseDeDadosParaObjeto($row) {
-        $obj = new ConselhoVO();
+        
+        $obj = new EstadoVO();
         $obj->setId($row['id']);
         $obj->setNome($row['nome']);
         $obj->setSigla($row['sigla']);
@@ -40,8 +41,7 @@ class ConselhoDAO {
 
     public function listAll() {
         try {
-            
-            $sql = "SELECT * FROM conselho ";
+            $sql = "SELECT * FROM estado ";
             $p_sql = BDPDO::getInstance()->prepare($sql);
 
             $p_sql->execute();
@@ -61,7 +61,7 @@ class ConselhoDAO {
 
     public function listWhere($restanteDoSQL, $arrayDeParametros, $arrayDeValores) {
         try {
-            $sql = "SELECT * FROM conselho " . $restanteDoSQL;
+            $sql = "SELECT * FROM estado " . $restanteDoSQL;
             $p_sql = BDPDO::getInstance()->prepare($sql);
             for ($i = 0; $i < sizeof($arrayDeParametros); $i++) {
                 $p_sql->bindValue($arrayDeParametros[$i], $arrayDeValores [$i]);
@@ -79,4 +79,6 @@ class ConselhoDAO {
  um LOG do mesmo, tente novamente mais tarde.".$e->getMessage();
         }
     }
+
 }
+
