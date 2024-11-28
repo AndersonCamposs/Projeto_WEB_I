@@ -4,7 +4,6 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
 
 
 <!DOCTYPE html>
-<html lang="en">
     <?php include('./head.php'); ?>
     <body class="sb-nav-fixed">
         <?php include("./nav.php") ?>

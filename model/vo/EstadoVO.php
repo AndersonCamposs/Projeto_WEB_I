@@ -1,10 +1,13 @@
 <?php
 
-class ConselhoVO {
+class EstadoVO {
     private $id;
-    private $sigla;
     private $nome;
+    private $sigla;
     
+    public function __construct() {
+        
+    }
     public function getId() {
         return $this->id;
     }
