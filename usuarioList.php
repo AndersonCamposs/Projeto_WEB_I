@@ -54,8 +54,8 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
                                                 "<td>".$usuario->getNome()."</td>".
                                                 "<td>".$usuario->getEmail()."</td>".
                                                 "<td>".$usuario->getCPF()."</td>".
-                                                "<td><img src='".$usuario->getFoto()."' class='w-25 h-50'/></td>".
-                                                "<td class='w-25'>
+                                                "<td><img id='profilePhoto' src='".$usuario->getFoto()."'/></td>".
+                                                "<td class='d-flex'>
                                                     <a href='./usuarioAddEdit.php?id=".$usuario->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
                                                     <a href='./controller/usuarioController.php?id=".$usuario->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
                                                 </td>".

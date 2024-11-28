@@ -1,0 +1,11 @@
+#profilePhoto {
+    border-radius: 50%;
+    max-width: 58px;
+    max-height: 52px;
+}
+
+#photoPreview {
+    border-radius: 50%;
+    max-width: 25vh;
+    max-height: 15vh;    
+}

@@ -7,7 +7,8 @@ if(isset($_POST['nome'])) {
     $usuario = new UsuarioVO();
     $repetirSenha = $_POST["repetirSenha"];
     //PROCESSANDO A FOTO ENVIADA PELO USUÁRIO
-    if (isset($_FILES["foto"])) {
+    if ($_FILES["foto"]["name"] != '') {
+        var_dump($_FILES);
         $foto = $_FILES["foto"];
         
         $extensoesPermitidas = ["jpg", "jpeg", "png"];

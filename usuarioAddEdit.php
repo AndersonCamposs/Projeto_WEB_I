@@ -17,11 +17,23 @@ if(isset($_GET["id"])) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Usuários</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Usuários</li>
-                        </ol>
+                        <div class="d-flex">
+                            <div>
+                                <h1 class="mt-4">Usuários</h1>
+                                <ol class="breadcrumb mb-4">
+                                <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                <li class="breadcrumb-item active">Usuários</li>
+                                </ol>
+                            </div>
+                            <?php
+                            if ($usuario != null && $usuario->getFoto() != null) {
+                            echo 
+                            "<div class='mt-2 ps-4'>
+                                <img src = '".$usuario->getFoto()."' id='photoPreview'/>".
+                            "</div>";
+                            }
+                            ?>
+                        </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fa-regular fa-square-plus me-1"></i>
@@ -83,11 +95,8 @@ if(isset($_GET["id"])) {
                                     <div class="row mb-3">
                                         <div class="col-8">
                                             Foto de perfil:
-                                            <?php
-                                            echo
-                                            "<input class='form-control' type='file' name='foto' value='"
-                                            .($usuario == null ? '' : $usuario->getFoto()) . "'>"
-                                            ?>
+                                            <input class='form-control' type='file' name='foto'>
+                                            
                                         </div>
                                     </div>
 
