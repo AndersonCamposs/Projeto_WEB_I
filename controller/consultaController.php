@@ -4,12 +4,25 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/ConsultaVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/ConsultaDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
-var_dump($_POST);
+
 if(isset($_POST['cpfMedico'])) {
     $medicoConsulta = MedicoDAO::getInstance()->getByCpf($_POST["cpfMedico"]);
     $pacienteConsulta = PacienteDAO::getInstance()->getByCpf($_POST["cpfPaciente"]);
     
+    session_start();
+    if($medicoConsulta == null) {
+        $_SESSION["flash_message_medico"] = "Médico não encontrado, verifique os dados e tente novamente";
+        //header("Location: ../consultaAddEdit.php");
+    } 
     
+    if ($pacienteConsulta == null) {
+        $_SESSION["flash_message_paciente"] = "Paciente não encontrado, verifique e tente novamente.";
+        //header("Location: ../consultaAddEdit.php");
+    }
+    
+    var_dump($_SESSION["flash_message_medico"]);
+    unset($_SESSION["flash_message_medico"]);
+    var_dump($_SESSION);
     $consulta = new ConsultaVO();
     $consulta->setDataConsulta(date("Y-m-d"));
     $consulta->setMedico($medicoConsulta->getId());
@@ -27,4 +40,4 @@ if(isset($_POST['cpfMedico'])) {
 } else {
     ConsultaDAO::getInstance()->delete($_GET["id"]);
 }
-echo "<script> window.location.href='../consultaList.php'; </script>";
+//echo "<script> window.location.href='../consultaList.php'; </script>";
