@@ -1,10 +1,10 @@
 <?php
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/ConsultaDAO.php';
 
-$paciente = null;
+$consulta = null;
 
 if(isset($_GET['id'])) {
-    $paciente = PacienteDAO::getInstance()->getById($_GET['id']);
+    $consulta = ConsultaDAO::getInstance()->getById($_GET['id']);
 }
 ?>
 
@@ -28,11 +28,11 @@ if(isset($_GET['id'])) {
                                 Adicionar Consulta
                             </div>
                             <div class="card-body">
-                                <form action="./controller/pacienteController.php" method="POST">
+                                <form action="./controller/consultaController.php" method="POST">
                                     <?php
-                                        if ($paciente != null) {
+                                        if ($consulta != null) {
                                             echo
-                                            "<input type='hidden' name='id' value='".$paciente->getId()."'>";
+                                            "<input type='hidden' name='id' value='".$consulta->getId()."'>";
                                         }
                                     ?>
                                     <div class="row mb-3">
@@ -41,7 +41,7 @@ if(isset($_GET['id'])) {
                                             <?php
                                             echo
                                             "<input class='form-control' type='text' name='cpfPaciente' value='"
-                                            .($paciente == null ? '' : $paciente->getNome())."'>"
+                                            .($consulta == null ? '' : $consulta->getPaciente()->getCpf())."'>"
                                             ?>
                                         </div>
                                         <div class="col-3">
@@ -49,7 +49,7 @@ if(isset($_GET['id'])) {
                                             <?php
                                             echo
                                             "<input class='form-control' type='text' name='cpfMedico' value='"
-                                            .($paciente == null ? '' : $paciente->getDataNascimento())."'>"
+                                            .($consulta == null ? '' : $consulta->getMedico()->getCpf())."'>"
                                             ?>
                                         </div>
                                         <div class="col-3">
@@ -57,7 +57,7 @@ if(isset($_GET['id'])) {
                                             <?php
                                             echo
                                             "<input class='form-control' type='text' name='valor' value='"
-                                            .($paciente == null ? '' : $paciente->getCpf())."'>"
+                                            .($consulta == null ? '' : $consulta->getValor())."'>"
                                             ?>
                                         </div>
                                         <div class="col-3">
@@ -68,8 +68,6 @@ if(isset($_GET['id'])) {
                                                 <option value="credito">Cartão de crédito</option>
                                                 <option value="debito">Cartão de débito</option>
                                             </select>
-
-
                                         </div>
                                     </div>
                                     

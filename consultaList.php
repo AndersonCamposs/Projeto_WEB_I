@@ -1,5 +1,5 @@
 <?php 
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/ConsultaDAO.php';
 ?>
 
 
@@ -12,59 +12,53 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Pacientes</h1>
+                        <h1 class="mt-4">Consultas</h1>
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Pacientes</li>
+                            <li class="breadcrumb-item active">Consultas</li>
                         </ol>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                Lista de Pacientes
+                                Lista de Consultas
                             </div>
                             <div class="card-body">
                                 <table id="datatablesSimple">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Nome</th>
-                                            <th>Data de Nascimento</th>
-                                            <th>CPF</th>
-                                            <th>RG</th>
-                                            <th>Celular</th>
-                                            <th>E-mail</th>
+                                            <th>CPF do médico</th>
+                                            <th>CPF do paciente</th>
+                                            <th>Data</th>
+                                            <th>Valor</th>
                                             <th>Ações</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Nome</th>
-                                            <th>Data de Nascimento</th>
-                                            <th>CPF</th>
-                                            <th>RG</th>
-                                            <th>Celular</th>
-                                            <th>E-mail</th>
+                                            <th>CPF do médico</th>
+                                            <th>CPF do paciente</th>
+                                            <th>Data</th>
+                                            <th>Valor</th>
                                             <th>Ações</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                         <?php 
-                                        $listaPacientes = PacienteDAO::getInstance()->listAll();
+                                        $listaConsultas = ConsultaDAO::getInstance()->listAll();
                                         
-                                        foreach ($listaPacientes as $paciente) {
+                                        foreach ($listaConsultas as $consulta) {
                                             echo 
                                             "<tr>".
-                                                "<td>".$paciente->getId()."</td>".
-                                                "<td>".$paciente->getNome()."</td>".
-                                                "<td>". str_replace("-", "/", $paciente->getDataNascimento())."</td>".
-                                                "<td>".$paciente->getCpf()."</td>".
-                                                "<td>".$paciente->getRg()."</td>".
-                                                "<td>".$paciente->getCelular()."</td>".
-                                                "<td>".$paciente->getEmail()."</td>".
+                                                "<td>".$consulta->getId()."</td>".
+                                                "<td>".$consulta->getMedico()->getCpf()."</td>".
+                                                "<td>".$consulta->getPaciente()->getCpf()."</td>".
+                                                "<td>". str_replace("-", "/", $consulta->getDataConsulta())."</td>".
+                                                "<td>".$consulta->getValor()."</td>".
                                                 "<td>
-                                                    <a href='./pacienteAddEdit.php?id=".$paciente->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
-                                                    <a href='./controller/pacienteController.php?id=".$paciente->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
+                                                    <a href='./consultaAddEdit.php?id=".$consulta->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
+                                                    <a href='./controller/consultaController.php?id=".$consulta->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
                                                 </td>".
                                             "</tr>";
                                         }
