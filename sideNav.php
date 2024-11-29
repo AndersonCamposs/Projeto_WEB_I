@@ -42,7 +42,7 @@
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseMedicos" aria-expanded="false" aria-controls="collapseMedicos">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user-doctor"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-stethoscope"></i></div>
                                 Médicos
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
@@ -59,7 +59,7 @@
                                 </nav>
                             </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsuarios" aria-expanded="false" aria-controls="collapseMedicos">
-                                <div class="sb-nav-link-icon"><i class="fa-solid fa-user-tie"></i></div>
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-id-card-clip"></i></div>
                                 Usuários
                                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                             </a>
