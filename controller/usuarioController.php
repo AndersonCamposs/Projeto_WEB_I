@@ -49,4 +49,4 @@ if(isset($_POST['nome'])) {
     UsuarioDAO::getInstance()->delete($_GET["id"]);
 }
 
-//echo "<script> window.location.href='../usuarioList.php'; </script>";
+echo "<script> window.location.href='../usuarioList.php'; </script>";

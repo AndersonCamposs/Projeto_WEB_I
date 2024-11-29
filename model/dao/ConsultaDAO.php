@@ -1,9 +1,10 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/BDPDO.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/PacienteVO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/ConsultaVO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
 
-class PacienteDAO {
-
+class ConsultaDAO {
     public static $instance;
 
     private function __construct() {
@@ -12,24 +13,23 @@ class PacienteDAO {
 
     public static function getInstance() {
         if (!isset(self::$instance))
-            self::$instance = new PacienteDAO();
+            self::$instance = new ConsultaDAO();
 
         return self::$instance;
     }
 
-    public function insert(PacienteVO $paciente) {
+    public function insert(ConsultaVO $consulta) {
         try {
-            $sql = "INSERT INTO paciente (nome,dataNascimento,cpf,rg,celular, email)"
+            $sql = "INSERT INTO Consulta (idMedico, idPaciente, dataConsulta, valor, metodoPagamento)"
                     . "VALUES "
-                    . "(:nome,:dataNascimento,:cpf,:rg,:celular,:email)";
+                    . "(:idMedico, :idPaciente, :dataConsulta, :valor, :metodoPagamento)";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":nome", $paciente->getNome());
-            $p_sql->bindValue(":dataNascimento", $paciente->getDataNascimento());
-            $p_sql->bindValue(":cpf", $paciente->getCpf());
-            $p_sql->bindValue(":rg", $paciente->getRg());
-            $p_sql->bindValue(":celular", ($paciente->getCelular()));
-            $p_sql->bindValue(":email", ($paciente->getEmail()));
+            $p_sql->bindValue(":idMedico", $consulta->getMedico());
+            $p_sql->bindValue(":idPaciente", $consulta->getPaciente());
+            $p_sql->bindValue(":dataConsulta", $consulta->getDataConsulta());
+            $p_sql->bindValue(":valor", $consulta->getValor());
+            $p_sql->bindValue(":metodoPagamento", ($consulta->getMetodoPagamento()));
             
         
             return $p_sql->execute();
@@ -38,19 +38,17 @@ class PacienteDAO {
         }
     }
 
-    public function update(PacienteVO $paciente) {
+    public function update(ConsultaVO $consulta) {
         try {
-            $sql = "UPDATE paciente SET nome=:nome, dataNascimento=:dataNascimento, cpf=:cpf, rg=:rg,
-                celular=:celular, email=:email WHERE id=:id";
+            $sql = "UPDATE consulta SET idMedico=:idMedico, idPaciente=:idPaciente, dataConsulta=:dataConsulta, valor=:valor, metodoPagamento=:metodoPagamento WHERE id=:id";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":nome", $paciente->getNome());
-            $p_sql->bindValue(":dataNascimento", $paciente->getDataNascimento());
-            $p_sql->bindValue(":cpf", $paciente->getCpf());
-            $p_sql->bindValue(":rg", $paciente->getRg());
-            $p_sql->bindValue(":celular", ($paciente->getCelular()));
-            $p_sql->bindValue(":email", ($paciente->getEmail()));
-            $p_sql->bindValue(":id", $paciente->getId());
+            $p_sql->bindValue(":idMedico", $consulta->getMedico());
+            $p_sql->bindValue(":idPaciente", $consulta->getPaciente());
+            $p_sql->bindValue(":dataConsulta", $consulta->getDataConsulta());
+            $p_sql->bindValue(":valor", $consulta->getValor());
+            $p_sql->bindValue(":metodoPagamento", ($consulta->getMetodoPagamento()));
+            $p_sql->bindValue(":id", $consulta->getId());
             return $p_sql->execute();
         } catch (Exception $e) {
             print "Erro ao executar a função de atualizar" . $e->getMessage();
@@ -59,7 +57,7 @@ class PacienteDAO {
 
     public function delete($id) {
         try {
-            $sql = "delete from paciente where id = :id";
+            $sql = "delete from consulta where id = :id";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":id", $id);
@@ -71,21 +69,9 @@ class PacienteDAO {
 
     public function getById($id) {
         try {
-            $sql = "SELECT * FROM paciente WHERE id = :id";
+            $sql = "SELECT * FROM consulta WHERE id = :id";
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":id", $id);
-            $p_sql->execute();
-            return $this->converterLinhaDaBaseDeDadosParaObjeto($p_sql->fetch(PDO::FETCH_ASSOC));
-        } catch (Exception $e) {
-            print "Ocorreu um erro ao tentar executar esta ação, foi gerado
- um LOG do mesmo, tente novamente mais tarde.";
-        }
-    }
-    public function getByCpf($cpf) {
-        try {
-            $sql = "SELECT * FROM paciente WHERE cpf = :cpf";
-            $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":cpf", $cpf);
             $p_sql->execute();
             return $this->converterLinhaDaBaseDeDadosParaObjeto($p_sql->fetch(PDO::FETCH_ASSOC));
         } catch (Exception $e) {
@@ -96,21 +82,20 @@ class PacienteDAO {
 
     private function converterLinhaDaBaseDeDadosParaObjeto($row) {
         
-        $obj = new PacienteVO();
+        $obj = new ConsultaVO();
         $obj->setId($row['id']);
-        $obj->setNome($row['nome']);
-        $obj->setDataNascimento($row['dataNascimento']);
-        $obj->setCpf($row['cpf']);
-        $obj->setRg($row['rg']);
-        $obj->setCelular($row['celular']);
-        $obj->setEmail($row['email']);
+        $obj->setDataConsulta($row['dataConsulta']);
+        $obj->setValor($row['valor']);
+        $obj->setMetodoPagamento($row['metodoPagamento']);
+        $obj->setMedico(MedicoDAO::getInstance()->getById($row['idMedico']));
+        $obj->setPaciente(PacienteDAO::getInstance()->getById($row['idPaciente']));
         
         return $obj;
     }
 
     public function listAll() {
         try {
-            $sql = "SELECT * FROM paciente ";
+            $sql = "SELECT * FROM consulta ";
             $p_sql = BDPDO::getInstance()->prepare($sql);
 
             $p_sql->execute();
@@ -130,7 +115,7 @@ class PacienteDAO {
 
     public function listWhere($restanteDoSQL, $arrayDeParametros, $arrayDeValores) {
         try {
-            $sql = "SELECT * FROM paciente " . $restanteDoSQL;
+            $sql = "SELECT * FROM consulta " . $restanteDoSQL;
             $p_sql = BDPDO::getInstance()->prepare($sql);
             for ($i = 0; $i < sizeof($arrayDeParametros); $i++) {
                 $p_sql->bindValue($arrayDeParametros[$i], $arrayDeValores [$i]);
@@ -148,6 +133,4 @@ class PacienteDAO {
  um LOG do mesmo, tente novamente mais tarde.".$e->getMessage();
         }
     }
-
 }
-?>
