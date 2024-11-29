@@ -1,7 +1,6 @@
 <?php session_start(); ?>
 
 <!DOCTYPE html>
-<html lang="en">
     <?php include("./head.php"); ?>
     <body class="bg-dark">
         <div id="layoutAuthentication">
@@ -15,20 +14,28 @@
                                     <div class="card-body">
                                         <form action="./controller/loginController.php" method="POST">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email" required/>
+                                                <?php  
+                                                echo 
+                                                "<input class='form-control' id='inputEmail' type='email' placeholder='example@email.com' name='email' required ".
+                                                "value='".(isset($_SESSION['emailInformado']) ? $_SESSION['emailInformado'] : '')."'/>"
+                                                ?>
                                                 <label for="inputEmail">E-mail</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Senha" name="senha" required/>
+                                                <?php  
+                                                echo 
+                                                "<input class='form-control' id='inputPassword' type='password' placeholder='Senha' name='senha' required ".
+                                                "value='".(isset($_SESSION['senhaInformada']) ? $_SESSION['senhaInformada'] : '')."'/>"
+                                                ?>
                                                 <label for="inputPassword">Senha</label>
                                             </div>
                                             <?php
-                                            if (isset($_SESSION["login_error"])) {
+                                            if (isset($_SESSION["loginErro"])) {
                                                 echo 
                                                 "<div class='alert alert-danger text-center'>".
-                                                htmlspecialchars($_SESSION['login_error']).
+                                                htmlspecialchars($_SESSION['loginErro']).
                                                 "</div>";
-                                                unset($_SESSION["login_error"]);
+                                                session_unset();
                                             }
                                             ?>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">

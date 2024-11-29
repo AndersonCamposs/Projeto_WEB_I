@@ -7,21 +7,26 @@ $senha = $_POST["senha"];
 
 $usuarioLogin = UsuarioDAO::getInstance()->getByEmail($email);
 
+$erro = false;
 
 if(isset($usuarioLogin)) {
     if(password_verify($senha, $usuarioLogin->getSenha())) {
         
-        $_SESSION["loggedUser"] = $usuarioLogin;
+        $_SESSION["usuarioLogado"] = $usuarioLogin;
         header("Location: ../index.php");
         exit;
         
     } else {
-        $_SESSION["login_error"] = "E-mail e/ou senha incorretos";
-        header("Location: ../login.php");
-        exit;
+        $erro = true;
     }
 } else {
-    $_SESSION["login_error"] = "E-mail e/ou senha incorretos";
+    $erro = true;
+}
+
+if ($erro) {
+    $_SESSION["emailInformado"] = $email;
+    $_SESSION["senhaInformada"] = $senha;
+    $_SESSION["loginErro"] = "E-mail e/ou senha incorretos";
     header("Location: ../login.php");
     exit;
 }
