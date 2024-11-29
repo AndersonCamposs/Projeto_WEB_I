@@ -7,6 +7,23 @@
                                 Dashboard
                             </a>
                             
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseConsultas" aria-expanded="false" aria-controls="collapsePacientes">
+                                <div class="sb-nav-link-icon"><i class="fa-solid fa-suitcase-medical"></i></div>
+                                Consultas
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseConsultas" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="consultaAddEdit.php">
+                                        <i class="fa-regular fa-square-plus mx-2"></i>
+                                        Adicionar
+                                    </a>
+                                    <a class="nav-link" href="consultaList.php">
+                                        <i class="fa-regular fa-rectangle-list mx-2"></i>
+                                        Listar
+                                    </a>
+                                </nav>
+                            </div>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePacientes" aria-expanded="false" aria-controls="collapsePacientes">
                                 <div class="sb-nav-link-icon"><i class="fas fa-user"></i></div>
                                 Pacientes
