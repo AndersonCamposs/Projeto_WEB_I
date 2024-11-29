@@ -15,15 +15,14 @@
                                     <div class="card-body">
                                         <form action="./controller/loginController.php" method="POST">
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email"/>
+                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" name="email" required/>
                                                 <label for="inputEmail">E-mail</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Senha" name="senha"/>
+                                                <input class="form-control" id="inputPassword" type="password" placeholder="Senha" name="senha" required/>
                                                 <label for="inputPassword">Senha</label>
                                             </div>
                                             <?php
-                                            var_dump($_SESSION);
                                             if (isset($_SESSION["login_error"])) {
                                                 echo 
                                                 "<div class='alert alert-danger text-center'>".
