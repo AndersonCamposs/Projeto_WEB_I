@@ -19,7 +19,7 @@ class UsuarioDAO {
     public function insert(UsuarioVO $usuario) {
         try {
             $sql = "INSERT INTO usuario (nome, cpf, email, senha, foto)"
-                    . "VALUES (:nome, :cpf, :email, :senha, :foto)";
+                    . "VALUES (:nome, :cpf, :email, :senha, :foto, :idPermissao)";
             
             $p_sql = BDPDO::getInstance() -> prepare($sql);
             $p_sql->bindValue(":nome", $usuario->getNome());
@@ -27,6 +27,7 @@ class UsuarioDAO {
             $p_sql->bindValue(":email", $usuario->getEmail());
             $p_sql->bindValue(":senha", $usuario->getSenha());
             $p_sql->bindValue(":foto", $usuario->getFoto());
+            $p_sql->bindValue(":idPermissao", $usuario->getPermissao());
             
             return $p_sql->execute();
         } catch (Exception $e) {
@@ -37,7 +38,7 @@ class UsuarioDAO {
     public function update(UsuarioVO $usuario) {
         try {
             $sql = "UPDATE usuario SET nome=:nome, email=:email, cpf=:cpf, "
-                    ."senha=:senha, foto=:foto"
+                    ."senha=:senha, foto=:foto, idPermissao=:idPermissao"
                     ." WHERE id=:id";
             
             $p_sql = BDPDO::getInstance() -> prepare($sql);
@@ -46,6 +47,7 @@ class UsuarioDAO {
             $p_sql->bindValue(":email", $usuario->getEmail());
             $p_sql->bindValue(":senha", $usuario->getSenha());
             $p_sql->bindValue(":foto", $usuario->getFoto());
+            $p_sql->bindValue(":idPermissao", $usuario->getPermissao());
             $p_sql->bindValue(":id", $usuario->getId());
             
             return $p_sql->execute();
