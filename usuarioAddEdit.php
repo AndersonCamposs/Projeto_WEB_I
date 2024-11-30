@@ -77,47 +77,111 @@ if(isset($_GET["id"])) {
                                             .($usuario == null ? '' : $usuario->getCpf()) . "'>"
                                             ?>
                                         </div>
-                                        <div class="col-4">
-                                            Senha:
-                                            <?php
-                                            echo
-                                            "<input class='form-control' type='password' name='senha' value='"
-                                            .($usuario == null ? '' : $usuario->getSenha()) . "'>"
-                                            ?>
-                                        </div>
-                                        <div class="col-4">
-                                            Repetir Senha:
-                                            <?php
-                                            echo
-                                            "<input class='form-control' type='password' name='repetirSenha' value='"
-                                            .($usuario == null ? '' : $usuario->getSenha()) . "'>"
-                                            ?>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-8">
+                                        <?php
+                                        if($usuario != null){
+                                        echo
+                                        "
+                                        <div class='col-8'>
                                             Foto de perfil:
                                             <input class='form-control' type='file' name='foto'>
+                                        </div>
+                                        ";
+                                        }
+                                        ?>
+                                        <div class="col-4">
+                                            <?php
+                                            if($usuario == null) {
+                                                echo
+                                                "Senha:".
+                                                "<input class='form-control' type='password' name='senha'/>";
+                                            }
+                                            ?>
+                                            
                                             
                                         </div>
+                                        <div class="col-4">
+                                            <?php
+                                            if($usuario == null) {
+                                                echo
+                                                "Repetir Senha:".
+                                                "<input class='form-control' type='password' name='repetirSenha'/>";
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
-
+                                    <?php
+                                    if($usuario == null){
+                                    echo
+                                    "<div class='row mb-3'>
+                                        <div class='col-8'>
+                                            Foto de perfil:
+                                            <input class='form-control' type='file' name='foto'>
+                                        </div>
+                                    </div>";
+                                    }
+                                    
+                                    ?>
                                     <div class="row my-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-success m-1">
-                                                    Salvar  <i class="fa-solid fa-check"></i>
-                                                </button>
+                                                <?php
+                                                echo
+                                                "<button type='submit' class='btn btn-success m-1'".(isset($_GET['protocol']) ? 'disabled' : '').">
+                                                    Salvar  <i class='fa-solid fa-check'></i>
+                                                </button>";
+                                                ?>
+                                                
 
                                                 <button type="reset" class="btn btn-secondary m-1">
                                                     Limpar  <i class="fa-solid fa-rotate-left"></i>
                                                 </button>
+                                                
+                                                <?php
+                                                if($usuario != null) {
+                                                    echo
+                                                    "<a type='reset' class='btn btn-primary m-1' href='./usuarioAddEdit.php?id=".$usuario->getId()."&protocol=".uniqid()."'>
+                                                       Editar Senha <i class='fa-solid fa-lock'></i>
+                                                    </a>";
+                                                }    
+                                                ?>
+                                                
                                             </div>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
+                        <?php
+                        if (isset($_GET['protocol']) && ($_SESSION['usuarioLogado']->getId() == $usuario->getId())) {
+                            echo 
+                            "<div class='card mb-4>".
+                                "<form action='./controller/usuarioController.php' method='POST'>".
+                                    "<div class='row text-center my-3'>".
+                                        "<div class='col-4'>".
+                                            "Nova senha:".
+                                            "<input class='form-control' type='password' name='novaSenha'/>".
+                                        "</div>".
+                                        "<div class='col-4'>".
+                                            "Repetir nova senha:".
+                                            "<input class='form-control' type='password' name='repetirNovaSenha'/>".
+                                        "</div>".
+                                    "</div>".
+                                    "<div class='row text-center my-3'>".
+                                        "<div class='col-12'>".
+                                            "<div class='d-flex justify-content-center'>".
+                                                "<button type='submit'>".
+                                                    "Salvar <i class='fa-solid fa-check'></i>".
+                                                "</button>".
+                                                "<button type='reset'>".
+                                                    "Cancelar <i class='fa-solid fa-ban'></i>".
+                                                "</button>".
+                                            "</div>".
+                                        "</div>".
+                                    "</div>".
+                                "</form>".
+                            "</div>";
+                        }
+                        ?>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
