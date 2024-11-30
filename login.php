@@ -10,7 +10,10 @@
                         <div class="row justify-content-center">
                             <div class="col-lg-5">
                                 <div class="card shadow-lg border-0 rounded-lg mt-5">
-                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Login</h3></div>
+                                    <div class="card-header">
+                                        <a href="./index.php" class="btn btn-dark"><i class="fa-solid fa-house"></i></a>
+                                        <h3 class="text-center font-weight-light mb-4 mt-1">Login</h3>
+                                    </div>
                                     <div class="card-body">
                                         <form action="./controller/loginController.php" method="POST">
                                             <div class="form-floating mb-3">

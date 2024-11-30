@@ -1,3 +1,7 @@
+<?php
+include 'authenticator.php';
+?>
+
 <!DOCTYPE html>
 
     <?php include('./head.php'); ?>
