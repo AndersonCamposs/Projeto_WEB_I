@@ -19,7 +19,7 @@ if(isset($_GET["id"])) {
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <div class="d-flex">
+                        <div class="d-flex align-items-center">
                             <div>
                                 <h1 class="mt-4">Usuários</h1>
                                 <ol class="breadcrumb mb-4">
@@ -30,7 +30,7 @@ if(isset($_GET["id"])) {
                             <?php
                             if ($usuario != null && $usuario->getFoto() != null) {
                             echo 
-                            "<div class='mt-2 ps-4'>
+                            "<div class='my-4 ps-4'>
                                 <img src = '".$usuario->getFoto()."' id='photoPreview'/>".
                             "</div>";
                             }
