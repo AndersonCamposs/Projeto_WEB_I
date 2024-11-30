@@ -122,9 +122,13 @@ if(isset($_GET["id"])) {
                                     <div class="row my-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">
-                                                <button type="submit" class="btn btn-success m-1">
-                                                    Salvar  <i class="fa-solid fa-check"></i>
-                                                </button>
+                                                <?php
+                                                echo
+                                                "<button type='submit' class='btn btn-success m-1'".(isset($_GET['protocol']) ? 'disabled' : '').">
+                                                    Salvar  <i class='fa-solid fa-check'></i>
+                                                </button>";
+                                                ?>
+                                                
 
                                                 <button type="reset" class="btn btn-secondary m-1">
                                                     Limpar  <i class="fa-solid fa-rotate-left"></i>
@@ -145,6 +149,37 @@ if(isset($_GET["id"])) {
                                 </form>
                             </div>
                         </div>
+                        <?php
+                        if (isset($_GET['protocol']) && ($_SESSION['usuarioLogado']->getId() == $usuario->getId())) {
+                            echo 
+                            "<div class='card mb-4>".
+                                "<form action='./controller/usuarioController.php' method='POST'>".
+                                    "<div class='row text-center my-3'>".
+                                        "<div class='col-4'>".
+                                            "Nova senha:".
+                                            "<input class='form-control' type='password' name='novaSenha'/>".
+                                        "</div>".
+                                        "<div class='col-4'>".
+                                            "Repetir nova senha:".
+                                            "<input class='form-control' type='password' name='repetirNovaSenha'/>".
+                                        "</div>".
+                                    "</div>".
+                                    "<div class='row text-center my-3'>".
+                                        "<div class='col-12'>".
+                                            "<div class='d-flex justify-content-center'>".
+                                                "<button type='submit'>".
+                                                    "Salvar <i class='fa-solid fa-check'></i>".
+                                                "</button>".
+                                                "<button type='reset'>".
+                                                    "Cancelar <i class='fa-solid fa-ban'></i>".
+                                                "</button>".
+                                            "</div>".
+                                        "</div>".
+                                    "</div>".
+                                "</form>".
+                            "</div>";
+                        }
+                        ?>
                     </div>
                 </main>
                 <footer class="py-4 bg-light mt-auto">
