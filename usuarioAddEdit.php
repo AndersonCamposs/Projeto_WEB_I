@@ -162,7 +162,7 @@ if(isset($_GET["id"])) {
                                 Adicionar Consulta".
                             "</div>".
                             "<div class='card-body'>".
-                                "<form action='./controller/usuarioController.php?id='".$_SESSION['usuarioLogado']->getId()."&protocol=".$_GET['protocol']."'method='POST'>".
+                                "<form action='./controller/usuarioController.php' method='POST'>".
                                     "<div class='row mb-3 text-center'>".
                                         "<div class='d-flex justify-content-center'>".
                                             "<div class='col-3 m-1'>".
