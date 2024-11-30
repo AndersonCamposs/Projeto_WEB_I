@@ -2,6 +2,7 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/UsuarioVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
 
+
 if(isset($_POST['nome'])) {
     
     $usuario = new UsuarioVO();
@@ -48,8 +49,10 @@ if(isset($_POST['nome'])) {
     } else {
         UsuarioDAO::getInstance()->insert($usuario);
     }   
+} else if(isset($_GET["protocol"])){
+    echo "VAI MUDAR A SENHA";
 } else {
     UsuarioDAO::getInstance()->delete($_GET["id"]);
 }
-
-echo "<script> window.location.href='../usuarioList.php'; </script>";
+var_dump($_POST);
+//"<script> window.location.href='../usuarioList.php'; </script>";

@@ -131,10 +131,12 @@ if(isset($_GET["id"])) {
                                                 </button>";
                                                 ?>
                                                 
-
-                                                <button type="reset" class="btn btn-secondary m-1">
-                                                    Limpar  <i class="fa-solid fa-rotate-left"></i>
-                                                </button>
+                                                <?php
+                                                echo
+                                                "<button type='reset' class='btn btn-secondary m-1'".(isset($_GET['protocol']) ? 'disabled' : '').">
+                                                    Limpar  <i class='fa-solid fa-rotate-left'></i>
+                                                </button>";
+                                                ?>
                                                 
                                                 <?php
                                                 if($usuario != null) {
@@ -154,32 +156,41 @@ if(isset($_GET["id"])) {
                         <?php
                         if (isset($_GET['protocol']) && ($_SESSION['usuarioLogado']->getId() == $usuario->getId())) {
                             echo 
-                            "<div class='card mb-4>".
-                                "<form action='./controller/usuarioController.php' method='POST'>".
-                                    "<div class='row text-center my-3'>".
-                                        "<div class='col-4'>".
-                                            "Nova senha:".
-                                            "<input class='form-control' type='password' name='novaSenha'/>".
-                                        "</div>".
-                                        "<div class='col-4'>".
-                                            "Repetir nova senha:".
-                                            "<input class='form-control' type='password' name='repetirNovaSenha'/>".
-                                        "</div>".
-                                    "</div>".
-                                    "<div class='row text-center my-3'>".
-                                        "<div class='col-12'>".
-                                            "<div class='d-flex justify-content-center'>".
-                                                "<button type='submit'>".
-                                                    "Salvar <i class='fa-solid fa-check'></i>".
-                                                "</button>".
-                                                "<button type='reset'>".
-                                                    "Cancelar <i class='fa-solid fa-ban'></i>".
-                                                "</button>".
+                            "<div class='card mb-4'>".
+                            "<div class='card-header'>".
+                                "<i class='fa-regular fa-pen-to-square me-1'></i>
+                                Adicionar Consulta".
+                            "</div>".
+                            "<div class='card-body'>".
+                                "<form action='./controller/usuarioController.php?id='".$_SESSION['usuarioLogado']->getId()."&protocol=".$_GET['protocol']."'method='POST'>".
+                                    "<div class='row mb-3 text-center'>".
+                                        "<div class='d-flex justify-content-center'>".
+                                            "<div class='col-3 m-1'>".
+                                                "Nova senha:
+                                                <input class='form-control' type='password' name='novaSenha'/>".
+                                            "</div>".
+                                            "<div class='col-3 m-1'>".
+                                                "Repetir nova senha:
+                                                <input class='form-control' type='password' name='repetirNovaSenha'/>".
                                             "</div>".
                                         "</div>".
                                     "</div>".
-                                "</form>".
-                            "</div>";
+                                    
+                                    "<div class='row my-3'>".
+                                        "<div class='col-12'>".
+                                            "<div class='d-flex justify-content-center'>
+                                                <button type='submit'  class='btn btn-success m-1'>
+                                                    Salvar  <i class='fa-solid fa-check'></i>
+                                                </button>
+
+                                                <a class='btn btn-danger m-1' href='./usuarioAddEdit.php?id=".$_SESSION['usuarioLogado']->getId()."'>
+                                                    Cancelar  <i class='fa-solid fa-rotate-left'></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>";                     
                         }
                         ?>
                     </div>
