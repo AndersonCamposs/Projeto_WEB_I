@@ -57,10 +57,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
                                                 "<td>".$usuario->getEmail()."</td>".
                                                 "<td>".$usuario->getCPF()."</td>".
                                                 "<td><img id='profilePhoto' src='".$usuario->getFoto()."'/></td>".
-                                                "<td class='d-flex'>
-                                                    <a href='./usuarioAddEdit.php?id=".$usuario->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
-                                                    <a href='./controller/usuarioController.php?id=".$usuario->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
-                                                </td>".
+                                                "<td class='d-flex'>".
+                                                    ($_SESSION["usuarioLogado"]->getId() == $usuario->getId() ? 
+                                                    "<a href='./usuarioAddEdit.php?id=".$usuario->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
+                                                    <a href='./controller/usuarioController.php?id=".$usuario->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>"
+                                                    :
+                                                    "<h6>N/A</h6>"
+                                                    )
+                                                ."</td>".
                                             "</tr>"
                                                     ;
                                         }

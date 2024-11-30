@@ -159,7 +159,7 @@ if(isset($_GET["id"])) {
                             "<div class='card mb-4'>".
                             "<div class='card-header'>".
                                 "<i class='fa-regular fa-pen-to-square me-1'></i>
-                                Adicionar Consulta".
+                                Alterar Senha".
                             "</div>".
                             "<div class='card-body'>".
                                 "<form action='./controller/usuarioController.php' method='POST'>".
