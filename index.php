@@ -1,5 +1,9 @@
+<?php
+include 'authenticator.php';
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+
     <?php include('./head.php'); ?>
     <body class="sb-nav-fixed">
         <?php include("./nav.php"); ?>

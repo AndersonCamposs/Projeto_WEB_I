@@ -1,4 +1,6 @@
 <?php
+include 'authenticator.php';
+
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.php";

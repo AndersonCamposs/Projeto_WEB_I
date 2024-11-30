@@ -33,11 +33,14 @@ if(isset($_POST['nome'])) {
         }
     }
     
+    // CRIANDO O HASH DA SENHA
+    $hash = password_hash($_POST["senha"], PASSWORD_DEFAULT);
     
     $usuario->setNome($_POST["nome"]);
     $usuario->setEmail($_POST["email"]);
     $usuario->setCpf($_POST["cpf"]);
-    $usuario->setSenha($_POST["senha"]);
+    // SETANDO A SENHA HASHEADA DO USUÁRIO
+    $usuario->setSenha($hash);
     if(isset($_POST['id'])) {
         $usuario->setId($_POST['id']);
         

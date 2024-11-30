@@ -97,6 +97,9 @@ class MedicoDAO {
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":cpf", $cpf);
             $p_sql->execute();
+            if(!$p_sql->fetch(PDO::FETCH_ASSOC)) {
+                throw new Exception("Register not found");
+            }
             return $this->converterLinhaDaBaseDeDadosParaObjeto($p_sql->fetch(PDO::FETCH_ASSOC));
         } catch (Exception $e) {
             print "Ocorreu um erro ao tentar executar esta ação, foi gerado

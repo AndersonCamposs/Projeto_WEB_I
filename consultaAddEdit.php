@@ -1,4 +1,5 @@
 <?php
+include 'authenticator.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/ConsultaDAO.php';
 
 $consulta = null;
@@ -11,7 +12,7 @@ if(isset($_GET['id'])) {
 <!DOCTYPE html>
     <?php include('./head.php'); ?>
     <body class="sb-nav-fixed">
-        <?php include("./nav.php") ?>
+        <?php include("./nav.php"); ?>
         <div id="layoutSidenav">
             <?php include "./sideNav.php" ;?>
             <div id="layoutSidenav_content">

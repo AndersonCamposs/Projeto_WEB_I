@@ -78,6 +78,25 @@ class UsuarioDAO {
  um LOG do mesmo, tente novamente mais tarde.";
         }
     }
+    public function getByEmail($email) {
+        try {
+            $sql = "SELECT * FROM usuario WHERE email=:email";
+            $p_sql = BDPDO::getInstance()->prepare($sql);
+            $p_sql->bindValue(":email", $email);
+            $p_sql->execute();
+            
+            $resultado = $p_sql->fetch(PDO::FETCH_ASSOC);
+            
+            if(!$resultado) {
+                return null;
+            }
+            
+            return $this->converterLinhaDaBaseDeDadosParaObjeto($resultado);
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado
+ um LOG do mesmo, tente novamente mais tarde.";
+        }
+    }
     
     public function listAll() {
         try {
