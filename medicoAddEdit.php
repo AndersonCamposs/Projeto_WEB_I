@@ -82,10 +82,7 @@ if (isset($_GET["id"])) {
                                             $listaEspecialidades = EspecialidadeDAO::getInstance()->listAll();
                                             foreach($listaEspecialidades as $especialidade) {
                                                 if ($medico != null && $medico->getEspecialidade()->getId() == $especialidade->getId()) {
-                                                        echo
-                                                        "<option selected value='".$especialidade->getId()."'>".
-                                                            $especialidade->getNome().
-                                                        "</option>";
+                                                        
                                                 } else {
                                                     echo
                                                     "<option value='".$especialidade->getId()."'>".
