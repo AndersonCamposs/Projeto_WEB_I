@@ -75,31 +75,50 @@ if(isset($_GET["id"])) {
                                             .($usuario == null ? '' : $usuario->getCpf()) . "'>"
                                             ?>
                                         </div>
-                                        <div class="col-4">
-                                            Senha:
-                                            <?php
-                                            echo
-                                            "<input class='form-control' type='password' name='senha' value='"
-                                            .($usuario == null ? '' : $usuario->getSenha()) . "'>"
-                                            ?>
-                                        </div>
-                                        <div class="col-4">
-                                            Repetir Senha:
-                                            <?php
-                                            echo
-                                            "<input class='form-control' type='password' name='repetirSenha' value='"
-                                            .($usuario == null ? '' : $usuario->getSenha()) . "'>"
-                                            ?>
-                                        </div>
-                                    </div>
-                                    <div class="row mb-3">
-                                        <div class="col-8">
+                                        <?php
+                                        if($usuario != null){
+                                        echo
+                                        "
+                                        <div class='col-8'>
                                             Foto de perfil:
                                             <input class='form-control' type='file' name='foto'>
+                                        </div>
+                                        ";
+                                        }
+                                        ?>
+                                        <div class="col-4">
+                                            <?php
+                                            if($usuario == null) {
+                                                echo
+                                                "Senha:".
+                                                "<input class='form-control' type='password' name='senha'/>";
+                                            }
+                                            ?>
+                                            
                                             
                                         </div>
+                                        <div class="col-4">
+                                            <?php
+                                            if($usuario == null) {
+                                                echo
+                                                "Repetir Senha:".
+                                                "<input class='form-control' type='password' name='repetirSenha'/>";
+                                            }
+                                            ?>
+                                        </div>
                                     </div>
-
+                                    <?php
+                                    if($usuario == null){
+                                    echo
+                                    "<div class='row mb-3'>
+                                        <div class='col-8'>
+                                            Foto de perfil:
+                                            <input class='form-control' type='file' name='foto'>
+                                        </div>
+                                    </div>";
+                                    }
+                                    
+                                    ?>
                                     <div class="row my-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">
@@ -110,6 +129,16 @@ if(isset($_GET["id"])) {
                                                 <button type="reset" class="btn btn-secondary m-1">
                                                     Limpar  <i class="fa-solid fa-rotate-left"></i>
                                                 </button>
+                                                
+                                                <?php
+                                                if($usuario != null) {
+                                                    echo
+                                                    "<a type='reset' class='btn btn-primary m-1' href='./usuarioAddEdit.php?id=".$usuario->getId()."&protocol=".uniqid()."'>
+                                                       Editar Senha <i class='fa-solid fa-lock'></i>
+                                                    </a>";
+                                                }    
+                                                ?>
+                                                
                                             </div>
                                         </div>
                                     </div>
