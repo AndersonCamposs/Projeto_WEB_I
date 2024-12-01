@@ -18,15 +18,15 @@ class UsuarioPermissaoDAO {
         return self::$instance;
     }
 
-    public function insert(UsuarioPermissaoVO $usuarioPermissao) {
+    public function insert(UsuarioPermissaoVO $usuario_permissao) {
         try {
             $sql = "INSERT INTO usuario_permissao (idUsuario, idPermissao)"
                     . "VALUES "
                     . "(:idUsuario, :idPermissao)";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":idUsuario", $usuarioPermissao->getMedico());
-            $p_sql->bindValue(":idPermissao", $usuarioPermissao->getPaciente());
+            $p_sql->bindValue(":idUsuario", $usuario_permissao->getMedico());
+            $p_sql->bindValue(":idPermissao", $usuario_permissao->getPaciente());
             
         
             return $p_sql->execute();
@@ -35,14 +35,14 @@ class UsuarioPermissaoDAO {
         }
     }
 
-    public function update(UsuarioPermissaoVO $usuarioPermissao) {
+    public function update(UsuarioPermissaoVO $usuario_permissao) {
         try {
             $sql = "UPDATE usuario_permissao SET idUsuario=:idUsuario, idPermissao=:idPermissao WHERE id=:id";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":idUsuario", $usuarioPermissao->getMedico());
-            $p_sql->bindValue(":idPermissao", $usuarioPermissao->getPaciente());
-            $p_sql->bindValue(":id", $usuarioPermissao->getId());
+            $p_sql->bindValue(":idUsuario", $usuario_permissao->getMedico());
+            $p_sql->bindValue(":idPermissao", $usuario_permissao->getPaciente());
+            $p_sql->bindValue(":id", $usuario_permissao->getId());
             return $p_sql->execute();
         } catch (Exception $e) {
             print "Erro ao executar a função de atualizar" . $e->getMessage();
@@ -63,7 +63,7 @@ class UsuarioPermissaoDAO {
 
     public function getById($id) {
         try {
-            $sql = "SELECT * FROM usuarioPermissao WHERE id = :id";
+            $sql = "SELECT * FROM usuario_permissao WHERE id = :id";
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":id", $id);
             $p_sql->execute();
@@ -86,7 +86,7 @@ class UsuarioPermissaoDAO {
 
     public function listAll() {
         try {
-            $sql = "SELECT * FROM usuarioPermissao ";
+            $sql = "SELECT * FROM usuario_permissao ";
             $p_sql = BDPDO::getInstance()->prepare($sql);
 
             $p_sql->execute();
@@ -106,7 +106,7 @@ class UsuarioPermissaoDAO {
 
     public function listWhere($restanteDoSQL, $arrayDeParametros, $arrayDeValores) {
         try {
-            $sql = "SELECT * FROM usuarioPermissao " . $restanteDoSQL;
+            $sql = "SELECT * FROM usuario_permissao " . $restanteDoSQL;
             $p_sql = BDPDO::getInstance()->prepare($sql);
             for ($i = 0; $i < sizeof($arrayDeParametros); $i++) {
                 $p_sql->bindValue($arrayDeParametros[$i], $arrayDeValores [$i]);
