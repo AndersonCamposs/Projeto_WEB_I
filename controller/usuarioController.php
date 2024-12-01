@@ -70,5 +70,3 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
     }
     echo "<script> window.location.href='../usuarioList.php'; </script>";
 }
-var_dump($usuario);
-var_dump($_POST);
