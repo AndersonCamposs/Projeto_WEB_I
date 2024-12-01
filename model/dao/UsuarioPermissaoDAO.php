@@ -1,8 +1,9 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/BDPDO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/UsuarioVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/UsuarioPermissaoVO.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
 
 class UsuarioPermissaoDAO {
     public static $instance;
@@ -18,15 +19,15 @@ class UsuarioPermissaoDAO {
         return self::$instance;
     }
 
-    public function insert(UsuarioPermissaoVO $usuario_permissao) {
+    public function insert(UsuarioVO $usuario, PermissaoVO $permissao) {
         try {
             $sql = "INSERT INTO usuario_permissao (idUsuario, idPermissao)"
                     . "VALUES "
                     . "(:idUsuario, :idPermissao)";
             //perceba que na linha abaixo vai precisar de um import
             $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":idUsuario", $usuario_permissao->getMedico());
-            $p_sql->bindValue(":idPermissao", $usuario_permissao->getPaciente());
+            $p_sql->bindValue(":idUsuario", $usuario->getId());
+            $p_sql->bindValue(":idPermissao", $permissao->getId());
             
         
             return $p_sql->execute();
@@ -35,20 +36,7 @@ class UsuarioPermissaoDAO {
         }
     }
 
-    public function update(UsuarioPermissaoVO $usuario_permissao) {
-        try {
-            $sql = "UPDATE usuario_permissao SET idUsuario=:idUsuario, idPermissao=:idPermissao WHERE id=:id";
-            //perceba que na linha abaixo vai precisar de um import
-            $p_sql = BDPDO::getInstance()->prepare($sql);
-            $p_sql->bindValue(":idUsuario", $usuario_permissao->getMedico());
-            $p_sql->bindValue(":idPermissao", $usuario_permissao->getPaciente());
-            $p_sql->bindValue(":id", $usuario_permissao->getId());
-            return $p_sql->execute();
-        } catch (Exception $e) {
-            print "Erro ao executar a função de atualizar" . $e->getMessage();
-        }
-    }
-
+    
     public function delete($id) {
         try {
             $sql = "delete from usuario_permissao where id = :id";

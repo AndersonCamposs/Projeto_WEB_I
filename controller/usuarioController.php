@@ -1,6 +1,7 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/UsuarioVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
 
 session_start();
 
@@ -16,7 +17,7 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
     
 } else { // SE NAO FOR PARA ALTERAR A SENHA
     if(isset($_POST['nome'])) {
-
+        
         $usuario = new UsuarioVO();
         $repetirSenha = $_POST["repetirSenha"];
         //PROCESSANDO A FOTO ENVIADA PELO USUÁRIO
@@ -60,13 +61,22 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
         
         if(isset($_POST['id'])) {
             $usuario->setId($_POST['id']);
-
-            UsuarioDAO::getInstance()->update($usuario);
+            
+            // EM CASO DE ATUALIZAÇÃO, VERIFICA SE AQUELA PERMISSÃO ESPECÍFICA JÁ NÃO FOI CONCEDIDA ÀQUELE USUÁRIO
+            $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idPermissao = :idPermissao AND idUsuario = :idUsuario", 
+            array(0 => ":idPermissao", 1 => ":idUsuario"), array(0 => $_POST["permissao"], 1 => $usuario->getId()));
+            var_dump($usuarioPermissoes);
+        
+            // REGISTRA AS PERMISSÕES DO USUÁRIO NA TABELA RELACIONAL
+            //UsuarioDAO::getInstance()->update($usuario);
         } else {
-            UsuarioDAO::getInstance()->insert($usuario);
+            // EM CASO DE INSERÇÃO, REGISTRA NA TABELA RELACIONAL (O USUÁRIO AINDA NÃO TEM NENHUMA PERMISSÃO)
+            $novoUsuario = UsuarioDAO::getInstance()->insert($usuario); // O USUÁRIO RECÉM INSERIDO NO BANCO
+            $permissao = PermissaoDAO::getInstance()->getById($_POST["permissao"]); // A PERMISSÃO INSERIDA JUNTO COM ESTE USUÁRIO
+            UsuarioPermissaoDAO::getInstance()->insert($novoUsuario, $permissao); // REGISTRA NA TABELA RELACIONAL
         }   
     } else {
-        UsuarioDAO::getInstance()->delete($_GET["id"]);
+        //UsuarioDAO::getInstance()->delete($_GET["id"]);
     }
     echo "<script> window.location.href='../usuarioList.php'; </script>";
 }
