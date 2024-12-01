@@ -2,7 +2,6 @@
 include 'authenticator.php';
 
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
-require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php';
 
 $usuario = null;
 
@@ -117,20 +116,7 @@ if(isset($_GET["id"])) {
                                         "<div class='col-8'>".
                                             "Foto de perfil:".
                                             "<input class='form-control' type='file' name='foto'>".
-                                        "</div>".
-                                        "<div class='col-4'>".
-                                            "Permissões do usuário:
-                                            <select class='form-select' name='permissao'>";
-                                            $listaPermissoes = PermissaoDAO::getInstance()->listAll();
-                                                foreach ($listaPermissoes as $permissao) {
-                                                echo
-                                                    "<option selected value='".$permissao->getId()."'>".
-                                                        $permissao->getNome().
-                                                    "</option>";
-
-                                                }
-                                        echo "</select>
-                                        </div>
+                                        "</div>
                                     </div>";
                                     }
                                     
