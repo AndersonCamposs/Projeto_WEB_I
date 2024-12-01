@@ -61,14 +61,14 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
         if(isset($_POST['id'])) {
             $usuario->setId($_POST['id']);
 
-            //UsuarioDAO::getInstance()->update($usuario);
+            UsuarioDAO::getInstance()->update($usuario);
         } else {
-            //UsuarioDAO::getInstance()->insert($usuario);
+            UsuarioDAO::getInstance()->insert($usuario);
         }   
     } else {
-        //UsuarioDAO::getInstance()->delete($_GET["id"]);
+        UsuarioDAO::getInstance()->delete($_GET["id"]);
     }
-    //echo "<script> window.location.href='../usuarioList.php'; </script>";
+    echo "<script> window.location.href='../usuarioList.php'; </script>";
 }
 var_dump($usuario);
 var_dump($_POST);
