@@ -7,7 +7,6 @@ class UsuarioVO {
     private $email;
     private $senha;
     private $foto;
-    private $permissao;
     
     public function getId() {
         return $this->id;
@@ -33,10 +32,6 @@ class UsuarioVO {
         return $this->foto;
     }
     
-    public function getPermissao() {
-        return $this->permissao;
-    }
-
     public function setId($id): void {
         $this->id = $id;
     }
@@ -59,11 +54,7 @@ class UsuarioVO {
 
     public function setFoto($foto): void {
         $this->foto = $foto;
-    }
-    
-    public function setPermissao($permissao): void {
-        $this->permissao = $permissao;
-    }
+    }    
 }
 ?>
 

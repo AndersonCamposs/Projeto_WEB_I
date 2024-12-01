@@ -22,7 +22,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/UsuarioVO.php';
             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             <?php
             echo 
-            (isset($_SESSION["usuarioLogado"]) ? 
+            ((isset($_SESSION["usuarioLogado"]) && $_SESSION['usuarioLogado']->getFoto() != null) ? 
             "<img id='profilePhoto' src='".$_SESSION['usuarioLogado']->getFoto()."'>"
                 :
             "<i class='fas fa-user fa-fw'></i>");
