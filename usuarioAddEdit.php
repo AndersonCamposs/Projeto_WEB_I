@@ -86,8 +86,8 @@ if(isset($_GET["id"])) {
                                         <div class='col-8'>
                                             Foto de perfil:
                                             <input class='form-control' type='file' name='foto'>
-                                        </div>
-                                        ";
+                                        </div>";
+                                        
                                         }
                                         ?>
                                         <div class="col-4">
@@ -112,6 +112,27 @@ if(isset($_GET["id"])) {
                                         </div>
                                     </div>
                                     <?php
+                                    if($usuario != null) {
+                                    $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
+
+
+                                    echo
+                                    "<div class='row mb-3'>".
+                                        "<div class='col-4'>".
+                                            "Permissões do usuário:".
+                                            "<select class='form-select' name='permissao'>";
+                                            foreach ($usuarioPermissoes as $usuarioPermissao) {
+                                                echo 
+                                                "<option value='".$usuarioPermissao->getPermissao()->getId()."'>".
+                                                    $usuarioPermissao->getPermissao()->getNome().
+                                                "</option>";
+                                            }
+                                        echo "</select>".
+                                        "</div>
+                                    </div>";
+                                    }
+                                    
+                                    
                                     if($usuario == null){
                                     
                                     $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
