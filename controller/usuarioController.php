@@ -46,23 +46,29 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
             }
         }
 
-        // CRIANDO O HASH DA SENHA
-        $hash = password_hash($_POST["senha"], PASSWORD_DEFAULT);
-
         $usuario->setNome($_POST["nome"]);
         $usuario->setEmail($_POST["email"]);
         $usuario->setCpf($_POST["cpf"]);
-        // SETANDO A SENHA HASHEADA DO USUÁRIO
-        $usuario->setSenha($hash);
+        // CRIANDO E SETANDO A SENHA HASHEADA DO USUÁRIO CASO O USUÁRIO A ENVIE (ELA NÃO SERÁ ENVIADA CASO O FORMULÁRIO SEJA DE EDITAR OS DADOS)
+        if(isset($_POST["senha"])) {
+            // CRIANDO O HASH DA SENHA
+            $hash = password_hash($_POST["senha"], PASSWORD_DEFAULT);
+            $usuario->setSenha($hash);
+        } else { // CASO A SENHA NÃO ESTEJA SETADA, SIGNIFICA QUE O USUÁRIO ESTÁ ATUALIZANDO O PERFIL, LOGO, A SENHA NÃO SE ALTERA
+            $usuario->setSenha($_SESSION["usuarioLogado"]->getSenha()); // A SENHA CONTINUA A MESMA
+        }
+        
         if(isset($_POST['id'])) {
             $usuario->setId($_POST['id']);
 
-            UsuarioDAO::getInstance()->update($usuario);
+            //UsuarioDAO::getInstance()->update($usuario);
         } else {
-            UsuarioDAO::getInstance()->insert($usuario);
+            //UsuarioDAO::getInstance()->insert($usuario);
         }   
     } else {
-        UsuarioDAO::getInstance()->delete($_GET["id"]);
+        //UsuarioDAO::getInstance()->delete($_GET["id"]);
     }
-    echo "<script> window.location.href='../usuarioList.php'; </script>";
+    //echo "<script> window.location.href='../usuarioList.php'; </script>";
 }
+var_dump($usuario);
+var_dump($_POST);
