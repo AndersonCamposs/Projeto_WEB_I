@@ -8,8 +8,8 @@
             <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/PermissaoVO.php</file>
             <file>file:/C:/xampp/htdocs/ac_clinic/authenticator.php</file>
             <file>file:/C:/xampp/htdocs/ac_clinic/controller/usuarioController.php</file>
-            <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/UsuarioVO.php</file>
             <file>file:/C:/xampp/htdocs/ac_clinic/model/dao/PermissaoDAO.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/medicoAddEdit.php</file>
         </group>
     </open-files>
 </project-private>
