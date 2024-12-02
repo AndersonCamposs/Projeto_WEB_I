@@ -19,4 +19,3 @@ function checarAutorizacao($requiredAuthorize) {
     // SE CHEGAR AO FIM DO LOOP, SIGNIFICA O USUÁRIO NÃO É AUTORIZADO
     return false;
 }
-

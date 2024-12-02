@@ -70,20 +70,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php'
                             <div class="collapse" id="collapseUsuarios" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <?php
-                                    if(checarAutorizacao(PermissaoDAO::getInstance()->getById(1))) {
-                                        echo "<a class='nav-link' href='usuarioAddEdit.php'>
+                                    if(checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+                                        echo 
+                                        "<a class='nav-link' href='usuarioAddEdit.php'>
                                             <i class='fa-regular fa-square-plus mx-2'></i>
                                             Adicionar
                                         </a>";
-                                    } else {
-                                        echo "";
-                                    }
-                                    echo 
-                                    "<a class='nav-link' href='usuarioList.php'>
+                                    } 
+                                    ?>
+                                    <a class='nav-link' href='usuarioList.php'>
                                         <i class='fa-regular fa-rectangle-list mx-2'></i>
                                         Listar
-                                    </a>";
-                                    ?>
+                                    </a>
                                 </nav>
                             </div>
                         </div>
