@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/UsuarioVO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
 
 session_start();
 if(!isset($_SESSION["usuarioLogado"])) {
@@ -7,4 +8,16 @@ if(!isset($_SESSION["usuarioLogado"])) {
     die();
 } 
 
+
+function checarAutorizacao($requiredAuthorize) {
+    $usuarioLogadoPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
+    foreach($usuarioLogadoPermissoes as $usuarioLogadoPermissao) {
+        if ($usuarioLogadoPermissao->getPermissao()->getId() == $requiredAuthorize->getId()) {
+            return;
+        }
+    }
+    // SE CHEGAR AO FIM DO LOOP, SIGNIFICA O USUÁRIO NÃO É AUTORIZADO
+    header("Location: ./index.php");
+    die();
+}
 

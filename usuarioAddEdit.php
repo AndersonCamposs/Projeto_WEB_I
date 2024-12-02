@@ -8,8 +8,14 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php'
 $usuario = null;
 
 if(isset($_GET["id"])) {
+    if($_GET['id'] != $_SESSION["usuarioLogado"]->getId()) {
+        checarAutorizacao(PermissaoDAO::getInstance()->getById(1));
+    }
     $usuario = UsuarioDAO::getInstance()->getById($_GET["id"]);
+} else {
+    checarAutorizacao(PermissaoDAO::getInstance()->getById(1));
 }
+
 ?>
 
 <!DOCTYPE html>
