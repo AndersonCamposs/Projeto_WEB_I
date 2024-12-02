@@ -144,6 +144,26 @@ if(isset($_GET["id"])) {
                                         "</div>".
                                         "<div class='col-4'>".
                                             "Permissões do usuário:".
+                                            "<a data-bs-toggle='modal' data-bs-target='#permissoesInfo'>
+                                                <i class='fa-solid fa-circle-info'></i>
+                                            </a>
+                                            <div class='modal fade' id='permissoesInfo' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                                                <div class='modal-dialog'>
+                                                    <div class='modal-content'>
+                                                    <div class='modal-header'>
+                                                        <h5 class='modal-title' id='exampleModalLabel'>Informações</h5>
+                                                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                    </div>
+                                                    <div class='modal-body'>
+                                                        Para adicionar mais de uma permissão ao usuário, após adicioná-lo,
+                                                        edite os dados do usuário, adicionando uma nova permissão.
+                                                    </div>
+                                                    <div class='modal-footer'>
+                                                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Fechar</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>".
                                             "<select class='form-select' name='permissao'>";
                                             foreach ($usuarioPermissoes as $usuarioPermissao) {
                                                 echo 
