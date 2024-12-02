@@ -1,6 +1,8 @@
 <?php  
 include 'authenticator.php';
 
+checarLogin();
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php';
@@ -16,7 +18,7 @@ if(isset($_GET["id"])) {
     }
     $usuario = UsuarioDAO::getInstance()->getById($_GET["id"]);
 } else {
-    if (!checarAutorizacao(PermissaoDAO::getInstance()->getById(1))) {
+    if (!checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
         header("Location: ./index.php");
         die();
     }

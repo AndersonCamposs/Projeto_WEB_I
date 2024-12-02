@@ -1,9 +1,11 @@
 <?php
+include '../authenticator.php';
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/UsuarioVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
 
-session_start();
 
 if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A SENHA
     $hash = password_hash($_POST["novaSenha"], PASSWORD_DEFAULT);
@@ -79,7 +81,9 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
             UsuarioPermissaoDAO::getInstance()->insert($novoUsuario, $permissao); // REGISTRA NA TABELA RELACIONAL
         }   
     } else {
-        UsuarioDAO::getInstance()->delete($_GET["id"]);
+        if(checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+          UsuarioDAO::getInstance()->delete($_GET["id"]);  
+        }
     }
     header("Location: ../usuarioList.php");
 }

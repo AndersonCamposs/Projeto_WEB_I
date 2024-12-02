@@ -1,7 +1,16 @@
 <?php
 include 'authenticator.php';
-
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
+
+$isAdmin = false;
+$usuarioLogadoPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
+foreach($usuarioLogadoPermissoes as $usuarioLogadoPermissao) {
+    if ($usuarioLogadoPermissao->getPermissao()->getNome() == "ADMINISTRADOR") {
+        $isAdmin = true;
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -58,10 +67,10 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
                                                 "<td>".$medico->getCpf()."</td>".
                                                 "<td>".$medico->getEspecialidade()->getNome()."</td>".
                                                 "<td>".$medico->getEmail()."</td>".
-                                                "<td>
-                                                   <a href='./medicoAddEdit.php?id=".$medico->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
-                                                   <a href='./controller/medicoController.php?id=".$medico->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>
-                                                   <a href='./medicoDetails.php?id=".$medico->getId()."' class='btn btn-outline-primary'></i><i class='fa-solid fa-eye'></i>Ver mais</a>
+                                                "<td>";
+                                                   if(checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {echo "<a href='./medicoAddEdit.php?id=".$medico->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a> ";}
+                                        if(checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {echo "<a href='./controller/medicoController.php?id=".$medico->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a> ";}
+                                            echo "<a href='./medicoDetails.php?id=".$medico->getId()."' class='btn btn-outline-primary'></i><i class='fa-solid fa-eye'></i>Ver mais</a>
                                                 </td>".
                                             "</tr>";
                                         }
