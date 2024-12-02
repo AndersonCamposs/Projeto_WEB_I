@@ -1,3 +1,7 @@
+<?php 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php';
+?>
+
 <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
@@ -65,14 +69,21 @@
                             </a>
                             <div class="collapse" id="collapseUsuarios" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="usuarioAddEdit.php">
-                                        <i class="fa-regular fa-square-plus mx-2"></i>
-                                        Adicionar
-                                    </a>
-                                    <a class="nav-link" href="usuarioList.php">
-                                        <i class="fa-regular fa-rectangle-list mx-2"></i>
+                                    <?php
+                                    if(checarAutorizacao(PermissaoDAO::getInstance()->getById(1))) {
+                                        echo "<a class='nav-link' href='usuarioAddEdit.php'>
+                                            <i class='fa-regular fa-square-plus mx-2'></i>
+                                            Adicionar
+                                        </a>";
+                                    } else {
+                                        echo "";
+                                    }
+                                    echo 
+                                    "<a class='nav-link' href='usuarioList.php'>
+                                        <i class='fa-regular fa-rectangle-list mx-2'></i>
                                         Listar
-                                    </a>
+                                    </a>";
+                                    ?>
                                 </nav>
                             </div>
                         </div>

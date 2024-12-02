@@ -13,11 +13,10 @@ function checarAutorizacao($requiredAuthorize) {
     $usuarioLogadoPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
     foreach($usuarioLogadoPermissoes as $usuarioLogadoPermissao) {
         if ($usuarioLogadoPermissao->getPermissao()->getId() == $requiredAuthorize->getId()) {
-            return;
+            return true;
         }
     }
     // SE CHEGAR AO FIM DO LOOP, SIGNIFICA O USUÁRIO NÃO É AUTORIZADO
-    header("Location: ./index.php");
-    die();
+    return false;
 }
 

@@ -9,11 +9,17 @@ $usuario = null;
 
 if(isset($_GET["id"])) {
     if($_GET['id'] != $_SESSION["usuarioLogado"]->getId()) {
-        checarAutorizacao(PermissaoDAO::getInstance()->getById(1));
+        if (!checarAutorizacao(PermissaoDAO::getInstance()->getById(1))) {
+            header("Location: ./index.php");
+            die();
+        }
     }
     $usuario = UsuarioDAO::getInstance()->getById($_GET["id"]);
 } else {
-    checarAutorizacao(PermissaoDAO::getInstance()->getById(1));
+    if (!checarAutorizacao(PermissaoDAO::getInstance()->getById(1))) {
+        header("Location: ./index.php");
+        die();
+    }
 }
 
 ?>
