@@ -12,7 +12,7 @@ if(!isset($_SESSION["usuarioLogado"])) {
 function checarAutorizacao($requiredAuthorize) {
     $usuarioLogadoPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
     foreach($usuarioLogadoPermissoes as $usuarioLogadoPermissao) {
-        if ($usuarioLogadoPermissao->getPermissao()->getId() == $requiredAuthorize->getId()) {
+        if (in_array($usuarioLogadoPermissao->getPermissao(), $requiredAuthorize)) {
             return true;
         }
     }
