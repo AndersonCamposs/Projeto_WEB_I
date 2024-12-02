@@ -1,5 +1,7 @@
 <?php
 include 'authenticator.php';
+
+checarLogin();
 ?>
 
 <!DOCTYPE html>

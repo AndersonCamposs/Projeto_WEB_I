@@ -1,13 +1,29 @@
 <?php  
 include 'authenticator.php';
 
+checarLogin();
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php';
 
 $usuario = null;
 
 if(isset($_GET["id"])) {
+    if($_GET['id'] != $_SESSION["usuarioLogado"]->getId()) {
+        if (!checarAutorizacao(PermissaoDAO::getInstance()->getById(1))) {
+            header("Location: ./index.php");
+            die();
+        }
+    }
     $usuario = UsuarioDAO::getInstance()->getById($_GET["id"]);
+} else {
+    if (!checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+        header("Location: ./index.php");
+        die();
+    }
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -84,8 +100,8 @@ if(isset($_GET["id"])) {
                                         <div class='col-8'>
                                             Foto de perfil:
                                             <input class='form-control' type='file' name='foto'>
-                                        </div>
-                                        ";
+                                        </div>";
+                                        
                                         }
                                         ?>
                                         <div class="col-4">
@@ -110,13 +126,67 @@ if(isset($_GET["id"])) {
                                         </div>
                                     </div>
                                     <?php
-                                    if($usuario == null){
+                                    if($usuario != null) {
+                                    $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
+
+
                                     echo
-                                    "<div class='row mb-3'>
-                                        <div class='col-8'>
-                                            Foto de perfil:
-                                            <input class='form-control' type='file' name='foto'>
-                                        </div>
+                                    "<div class='row mb-3'>".
+                                        "<div class='col-4'>".
+                                            "Permissões do usuário:".
+                                            "<select class='form-select' name='permissao'>";
+                                            foreach ($usuarioPermissoes as $usuarioPermissao) {
+                                                echo 
+                                                "<option value='".$usuarioPermissao->getPermissao()->getId()."'>".
+                                                    $usuarioPermissao->getPermissao()->getNome().
+                                                "</option>";
+                                            }
+                                        echo "</select>".
+                                        "</div>
+                                    </div>";
+                                    }
+                                    
+                                    
+                                    if($usuario == null){
+                                    
+                                    $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
+                                    echo
+                                    "<div class='row mb-3'>".
+                                        "<div class='col-8'>".
+                                            "Foto de perfil:".
+                                            "<input class='form-control' type='file' name='foto'>".
+                                        "</div>".
+                                        "<div class='col-4'>".
+                                            "Permissões do usuário:".
+                                            "<a data-bs-toggle='modal' data-bs-target='#permissoesInfo'>
+                                                <i class='fa-solid fa-circle-info'></i>
+                                            </a>
+                                            <div class='modal fade' id='permissoesInfo' tabindex='-1' aria-labelledby='exampleModalLabel' aria-hidden='true'>
+                                                <div class='modal-dialog'>
+                                                    <div class='modal-content'>
+                                                    <div class='modal-header'>
+                                                        <h5 class='modal-title' id='exampleModalLabel'>Informações</h5>
+                                                        <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
+                                                    </div>
+                                                    <div class='modal-body'>
+                                                        Para adicionar mais de uma permissão ao usuário, após adicioná-lo,
+                                                        edite os dados do usuário, adicionando uma nova permissão.
+                                                    </div>
+                                                    <div class='modal-footer'>
+                                                        <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Fechar</button>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                            </div>".
+                                            "<select class='form-select' name='permissao'>";
+                                            foreach ($usuarioPermissoes as $usuarioPermissao) {
+                                                echo 
+                                                "<option value='".$usuarioPermissao->getPermissao()->getId()."'>".
+                                                    $usuarioPermissao->getPermissao()->getNome().
+                                                "</option>";
+                                            }
+                                        echo "</select>".
+                                        "</div>
                                     </div>";
                                     }
                                     

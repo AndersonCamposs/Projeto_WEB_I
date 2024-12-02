@@ -1,4 +1,6 @@
 <?php
+include '../authenticator.php';
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/MedicoVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
 
@@ -21,6 +23,8 @@ if(isset($_POST['nome'])) {
         MedicoDAO::getInstance()->insert($medico);
     }   
 } else {
-    MedicoDAO::getInstance()->delete($_GET["id"]);
+    if(checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+        UsuarioDAO::getInstance()->delete($_GET["id"]);  
+    }
 }
 echo "<script> window.location.href='../medicoList.php'; </script>";

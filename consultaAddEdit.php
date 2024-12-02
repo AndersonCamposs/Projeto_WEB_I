@@ -2,6 +2,8 @@
 include 'authenticator.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/ConsultaDAO.php';
 
+checarLogin();
+
 $consulta = null;
 
 if(isset($_GET['id'])) {

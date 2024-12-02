@@ -1,6 +1,8 @@
 <?php
 include 'authenticator.php';
 
+checarLogin();
+
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/MedicoDAO.php";
 
 $medico = null;

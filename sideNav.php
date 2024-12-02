@@ -1,3 +1,7 @@
+<?php 
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php';
+?>
+
 <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
@@ -48,10 +52,15 @@
                             </a>
                             <div class="collapse" id="collapseMedicos" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="medicoAddEdit.php">
-                                        <i class="fa-regular fa-square-plus mx-2"></i>
-                                        Adicionar
-                                    </a>
+                                    <?php
+                                    if(checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+                                        echo 
+                                        "<a class='nav-link' href='medicoAddEdit.php'>
+                                            <i class='fa-regular fa-square-plus mx-2'></i>
+                                            Adicionar
+                                        </a>";
+                                    } 
+                                    ?>
                                     <a class="nav-link" href="medicoList.php">
                                         <i class="fa-regular fa-rectangle-list mx-2"></i>
                                         Listar
@@ -65,12 +74,17 @@
                             </a>
                             <div class="collapse" id="collapseUsuarios" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="usuarioAddEdit.php">
-                                        <i class="fa-regular fa-square-plus mx-2"></i>
-                                        Adicionar
-                                    </a>
-                                    <a class="nav-link" href="usuarioList.php">
-                                        <i class="fa-regular fa-rectangle-list mx-2"></i>
+                                    <?php
+                                    if(checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+                                        echo 
+                                        "<a class='nav-link' href='usuarioAddEdit.php'>
+                                            <i class='fa-regular fa-square-plus mx-2'></i>
+                                            Adicionar
+                                        </a>";
+                                    } 
+                                    ?>
+                                    <a class='nav-link' href='usuarioList.php'>
+                                        <i class='fa-regular fa-rectangle-list mx-2'></i>
                                         Listar
                                     </a>
                                 </nav>
@@ -78,8 +92,10 @@
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        Start Bootstrap
+                        <div class="small">Usuário ativo:</div>
+                        <?php
+                        echo $_SESSION["usuarioLogado"]->getNome();
+                        ?>
                     </div>
                 </nav>
             </div>

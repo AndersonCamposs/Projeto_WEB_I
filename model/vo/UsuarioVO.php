@@ -31,7 +31,7 @@ class UsuarioVO {
     public function getFoto() {
         return $this->foto;
     }
-
+    
     public function setId($id): void {
         $this->id = $id;
     }
@@ -54,7 +54,7 @@ class UsuarioVO {
 
     public function setFoto($foto): void {
         $this->foto = $foto;
-    }
+    }    
 }
 ?>
 

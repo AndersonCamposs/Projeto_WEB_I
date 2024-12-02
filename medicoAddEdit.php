@@ -1,6 +1,8 @@
 <?php
 include 'authenticator.php';
 
+checarLogin();
+
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.php";
@@ -8,8 +10,19 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/MedicoDAO.php";
 
 $medico = null;
 
-if (isset($_GET["id"])) {
+if(isset($_GET["id"])) {
+    if($_GET['id'] != $_SESSION["usuarioLogado"]->getId()) {
+        if (!checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+            header("Location: ./index.php");
+            die();
+        }
+    }
     $medico = MedicoDAO::getInstance()->getById($_GET["id"]);
+} else {
+    if (!checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+        header("Location: ./index.php");
+        die();
+    }
 }
 ?>
 
@@ -82,10 +95,7 @@ if (isset($_GET["id"])) {
                                             $listaEspecialidades = EspecialidadeDAO::getInstance()->listAll();
                                             foreach($listaEspecialidades as $especialidade) {
                                                 if ($medico != null && $medico->getEspecialidade()->getId() == $especialidade->getId()) {
-                                                        echo
-                                                        "<option selected value='".$especialidade->getId()."'>".
-                                                            $especialidade->getNome().
-                                                        "</option>";
+                                                        
                                                 } else {
                                                     echo
                                                     "<option value='".$especialidade->getId()."'>".

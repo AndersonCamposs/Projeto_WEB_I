@@ -1,7 +1,18 @@
 <?php 
 include 'authenticator.php';
 
+checarLogin();
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
+
+$isAdmin = false;
+$usuarioLogadoPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
+foreach($usuarioLogadoPermissoes as $usuarioLogadoPermissao) {
+    if ($usuarioLogadoPermissao->getPermissao()->getNome() == "ADMINISTRADOR") {
+        $isAdmin = true;
+    }
+}
 ?>
 
 <!DOCTYPE html>
@@ -57,14 +68,18 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
                                                 "<td>".$usuario->getEmail()."</td>".
                                                 "<td>".$usuario->getCPF()."</td>".
                                                 "<td><img id='profilePhoto' src='".$usuario->getFoto()."'/></td>".
-                                                "<td class='d-flex'>".
-                                                    ($_SESSION["usuarioLogado"]->getId() == $usuario->getId() ? 
-                                                    "<a href='./usuarioAddEdit.php?id=".$usuario->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>
-                                                    <a href='./controller/usuarioController.php?id=".$usuario->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a>"
-                                                    :
-                                                    "<h6>N/A</h6>"
-                                                    )
-                                                ."</td>".
+                                                "<td>";
+                                                    if(($_SESSION["usuarioLogado"]->getId() == $usuario->getId()) || $isAdmin) {
+                                                        echo "<a href='./usuarioAddEdit.php?id=".$usuario->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a> ";
+                                                    }
+                                                    if($isAdmin) {
+                                                        echo "<a href='./controller/usuarioController.php?id=".$usuario->getId()."' class='btn btn-outline-danger'><i class='fas fa-trash'></i>Apagar</a> ";
+                                                    }
+                                                    if(($_SESSION["usuarioLogado"]->getId() != $usuario->getId()) && !$isAdmin) {
+                                                       echo "<h6>N/A</h6>"; 
+                                                    }
+                                                    
+                                            echo "</td>".
                                             "</tr>"
                                                     ;
                                         }

@@ -28,7 +28,11 @@ class UsuarioDAO {
             $p_sql->bindValue(":senha", $usuario->getSenha());
             $p_sql->bindValue(":foto", $usuario->getFoto());
             
-            return $p_sql->execute();
+            $p_sql->execute();
+            
+            // ALTERAÇÃO REALIZADA COM O INTUITO DE RETORNAR O NOVO USUÁRIO RECÉM INSERIDO NO BANCO 
+            return $this->getById(BDPDO::getInstance()->lastInsertId());
+            
         } catch (Exception $e) {
             print "Erro ao executar a função de salvar: " . $e->getMessage();
         }
@@ -48,7 +52,8 @@ class UsuarioDAO {
             $p_sql->bindValue(":foto", $usuario->getFoto());
             $p_sql->bindValue(":id", $usuario->getId());
             
-            return $p_sql->execute();
+            $p_sql->execute();
+            
         } catch (Exception $e) {
             print "Erro ao executar a função de atualizar os dados: " . $e->getMessage();
         }
