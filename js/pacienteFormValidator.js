@@ -1,4 +1,4 @@
-const usuarioAddEditForm = document.getElementById("usuarioAddEditForm");
+const pacienteAddEditForm = document.getElementById("pacienteAddEditForm");
 // OBTÉM A DIV EM QUE SERÁ EXIBIDA O AVISO DE ERRO DE VALIDAÇÃO CRIA A DIV QUE EXIBIRÁ ESSAS INFORMAÇÕES
 const addEditValidationErrors = document.getElementById("addEditValidationErrors");
 const  warningDiv = document.createElement("div");
@@ -9,18 +9,18 @@ warningDiv.classList.add("w-25");
 warningDiv.classList.add("mx-3");
 addEditValidationErrors.appendChild(warningDiv);
 
-usuarioAddEditForm.addEventListener("submit", (e) => {
+pacienteAddEditForm.addEventListener("submit", (e) => {
     // LIMPANDO OS AVISOS DE ERROS CASO JÁ TENHAM SIDO EXIBIDOS ANTERIORMENTE
     addEditValidationErrors.classList.add("d-none");
     addEditValidationErrors.classList.remove("d-flex");
     warningDiv.innerHTML = "";
     
-    let inputNome = document.getElementById("inputNome");
-    let inputEmail = document.getElementById("inputEmail");
+    let inputNome = document.getElementById("inputNome") ;
+    let inputDataNasc = document.getElementById("inputDataNasc");
     let inputCpf = document.getElementById("inputCpf");
-    let inputSenha = document.getElementById("inputSenha");
-    let inputRepetirSenha = document.getElementById("inputRepetirSenha");
-    let inputFoto = document.getElementById("inputFoto");
+    let inputRg = document.getElementById("inputRg");
+    let inputCelular = document.getElementById("inputCelular");
+    let inputEmail = document.getElementById("inputEmail");
     
     let errors = [];
     
@@ -28,9 +28,10 @@ usuarioAddEditForm.addEventListener("submit", (e) => {
         errors.push("O nome é obrigatório.");
     }
     
-    let patternEmail = new RegExp('([A-Za-z0-9_\.]*)@([a-z]+)(\.[a-z]+)', 'g');
-    if (!patternEmail.test(inputEmail.value)) {
-        errors.push("E-mail inválido.");
+    let dataNasc = inputDataNasc.value.split("-");
+    dataNasc = new Date(dataNasc[0], dataNasc[1]-1, dataNasc[2]);
+    if (dataNasc > new Date()) {
+        errors.push("Data de nascimento inválida");
     }
     
     let patternCpf = new RegExp("[^0-9]", "g");
@@ -39,16 +40,28 @@ usuarioAddEditForm.addEventListener("submit", (e) => {
     }
     
     let cpf = inputCpf.value.replace(/\D/g, "");
-    if (inputCpf.value.length !== 11) {
+    if (cpf.length !== 11) {
         errors.push("O CPF precisa ter 11 dígitos.");
     }
     
-    if (inputSenha.value.length < 6) {
-        errors.push("A senha precisa ter no mínimo 6 dígitos.");
+    if (inputRg.value.length === 0) {
+        errors.push("Informe o RG");
     }
     
-    if (inputSenha.value != inputRepetirSenha.value) {
-        errors.push("As senhas precisam ser iguais.");
+    if(inputCelular.value.length === 0) {
+        errors.push("Informe o celular.");
+    }
+    
+    let patternCelular = new RegExp("[^0-9]", "g");
+    if(patternCelular.test(inputCelular.value)) {
+        errors.push("O celular deve conter apenas números.");
+    }
+    
+    if(inputEmail.value) {
+        let patternEmail = new RegExp('([A-Za-z0-9_\.]*)@([a-z]+)(\.[a-z]+)', 'g');
+        if (!patternEmail.test(inputEmail.value)) {
+            errors.push("E-mail inválido.");
+        }
     }
     
     if (errors.length !== 0) {
@@ -61,4 +74,3 @@ usuarioAddEditForm.addEventListener("submit", (e) => {
     }
     
 });
-

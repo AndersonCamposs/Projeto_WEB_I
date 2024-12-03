@@ -219,10 +219,10 @@ if(isset($_GET["id"])) {
                                                 
                                             </div>
                                         </div>
-                                        <!-- VALIDATION ERRORS -->
-                                        <div id="addEditValidationErrors" class="d-none justify-content-center flex-wrap my-3">
-                                            
-                                        </div>
+                                    </div>
+                                    <!-- VALIDATION ERRORS -->
+                                    <div id="addEditValidationErrors" class="d-none justify-content-center flex-wrap my-3">
+
                                     </div>
                                 </form>
                             </div>
