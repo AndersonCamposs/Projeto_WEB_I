@@ -75,5 +75,4 @@ consultaAddEditForm.addEventListener("submit", (e) => {
         addEditValidationErrors.classList.remove("d-none");
         addEditValidationErrors.classList.add("d-flex");
     }
-    
 });
