@@ -108,8 +108,20 @@ if(isset($_GET['id'])) {
                                     </div>
                                     <!-- VALIDATION ERRORS -->
                                     <div id="addEditValidationErrors" class="d-none justify-content-center flex-wrap my-3">
-
+                                       
                                     </div>
+                                    <?php
+                                        if(isset($_SESSION["consultaArrayErros"])) {
+                                            echo 
+                                            "<div class='d-flex justify-content-center flex-wrap my-3'>".
+                                                "<div class='alert alert-danger w-25'>".
+                                                    $_SESSION["consultaArrayErros"][0];
+                                                "</div>".
+                                            "</div>";
+                                                
+                                            unset($_SESSION["consultaArrayErros"]);
+                                        }
+                                    ?>
                                 </form>
                             </div>
                         </div>
