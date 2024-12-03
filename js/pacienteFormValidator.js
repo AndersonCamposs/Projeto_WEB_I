@@ -34,8 +34,8 @@ pacienteAddEditForm.addEventListener("submit", (e) => {
         errors.push("Data de nascimento inválida");
     }
     
-    let patternCpf = new RegExp("[^0-9]", "g");
-    if (patternCpf.test(inputCpf.value)) {
+    let onlyNumbersPattern = new RegExp("[^0-9]", "g");
+    if (onlyNumbersPattern.test(inputCpf.value)) {
         errors.push("O CPF precisa ter somente números.");
     }
     
