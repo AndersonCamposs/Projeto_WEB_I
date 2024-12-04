@@ -20,8 +20,12 @@ consultaAddEditForm.addEventListener("submit", (e) => {
     let inputValor = document.getElementById("inputValor");
     let inputDataConsulta = document.getElementById("inputDataConsulta");
     let checkBoxDataConsulta = document.getElementById("checkBoxDataConsulta");
+    
     if (checkBoxDataConsulta.checked) {
         let dataAtual = new Date();
+        /*DIMINUINDO A HORA ATUAL PORQUE NO MOMENTO DE CONVERTER PARA
+        isoString para o deslocamento 0 UTC (O BRASIL É UTC + 3)*/
+        dataAtual.setHours(dataAtual.getHours() - 3);
         let isoString = dataAtual.toISOString();
         inputDataConsulta.value = isoString.split("T")[0];
     }

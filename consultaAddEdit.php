@@ -120,6 +120,7 @@ if(isset($_GET['id'])) {
                                             "</div>";
                                                 
                                             unset($_SESSION["consultaArrayErros"]);
+                                            unset($_SESSION["consultaArrayDados"]);
                                         }
                                     ?>
                                 </form>
