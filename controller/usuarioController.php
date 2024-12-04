@@ -64,6 +64,10 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
         if(isset($_POST['id'])) {
             $usuario->setId($_POST['id']);
             
+            // OBTÉM A FOTO SO USUÁRIO, CASO ELE TENHA UMA FOTO, ELA É SETADA 
+            // NO OBJETO UsuarioVO QUE SERÁ ENVIADO PARA O MÉTODO update
+            $fotoUsuario = UsuarioDAO::getInstance()->getById($usuario->getId())->getFoto();
+            if(isset($fotoUsuario)) { $usuario->setFoto($fotoUsuario); }
             // EM CASO DE ATUALIZAÇÃO, VERIFICA SE AQUELA PERMISSÃO ESPECÍFICA JÁ NÃO FOI CONCEDIDA ÀQUELE USUÁRIO
             $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idPermissao = :idPermissao AND idUsuario = :idUsuario", 
             array(0 => ":idPermissao", 1 => ":idUsuario"), array(0 => $_POST["permissao"], 1 => $usuario->getId()));
