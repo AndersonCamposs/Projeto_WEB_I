@@ -53,12 +53,13 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/ConsultaDAO.php';
                                         $listaConsultas = ConsultaDAO::getInstance()->listAll();
                                         
                                         foreach ($listaConsultas as $consulta) {
+                                            $arrayDataConsulta = explode("-", $consulta->getDataConsulta());
                                             echo 
                                             "<tr>".
                                                 "<td>".$consulta->getId()."</td>".
                                                 "<td>".$consulta->getMedico()->getCpf()."</td>".
                                                 "<td>".$consulta->getPaciente()->getCpf()."</td>".
-                                                "<td>". str_replace("-", "/", $consulta->getDataConsulta())."</td>".
+                                                "<td>".$arrayDataConsulta[2]."/".$arrayDataConsulta[1]."/".$arrayDataConsulta[0]."</td>".
                                                 "<td>".$consulta->getValor()."</td>".
                                                 "<td>
                                                     <a href='./consultaAddEdit.php?id=".$consulta->getId()."' class='btn btn-outline-warning'><i class='fas fa-pen'></i>Editar</a>

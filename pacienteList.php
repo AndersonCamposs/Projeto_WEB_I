@@ -57,11 +57,12 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
                                         $listaPacientes = PacienteDAO::getInstance()->listAll();
                                         
                                         foreach ($listaPacientes as $paciente) {
+                                            $arrayDataNasc = explode("-", $paciente->getDataNascimento());
                                             echo 
                                             "<tr>".
                                                 "<td>".$paciente->getId()."</td>".
                                                 "<td>".$paciente->getNome()."</td>".
-                                                "<td>". str_replace("-", "/", $paciente->getDataNascimento())."</td>".
+                                                "<td>".$arrayDataNasc[2]."/".$arrayDataNasc[1]."/".$arrayDataNasc[0]."</td>".
                                                 "<td>".$paciente->getCpf()."</td>".
                                                 "<td>".$paciente->getRg()."</td>".
                                                 "<td>".$paciente->getCelular()."</td>".
