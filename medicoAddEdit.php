@@ -137,6 +137,57 @@ if(isset($_GET["id"])) {
                                             ?>
                                         </div>
                                     </div>
+                                    <div class="row mb-3">
+                                        <div class="col-12">
+                                            <label class="mb-1">Dias de atendimento:</label>
+                                            <div class="d-flex flex-row">
+                                                <div class="form-check me-3">
+                                                    <input class="form-check-input" type="checkbox" value="Segunda-feira" id="ckbxSegunda" name="segunda">
+                                                    <label class="form-check-label" for="ckbxSegunda">
+                                                      Segunda-feira
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ms-3 me-3">
+                                                    <input class="form-check-input" type="checkbox" value="Terça-feira" id="ckbxTerca" name="terça">
+                                                    <label class="form-check-label" for="ckbxTerca">
+                                                      Terça-feira
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ms-3 me-3">
+                                                    <input class="form-check-input" type="checkbox" value="Quarta-feira" id="ckbxQuarta" name="quarta">
+                                                    <label class="form-check-label" for="ckbxQuarta">
+                                                      Quarta-feira
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ms-3 me-3">
+                                                    <input class="form-check-input" type="checkbox" value="Quinta-feira" id="ckbxQuinta" name="quinta">
+                                                    <label class="form-check-label" for="ckbxQuinta">
+                                                      Quinta-feira
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ms-3 me-3">
+                                                    <input class="form-check-input" type="checkbox" value="Sexta-feira" id="ckbxSexta" name="sexta">
+                                                    <label class="form-check-label" for="ckbxSexta">
+                                                      Sexta-feira
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ms-3 me-3">
+                                                    <input class="form-check-input" type="checkbox" value="Sábado" id="ckbxSabado" name="sábado">
+                                                    <label class="form-check-label" for="ckbxSabado">
+                                                      Sábado
+                                                    </label>
+                                                </div>
+                                                <div class="form-check ms-3 me-3">
+                                                    <input class="form-check-input" type="checkbox" value="Domingo" id="ckbxDomingo" name="domingo">
+                                                    <label class="form-check-label" for="ckbxDomingo">
+                                                      Domingo
+                                                    </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        
+                                    </div>
                                     <div class="row my-3">
                                         <div class="col-12">
                                             <div class="d-flex justify-content-center">

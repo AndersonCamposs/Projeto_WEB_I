@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/ac_clinic/controller/loginController.php</file>
-            <file>file:/C:/xampp/htdocs/ac_clinic/authenticator.php</file>
-            <file>file:/C:/xampp/htdocs/ac_clinic/consultaAddEdit.php</file>
-            <file>file:/C:/xampp/htdocs/ac_clinic/controller/consultaController.php</file>
-            <file>file:/C:/xampp/htdocs/ac_clinic/login.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/js/usuarioFormValidator.js</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/usuarioAddEdit.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/controller/usuarioController.php</file>
+            <file>file:/C:/xampp/htdocs/ac_clinic/model/vo/UsuarioVO.php</file>
         </group>
     </open-files>
 </project-private>

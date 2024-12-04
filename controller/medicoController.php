@@ -18,13 +18,13 @@ if(isset($_POST['nome'])) {
     if(isset($_POST['id'])) {
         $medico->setId($_POST['id']);
         
-        MedicoDAO::getInstance()->update($medico);
+        //MedicoDAO::getInstance()->update($medico);
     } else {
-        MedicoDAO::getInstance()->insert($medico);
+        //MedicoDAO::getInstance()->insert($medico);
     }   
 } else {
     if(checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
-        UsuarioDAO::getInstance()->delete($_GET["id"]);  
+        //UsuarioDAO::getInstance()->delete($_GET["id"]);  
     }
 }
-echo "<script> window.location.href='../medicoList.php'; </script>";
+//echo "<script> window.location.href='../medicoList.php'; </script>";

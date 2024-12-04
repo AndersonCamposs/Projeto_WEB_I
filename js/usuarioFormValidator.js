@@ -1,26 +1,5 @@
 import resizePhoto from "./photoResizer.js";
 
-let inputFoto = document.getElementById("inputFoto");
-
-inputFoto.addEventListener("change", async (e) => {
-        
-    const arquivo = inputFoto.files[0];
-    if(arquivo) {
-        try {
-            const blobRedimencionado = await resizePhoto(arquivo, 736, 736);
-            const imagemRedimencionada = new File([blobRedimencionado], arquivo.name, { type:blobRedimencionado.type });
-            // CRIA O DataTransfer PARA SUBSTITUIR O ARQUIVO DO INPUT
-            const transferidor = new DataTransfer();
-            transferidor.items.add(imagemRedimencionada);
-            inputFoto.files = transferidor.files;
-
-        } catch (e) {
-            console.log("Erro ao redimencionar a imagem: " + e);
-        }
-
-    }
-})
-
 export default function usuarioFormValidator (e, addEditValidationErrors, warningDiv) {
     // LIMPANDO OS AVISOS DE ERROS CASO JÁ TENHAM SIDO EXIBIDOS ANTERIORMENTE
     addEditValidationErrors.classList.add("d-none");
@@ -32,7 +11,22 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
     let inputCpf = document.getElementById("inputCpf");
     let inputSenha = document.getElementById("inputSenha");
     let inputRepetirSenha = document.getElementById("inputRepetirSenha");
-    
+    let inputFoto = document.getElementById("inputFoto");
+    if(inputFoto.files[0]) {
+        (async function() {
+            let arquivo = inputFoto.files[0];
+            try {
+                const blobRedimencionado = await resizePhoto(arquivo, 736, 736);
+                const imagemRedimencionada = new File([blobRedimencionado], arquivo.name, { type:blobRedimencionado.type });
+                // CRIA O DataTransfer PARA SUBSTITUIR O ARQUIVO DO INPUT
+                const transferidor = new DataTransfer();
+                transferidor.items.add(imagemRedimencionada);
+                inputFoto.files = transferidor.files;
+            } catch (e) {
+                console.log("Erro ao redimencionar a imagem: " + e);
+            }
+        })()
+    }
     
     
     let errors = [];
