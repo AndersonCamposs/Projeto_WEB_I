@@ -1,15 +1,6 @@
-const usuarioAddEditForm = document.getElementById("usuarioAddEditForm");
-// OBTÉM A DIV EM QUE SERÁ EXIBIDA O AVISO DE ERRO DE VALIDAÇÃO CRIA A DIV QUE EXIBIRÁ ESSAS INFORMAÇÕES
-const addEditValidationErrors = document.getElementById("addEditValidationErrors");
-const  warningDiv = document.createElement("div");
-warningDiv.classList.add("alert");
-warningDiv.classList.add("alert-danger");
-warningDiv.classList.add("text-center");
-warningDiv.classList.add("w-25");
-warningDiv.classList.add("mx-3");
-addEditValidationErrors.appendChild(warningDiv);
 
-usuarioAddEditForm.addEventListener("submit", (e) => {
+
+export default function usuarioFormValidator (e, addEditValidationErrors, warningDiv) {
     // LIMPANDO OS AVISOS DE ERROS CASO JÁ TENHAM SIDO EXIBIDOS ANTERIORMENTE
     addEditValidationErrors.classList.add("d-none");
     addEditValidationErrors.classList.remove("d-flex");
@@ -60,5 +51,5 @@ usuarioAddEditForm.addEventListener("submit", (e) => {
         addEditValidationErrors.classList.add("d-flex");
     }
     
-});
+}
 

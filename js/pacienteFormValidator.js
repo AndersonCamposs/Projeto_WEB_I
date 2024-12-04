@@ -1,15 +1,6 @@
-const pacienteAddEditForm = document.getElementById("pacienteAddEditForm");
-// OBTÉM A DIV EM QUE SERÁ EXIBIDA O AVISO DE ERRO DE VALIDAÇÃO CRIA A DIV QUE EXIBIRÁ ESSAS INFORMAÇÕES
-const addEditValidationErrors = document.getElementById("addEditValidationErrors");
-const  warningDiv = document.createElement("div");
-warningDiv.classList.add("alert");
-warningDiv.classList.add("alert-danger");
-warningDiv.classList.add("text-center");
-warningDiv.classList.add("w-25");
-warningDiv.classList.add("mx-3");
-addEditValidationErrors.appendChild(warningDiv);
 
-pacienteAddEditForm.addEventListener("submit", (e) => {
+
+export default function pacienteFormValidator(e, addEditValidationErrors, warningDiv) {
     // LIMPANDO OS AVISOS DE ERROS CASO JÁ TENHAM SIDO EXIBIDOS ANTERIORMENTE
     addEditValidationErrors.classList.add("d-none");
     addEditValidationErrors.classList.remove("d-flex");
@@ -26,6 +17,10 @@ pacienteAddEditForm.addEventListener("submit", (e) => {
     
     if (inputNome.value === "") {
         errors.push("O nome é obrigatório.");
+    }
+    
+    if(!inputDataNasc.value) {
+        errors.push("A data de nascimento é obrigatória.");
     }
     
     let dataNasc = inputDataNasc.value.split("-");
@@ -73,4 +68,4 @@ pacienteAddEditForm.addEventListener("submit", (e) => {
         addEditValidationErrors.classList.add("d-flex");
     }
     
-});
+}

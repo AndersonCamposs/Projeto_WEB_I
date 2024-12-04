@@ -1,15 +1,6 @@
-const consultaAddEditForm = document.getElementById("consultaAddEditForm");
-// OBTÉM A DIV EM QUE SERÁ EXIBIDA O AVISO DE ERRO DE VALIDAÇÃO CRIA A DIV QUE EXIBIRÁ ESSAS INFORMAÇÕES
-const addEditValidationErrors = document.getElementById("addEditValidationErrors");
-const  warningDiv = document.createElement("div");
-warningDiv.classList.add("alert");
-warningDiv.classList.add("alert-danger");
-warningDiv.classList.add("text-center");
-warningDiv.classList.add("w-25");
-warningDiv.classList.add("mx-3");
-addEditValidationErrors.appendChild(warningDiv);
 
-consultaAddEditForm.addEventListener("submit", (e) => {
+
+export default function consultaFormValidator (e, addEditValidationErrors, warningDiv) {
     // LIMPANDO OS AVISOS DE ERROS CASO JÁ TENHAM SIDO EXIBIDOS ANTERIORMENTE
     addEditValidationErrors.classList.add("d-none");
     addEditValidationErrors.classList.remove("d-flex");
@@ -32,9 +23,17 @@ consultaAddEditForm.addEventListener("submit", (e) => {
 
     let errors = [];
     
+    if(!inputCpfPaciente.value) {
+        errors.push("O CPF do paciente é obrigatório.")
+    }
+    
     let onlyNumbersPattern = new RegExp("[^0-9]", "g");
     if (onlyNumbersPattern.test(inputCpfPaciente.value)) {
         errors.push("O CPF do paciente precisa ter somente números.");
+    }
+    
+    if(!inputCpfMedico.value) {
+        errors.push("O CPF do médico é obrigatório.")
     }
     
     if (onlyNumbersPattern.test(inputCpfMedico.value)) {
@@ -79,4 +78,4 @@ consultaAddEditForm.addEventListener("submit", (e) => {
         addEditValidationErrors.classList.remove("d-none");
         addEditValidationErrors.classList.add("d-flex");
     }
-});
+}

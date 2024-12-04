@@ -139,6 +139,6 @@ if(isset($_GET['id'])) {
         <script src="js/datatables-simple-demo.js"></script>
         
         <!-- SCRIPT QUE VALIDA O FORMULÁRIO -->
-        <script src="./js/consultaFormValidator.js"></script>
+        <script src="./js/globalFormValidator.js" type="module"></script>
     </body>
 </html>

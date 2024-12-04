@@ -1,15 +1,5 @@
-const medicoAddEditForm = document.getElementById("medicoAddEditForm");
-// OBTÉM A DIV EM QUE SERÁ EXIBIDA O AVISO DE ERRO DE VALIDAÇÃO CRIA A DIV QUE EXIBIRÁ ESSAS INFORMAÇÕES
-const addEditValidationErrors = document.getElementById("addEditValidationErrors");
-const  warningDiv = document.createElement("div");
-warningDiv.classList.add("alert");
-warningDiv.classList.add("alert-danger");
-warningDiv.classList.add("text-center");
-warningDiv.classList.add("w-25");
-warningDiv.classList.add("mx-3");
-addEditValidationErrors.appendChild(warningDiv);
 
-medicoAddEditForm.addEventListener("submit", (e) => {
+export default function medicoFormValidator (e, addEditValidationErrors, warningDiv) {
     // LIMPANDO OS AVISOS DE ERROS CASO JÁ TENHAM SIDO EXIBIDOS ANTERIORMENTE
     addEditValidationErrors.classList.add("d-none");
     addEditValidationErrors.classList.remove("d-flex");
@@ -27,10 +17,14 @@ medicoAddEditForm.addEventListener("submit", (e) => {
         errors.push("O nome é obrigatório.");
     }
     
+    if(!inputDataNasc.value) {
+        errors.push("A data de nascimento é obrigatória.");
+    }
+    
     let dataNasc = inputDataNasc.value.split("-");
     dataNasc = new Date(dataNasc[0], dataNasc[1]-1, dataNasc[2]);
     if (dataNasc > new Date()) {
-        errors.push("Data de nascimento inválida");
+        errors.push("Data de nascimento inválida.");
     }
     
     let onlyNumbersPattern = new RegExp("[^0-9]", "g");
@@ -65,7 +59,7 @@ medicoAddEditForm.addEventListener("submit", (e) => {
         addEditValidationErrors.classList.add("d-flex");
     }
     
-});
+}
 
 
 
