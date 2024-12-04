@@ -17,12 +17,6 @@ warningDiv.classList.add("w-25");
 warningDiv.classList.add("mx-3");
 addEditValidationErrors.appendChild(warningDiv);
 
-console.log(usuarioAddEditForm);
-console.log(medicoAddEditForm);
-console.log(pacienteAddEditForm);
-console.log(consultaAddEditForm);
-
-
 if(usuarioAddEditForm) {
     usuarioAddEditForm.addEventListener("submit", (e) => usuarioFormValidator(e, addEditValidationErrors, warningDiv));
 }
