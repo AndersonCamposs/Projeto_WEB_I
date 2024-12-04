@@ -1,5 +1,5 @@
 <?php 
-include '../authenticator.php';
+include './authenticator.php';
 ?>
 
 <!DOCTYPE html>

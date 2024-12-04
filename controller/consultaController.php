@@ -7,7 +7,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
 
 
-
+$erro = false;
 if(isset($_POST['cpfMedico'])) {
     $pacienteConsulta = PacienteDAO::getInstance()->getByCpf($_POST["cpfPaciente"]);
     $medicoConsulta = MedicoDAO::getInstance()->getByCpf($_POST["cpfMedico"]);
@@ -24,15 +24,25 @@ if(isset($_POST['cpfMedico'])) {
     
     if($erro) {
         $consultaArrayErros = [];
+        $consultaArrayDados = [];
         if(isset($pacienteErrorMessage)) {
             $consultaArrayErros[] = $pacienteErrorMessage;
         }
         if(isset($medicoErrorMessage)) {
             $consultaArrayErros[] = $medicoErrorMessage;
         }
-       
+        $consultaArrayDados["cpfPaciente"] = $_POST["cpfPaciente"];
+        $consultaArrayDados["cpfMedico"] = $_POST["cpfMedico"];
+        $consultaArrayDados["valor"] = $_POST["valor"];
+        $consultaArrayDados["dataConsulta"] = $_POST["dataConsulta"];
+        $consultaArrayDados["metodoPagamento"] = $_POST["metodoPagamento"];
+        
         $_SESSION["consultaArrayErros"] = $consultaArrayErros;
-        header("Location: ../consultaAddEdit.php");
+        $_SESSION["consultaArrayDados"] = $consultaArrayDados;
+        
+        /* CASO A QUERY STRING "id" ESTEJA SETADA, REDIRECIONA PARA A RESPECTIVA 
+        PÁGINA DE ADD EDIT DA CONSULTA REFERENTE AO ID*/
+        isset($_POST["id"]) ? header("Location: ../consultaAddEdit.php?id=".$_POST["id"]): header("Location: ../consultaAddEdit.php");
         exit;
     }
     

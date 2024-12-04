@@ -44,7 +44,7 @@ if(isset($_GET['id'])) {
                                             <?php
                                             echo
                                             "<input id='inputCpfPaciente' class='form-control' type='text' name='cpfPaciente' value='"
-                                            .($consulta == null ? '' : $consulta->getPaciente()->getCpf())."'>"
+                                            .($consulta == null ? (isset($_SESSION["consultaArrayDados"]) ? $_SESSION["consultaArrayDados"]["cpfPaciente"] : '') : $consulta->getPaciente()->getCpf())."'>"
                                             ?>
                                         </div>
                                         <div class="col-3">
@@ -52,7 +52,7 @@ if(isset($_GET['id'])) {
                                             <?php
                                             echo
                                             "<input id='inputCpfMedico' class='form-control' type='text' name='cpfMedico' value='"
-                                            .($consulta == null ? '' : $consulta->getMedico()->getCpf())."'>"
+                                            .($consulta == null ? (isset($_SESSION["consultaArrayDados"]) ? $_SESSION["consultaArrayDados"]["cpfMedico"] : '') : $consulta->getMedico()->getCpf())."'>"
                                             ?>
                                         </div>
                                         <div class="col-3">
@@ -60,7 +60,7 @@ if(isset($_GET['id'])) {
                                             <?php
                                             echo
                                             "<input id='inputValor' class='form-control' type='text' placeholder='Ex: 200.00' name='valor' value='"
-                                            .($consulta == null ? '' : $consulta->getValor())."'>"
+                                            .($consulta == null ? (isset($_SESSION["consultaArrayDados"]) ? $_SESSION["consultaArrayDados"]["valor"] : '') : $consulta->getValor())."'>"
                                             ?>
                                         </div>
                                         <div class="col-3">
@@ -80,7 +80,7 @@ if(isset($_GET['id'])) {
                                             <?php
                                             echo
                                             "<input id='inputDataConsulta' class='form-control' type='date' name='dataConsulta' value='"
-                                            .($consulta == null ? '' : $consulta->getValor())."'>"
+                                            .($consulta == null ? (isset($_SESSION["consultaArrayDados"]) ? $_SESSION["consultaArrayDados"]["dataConsulta"] : '') : $consulta->getDataConsulta())."'>"
                                             ?>
                                         </div>
                                         <div class="mt-2">
@@ -114,7 +114,7 @@ if(isset($_GET['id'])) {
                                         if(isset($_SESSION["consultaArrayErros"])) {
                                             echo 
                                             "<div class='d-flex justify-content-center flex-wrap my-3'>".
-                                                "<div class='alert alert-danger w-25'>".
+                                                "<div class='alert alert-danger text-center w-50'>".
                                                     $_SESSION["consultaArrayErros"][0];
                                                 "</div>".
                                             "</div>";
