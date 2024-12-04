@@ -1,6 +1,8 @@
 <?php
+include '../authenticator.php';
+
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
-session_start();
+
 
 $email = $_POST["email"];
 $senha = $_POST["senha"];

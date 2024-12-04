@@ -31,7 +31,7 @@ if(isset($_GET['id'])) {
                                 Adicionar Consulta
                             </div>
                             <div class="card-body">
-                                <form action="./controller/consultaController.php" method="POST">
+                                <form id="consultaAddEditForm" action="./controller/consultaController.php" method="POST">
                                     <?php
                                         if ($consulta != null) {
                                             echo
@@ -43,24 +43,24 @@ if(isset($_GET['id'])) {
                                             CPF do Paciente:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='cpfPaciente' value='"
-                                            .($consulta == null ? '' : $consulta->getPaciente()->getCpf())."'>"
+                                            "<input id='inputCpfPaciente' class='form-control' type='text' name='cpfPaciente' value='"
+                                            .($consulta == null ? (isset($_SESSION["consultaArrayDados"]) ? $_SESSION["consultaArrayDados"]["cpfPaciente"] : '') : $consulta->getPaciente()->getCpf())."'>"
                                             ?>
                                         </div>
                                         <div class="col-3">
                                             CPF do Médico:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='cpfMedico' value='"
-                                            .($consulta == null ? '' : $consulta->getMedico()->getCpf())."'>"
+                                            "<input id='inputCpfMedico' class='form-control' type='text' name='cpfMedico' value='"
+                                            .($consulta == null ? (isset($_SESSION["consultaArrayDados"]) ? $_SESSION["consultaArrayDados"]["cpfMedico"] : '') : $consulta->getMedico()->getCpf())."'>"
                                             ?>
                                         </div>
                                         <div class="col-3">
                                             Valor da consulta(R$):
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='valor' value='"
-                                            .($consulta == null ? '' : $consulta->getValor())."'>"
+                                            "<input id='inputValor' class='form-control' type='text' placeholder='Ex: 200.00' name='valor' value='"
+                                            .($consulta == null ? (isset($_SESSION["consultaArrayDados"]) ? $_SESSION["consultaArrayDados"]["valor"] : '') : $consulta->getValor())."'>"
                                             ?>
                                         </div>
                                         <div class="col-3">
@@ -71,6 +71,25 @@ if(isset($_GET['id'])) {
                                                 <option value="credito">Cartão de crédito</option>
                                                 <option value="debito">Cartão de débito</option>
                                             </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-3">
+                                            Data da consulta:
+                                            <?php
+                                            echo
+                                            "<input id='inputDataConsulta' class='form-control' type='date' name='dataConsulta' value='"
+                                            .($consulta == null ? (isset($_SESSION["consultaArrayDados"]) ? $_SESSION["consultaArrayDados"]["dataConsulta"] : '') : $consulta->getDataConsulta())."'>"
+                                            ?>
+                                        </div>
+                                        <div class="mt-2">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" id="checkBoxDataConsulta">
+                                                <label class="form-check-label" for="checkBoxDataConsulta">
+                                                  Marcar para a data de hoje
+                                                </label>
+                                            </div>
                                         </div>
                                     </div>
                                     
@@ -87,6 +106,23 @@ if(isset($_GET['id'])) {
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- VALIDATION ERRORS -->
+                                    <div id="addEditValidationErrors" class="d-none justify-content-center flex-wrap my-3">
+                                       
+                                    </div>
+                                    <?php
+                                        if(isset($_SESSION["consultaArrayErros"])) {
+                                            echo 
+                                            "<div class='d-flex justify-content-center flex-wrap my-3'>".
+                                                "<div class='alert alert-danger text-center w-50'>".
+                                                    $_SESSION["consultaArrayErros"][0];
+                                                "</div>".
+                                            "</div>";
+                                                
+                                            unset($_SESSION["consultaArrayErros"]);
+                                            unset($_SESSION["consultaArrayDados"]);
+                                        }
+                                    ?>
                                 </form>
                             </div>
                         </div>
@@ -101,5 +137,8 @@ if(isset($_GET['id'])) {
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        
+        <!-- SCRIPT QUE VALIDA O FORMULÁRIO -->
+        <script src="./js/globalFormValidator.js" type="module"></script>
     </body>
 </html>

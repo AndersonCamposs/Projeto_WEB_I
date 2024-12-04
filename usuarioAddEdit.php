@@ -11,7 +11,7 @@ $usuario = null;
 
 if(isset($_GET["id"])) {
     if($_GET['id'] != $_SESSION["usuarioLogado"]->getId()) {
-        if (!checarAutorizacao(PermissaoDAO::getInstance()->getById(1))) {
+        if (!checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
             header("Location: ./index.php");
             die();
         }
@@ -58,7 +58,7 @@ if(isset($_GET["id"])) {
                                 Adicionar Usuário
                             </div>
                             <div class="card-body">
-                                <form method="POST" action="./controller/usuarioController.php" enctype="multipart/form-data">
+                                <form id="usuarioAddEditForm" method="POST" action="./controller/usuarioController.php" enctype="multipart/form-data">
                                     <?php
                                         if ($usuario != null) {
                                             echo
@@ -70,7 +70,7 @@ if(isset($_GET["id"])) {
                                             Nome:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='nome' value='"
+                                            "<input id='inputNome' class='form-control' type='text' name='nome' value='"
                                             .($usuario == null ? '' : $usuario->getNome()) . "'>"
                                             ?>
                                             
@@ -79,7 +79,7 @@ if(isset($_GET["id"])) {
                                             E-mail:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='email' placeholder='example@email.com' value='"
+                                            "<input id='inputEmail' class='form-control' type='text' name='email' placeholder='example@email.com' value='"
                                             .($usuario == null ? '' : $usuario->getEmail()) . "'>"
                                             ?>
                                         </div>
@@ -89,7 +89,7 @@ if(isset($_GET["id"])) {
                                             CPF:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='cpf' value='"
+                                            "<input id='inputCpf'class='form-control' type='text' name='cpf' value='"
                                             .($usuario == null ? '' : $usuario->getCpf()) . "'>"
                                             ?>
                                         </div>
@@ -99,7 +99,7 @@ if(isset($_GET["id"])) {
                                         "
                                         <div class='col-8'>
                                             Foto de perfil:
-                                            <input class='form-control' type='file' name='foto'>
+                                            <input id='inputFoto' class='form-control' type='file' name='foto'>
                                         </div>";
                                         
                                         }
@@ -109,7 +109,7 @@ if(isset($_GET["id"])) {
                                             if($usuario == null) {
                                                 echo
                                                 "Senha:".
-                                                "<input class='form-control' type='password' name='senha'/>";
+                                                "<input id='inputSenha' class='form-control' type='password' name='senha'/>";
                                             }
                                             ?>
                                             
@@ -120,7 +120,7 @@ if(isset($_GET["id"])) {
                                             if($usuario == null) {
                                                 echo
                                                 "Repetir Senha:".
-                                                "<input class='form-control' type='password' name='repetirSenha'/>";
+                                                "<input id='inputRepetirSenha' class='form-control' type='password' name='repetirSenha'/>";
                                             }
                                             ?>
                                         </div>
@@ -154,7 +154,7 @@ if(isset($_GET["id"])) {
                                     "<div class='row mb-3'>".
                                         "<div class='col-8'>".
                                             "Foto de perfil:".
-                                            "<input class='form-control' type='file' name='foto'>".
+                                            "<input id='inputFoto' class='form-control' type='file' name='foto'>".
                                         "</div>".
                                         "<div class='col-4'>".
                                             "Permissões do usuário:".
@@ -220,6 +220,10 @@ if(isset($_GET["id"])) {
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- VALIDATION ERRORS -->
+                                    <div id="addEditValidationErrors" class="d-none justify-content-center flex-wrap my-3">
+
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -274,5 +278,8 @@ if(isset($_GET["id"])) {
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        
+        <!-- SCRIPT QUE VALIDA O FORMULÁRIO -->
+        <script src="./js/globalFormValidator.js" type="module"></script>
     </body>
 </html>

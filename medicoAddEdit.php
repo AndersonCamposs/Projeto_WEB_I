@@ -46,7 +46,7 @@ if(isset($_GET["id"])) {
                                 Adicionar Médico
                             </div>
                             <div class="card-body">
-                                <form action="./controller/medicoController.php" method="POST">
+                                <form id="medicoAddEditForm" action="./controller/medicoController.php" method="POST">
                                     <?php
                                         if ($medico != null) {
                                             echo
@@ -58,7 +58,7 @@ if(isset($_GET["id"])) {
                                             Nome:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='nome' value='"
+                                            "<input id='inputNome' class='form-control' type='text' name='nome' value='"
                                             .($medico == null ? '' : $medico->getNome())."'>"
                                             ?>
                                         </div>
@@ -66,7 +66,7 @@ if(isset($_GET["id"])) {
                                             Data de nascimento:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='date' name='dataNascimento' value='"
+                                            "<input id='inputDataNasc' class='form-control' type='date' name='dataNascimento' value='"
                                             .($medico == null ? '' : $medico->getDataNascimento())."'>"
                                             ?>
                                         </div>
@@ -74,7 +74,7 @@ if(isset($_GET["id"])) {
                                             CPF:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='cpf' minlength='11' maxlength='11' value='"
+                                            "<input id='inputCpf' class='form-control' type='text' name='cpf' minlength='11' maxlength='11' value='"
                                             .($medico == null ? '' : $medico->getCpf())."'>"
                                             ?>
                                         </div>
@@ -82,7 +82,7 @@ if(isset($_GET["id"])) {
                                             E-mail:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='email' placeholder='example@email.com' value='"
+                                            "<input id='inputEmail' class='form-control' type='text' name='email' placeholder='example@email.com' value='"
                                             .($medico == null ? '' : $medico->getEmail())."'>"
                                             ?>
                                         </div>
@@ -132,7 +132,7 @@ if(isset($_GET["id"])) {
                                             Número do documento da licença:
                                             <?php
                                             echo
-                                            "<input class='form-control' type='text' name='documentoLicenca' value='"
+                                            "<input id='inputDocumentoLicenca' class='form-control' type='text' name='documentoLicenca' value='"
                                             .($medico == null ? '' : $medico->getDocumentoLicenca())."'>"
                                             ?>
                                         </div>
@@ -150,6 +150,10 @@ if(isset($_GET["id"])) {
                                             </div>
                                         </div>
                                     </div>
+                                    <!-- VALIDATION ERRORS -->
+                                    <div id="addEditValidationErrors" class="d-none justify-content-center flex-wrap my-3">
+
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -164,5 +168,8 @@ if(isset($_GET["id"])) {
         <script src="js/scripts.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
         <script src="js/datatables-simple-demo.js"></script>
+        
+        <!-- SCRIPT QUE VALIDA O FORMULÁRIO -->
+        <script src="./js/globalFormValidator.js" type="module"></script>
     </body>
 </html>

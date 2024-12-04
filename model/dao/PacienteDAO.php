@@ -81,13 +81,18 @@ class PacienteDAO {
  um LOG do mesmo, tente novamente mais tarde.";
         }
     }
+    
     public function getByCpf($cpf) {
         try {
-            $sql = "SELECT * FROM paciente WHERE cpf = :cpf";
+            $sql = "SELECT * FROM Paciente WHERE cpf = :cpf";
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->bindValue(":cpf", $cpf);
             $p_sql->execute();
-            return $this->converterLinhaDaBaseDeDadosParaObjeto($p_sql->fetch(PDO::FETCH_ASSOC));
+            $resultado = $p_sql->fetch(PDO::FETCH_ASSOC);
+            if(!$resultado) {
+                throw new Exception("Register not found");
+            }
+            return $this->converterLinhaDaBaseDeDadosParaObjeto($resultado);
         } catch (Exception $e) {
             print "Ocorreu um erro ao tentar executar esta ação, foi gerado
  um LOG do mesmo, tente novamente mais tarde.";
