@@ -1,6 +1,6 @@
 <?php
 
-class MedicoDiaAtendimento {
+class MedicoDiaAtendimentoVO {
     private $id;
     private $medico;
     private $diaAtendimento;

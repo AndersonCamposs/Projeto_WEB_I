@@ -8,6 +8,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/MedicoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/DiaAtendimentoDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/MedicoDiaAtendimentoDAO.php";
 
 $medico = null;
 
@@ -144,20 +145,29 @@ if(isset($_GET["id"])) {
                                             <div class="d-flex flex-row">
                                                 <?php
                                                 $listaDiasAtendimento = DiaAtendimentoDAO::getInstance()->listAll();
-                                                foreach ($listaDiasAtendimento as $diaAtendimento) {
+                                                if(isset($medico)) {
+                                                    $listaMedicoDiasAtendimento = MedicoDiaAtendimentoDAO::getInstance()->listWhere("WHERE idMedico = :idMedico ORDER BY idDiaAtendimento ASC;", array(0 => ":idMedico"), array(0 => $medico->getId()));
+                                                    $diasAtendimento = [];
+                                                    foreach ($listaMedicoDiasAtendimento as $medicoDiaAtendimento) {
+                                                        $diasAtendimento[] = $medicoDiaAtendimento->getDiaAtendimento();
+                                                    }
+                                                    
+                                                }
+                                                foreach($listaDiasAtendimento as $diaAtendimento) {
+                                                    
                                                     if($diaAtendimento->getId() == 1) {
                                                         echo
-                                                        "<div class='form-check me-3 '>".
-                                                            "<input class='form-check-input' type='checkbox' value='".$diaAtendimento->getId()."' id='ckbx".$diaAtendimento->getNomeEnglish()."' name='".$diaAtendimento->getNomeEnglish()."'>".
+                                                        "<div class='form-check me-4 '>".
+                                                            "<input ".(in_array($diaAtendimento, $diasAtendimento) ? 'checked' : '' )." class='form-check-input' type='checkbox' value='".$diaAtendimento->getId()."' id='ckbx".$diaAtendimento->getNomeEnglish()."' name='".$diaAtendimento->getNomeEnglish()."'>".
                                                             "<label class='form-check-label' for='ckbx".$diaAtendimento->getNome()."'>".
                                                                 $diaAtendimento->getNome().
                                                             "</label>
                                                         </div>";
                                                     } else {
                                                         echo
-                                                        "<div class='form-check ms-4 me-4'>".
-                                                            "<input class='form-check-input' type='checkbox' value='".$diaAtendimento->getId()."' id='ckbx".$diaAtendimento->getNomeEnglish()."' name='".$diaAtendimento->getNomeEnglish()."'>".
-                                                            "<label class='form-check-label' for='ckbx".$diaAtendimento->getNome()."'>".
+                                                        "<div class='form-check ms-4 me-4 '>".
+                                                                "<input ".(in_array($diaAtendimento, $diasAtendimento) ? 'checked' : '' )." class='form-check-input' type='checkbox' value='".$diaAtendimento->getId()."' id='ckbx".$diaAtendimento->getNomeEnglish()."' name='".$diaAtendimento->getNomeEnglish()."'>".
+                                                                "<label class='form-check-label' for='ckbx".$diaAtendimento->getNome()."'>".
                                                                 $diaAtendimento->getNome().
                                                             "</label>
                                                         </div>";

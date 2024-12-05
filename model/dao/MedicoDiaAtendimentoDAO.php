@@ -1,5 +1,6 @@
 <?php
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/BDPDO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/MedicoVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/MedicoDiaAtendimentoVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/DiaAtendimentoDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
@@ -17,7 +18,7 @@ class MedicoDiaAtendimentoDAO {
         return self::$instance;
     }
 
-    public function insert(UsuarioVO $medico, PermissaoVO $diaAtendimento) {
+    public function insert(MedicoVO $medico, DiaAtendimentoVO $diaAtendimento) {
         try {
             $sql = "INSERT INTO medico_dia_atendimento (idMedico, idDiaAtendimento)"
                     . "VALUES "
@@ -64,8 +65,8 @@ class MedicoDiaAtendimentoDAO {
         
         $obj = new MedicoDiaAtendimentoVO();
         $obj->setId($row['id']);
-        $obj->setUsuario(MedicoDAO::getInstance()->getById($row["idMedico"]));
-        $obj->setPermissao(DiaAtendimentoDAO::getInstance()->getById($row["idDiaAtendimento"]));
+        $obj->setMedico(MedicoDAO::getInstance()->getById($row["idMedico"]));
+        $obj->setDiaAtendimento(DiaAtendimentoDAO::getInstance()->getById($row["idDiaAtendimento"]));
         
         return $obj;
     }

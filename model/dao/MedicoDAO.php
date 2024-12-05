@@ -36,7 +36,10 @@ class MedicoDAO {
             $p_sql->bindValue(":idEspecialidade", $medico->getEspecialidade());
             $p_sql->bindValue(":idEstado", $medico->getEstadoFormacao());
             
-            return $p_sql->execute();
+            $p_sql->execute();
+            
+            // ALTERAÇÃO REALIZADA COM O INTUITO DE RETORNAR O NOVO MÉDICO RECÉM INSERIDO NO BANCO 
+            return $this->getById(BDPDO::getInstance()->lastInsertId());
                     
         } catch (Exception $e) {
             echo "Erro ao salvar na base de dados ".$e->getMessage();
