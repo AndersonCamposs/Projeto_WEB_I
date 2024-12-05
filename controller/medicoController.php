@@ -20,10 +20,24 @@ if(isset($_POST['nome'])) {
     $arrayDiaAtendimento = []; // array para armazenar os dias de atendimento do médico informados no cadastro
     if(isset($_POST["Sunday"])) {
         $arrayDiaAtendimento[] = DiaAtendimentoDAO::getInstance()->getById($_POST["Sunday"]);
+    } else {
+        if(isset($_POST["id"])) {
+            if(null != MedicoDiaAtendimentoDAO::getInstance()->listWhere("WHERE idMedico = :idMedico AND idDiaAtendimento = :idDiaAtendimento", array(0 => ":idMedico", 1 => ":idDiaAtendimento"), array(0 => $_POST["id"], 1 => 1))) {
+                echo "algo acontece aqui";
+            }
+        }
     }
+    
     if(isset($_POST["Monday"])) {
         $arrayDiaAtendimento[] = DiaAtendimentoDAO::getInstance()->getById($_POST["Monday"]);
+    } else {
+        if(isset($_POST["id"])) {
+            if(null != MedicoDiaAtendimentoDAO::getInstance()->listWhere("WHERE idMedico = :idMedico AND idDiaAtendimento = :idDiaAtendimento", array(0 => ":idMedico", 1 => ":idDiaAtendimento"), array(0 => $_POST["id"], 1 => 2))) {
+                echo "algo acontece aqui";
+            }
+        }
     }
+    
     if(isset($_POST["Tuesday"])) {
         $arrayDiaAtendimento[] = DiaAtendimentoDAO::getInstance()->getById($_POST["Tuesday"]);
     }
@@ -57,4 +71,4 @@ if(isset($_POST['nome'])) {
         MedicoDAO::getInstance()->delete($_GET["id"]);  
     }
 }
-echo "<script> window.location.href='../medicoList.php'; </script>";
+//echo "<script> window.location.href='../medicoList.php'; </script>";
