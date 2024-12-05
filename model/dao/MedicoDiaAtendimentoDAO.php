@@ -47,6 +47,20 @@ class MedicoDiaAtendimentoDAO {
             print "Erro ao executar a função de deletar --" . $e->getMessage();
         }
     }
+    
+    public function deleteWhere($restanteSql, $arrayParametros, $arrayValores) {
+        try {
+            $sql = "DELETE FROM medico_dia_atendimento ".$restanteSql;
+            $p_sql = BDPDO::getInstance()->prepare($sql);
+            for($i = 0; $i < sizeof($arrayParametros); $i++) {
+                $p_sql->bindValue($arrayParametros[$i], $arrayValores[$i]);
+            }
+            return $p_sql->execute();
+        } catch(Exception $e) {
+            print("Erro ao executar a função de deletar com where: ".$e->getMessage());
+        }
+        
+    }
 
     public function getById($id) {
         try {
