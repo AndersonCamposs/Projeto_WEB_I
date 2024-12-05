@@ -7,6 +7,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/MedicoDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/DiaAtendimentoDAO.php";
 
 $medico = null;
 
@@ -141,48 +142,28 @@ if(isset($_GET["id"])) {
                                         <div class="col-12">
                                             <label class="mb-1">Dias de atendimento:</label>
                                             <div class="d-flex flex-row">
-                                                <div class="form-check me-3">
-                                                    <input class="form-check-input" type="checkbox" value="Segunda-feira" id="ckbxSegunda" name="segunda">
-                                                    <label class="form-check-label" for="ckbxSegunda">
-                                                      Segunda-feira
-                                                    </label>
-                                                </div>
-                                                <div class="form-check ms-3 me-3">
-                                                    <input class="form-check-input" type="checkbox" value="Terça-feira" id="ckbxTerca" name="terça">
-                                                    <label class="form-check-label" for="ckbxTerca">
-                                                      Terça-feira
-                                                    </label>
-                                                </div>
-                                                <div class="form-check ms-3 me-3">
-                                                    <input class="form-check-input" type="checkbox" value="Quarta-feira" id="ckbxQuarta" name="quarta">
-                                                    <label class="form-check-label" for="ckbxQuarta">
-                                                      Quarta-feira
-                                                    </label>
-                                                </div>
-                                                <div class="form-check ms-3 me-3">
-                                                    <input class="form-check-input" type="checkbox" value="Quinta-feira" id="ckbxQuinta" name="quinta">
-                                                    <label class="form-check-label" for="ckbxQuinta">
-                                                      Quinta-feira
-                                                    </label>
-                                                </div>
-                                                <div class="form-check ms-3 me-3">
-                                                    <input class="form-check-input" type="checkbox" value="Sexta-feira" id="ckbxSexta" name="sexta">
-                                                    <label class="form-check-label" for="ckbxSexta">
-                                                      Sexta-feira
-                                                    </label>
-                                                </div>
-                                                <div class="form-check ms-3 me-3">
-                                                    <input class="form-check-input" type="checkbox" value="Sábado" id="ckbxSabado" name="sábado">
-                                                    <label class="form-check-label" for="ckbxSabado">
-                                                      Sábado
-                                                    </label>
-                                                </div>
-                                                <div class="form-check ms-3 me-3">
-                                                    <input class="form-check-input" type="checkbox" value="Domingo" id="ckbxDomingo" name="domingo">
-                                                    <label class="form-check-label" for="ckbxDomingo">
-                                                      Domingo
-                                                    </label>
-                                                </div>
+                                                <?php
+                                                $listaDiasAtendimento = DiaAtendimentoDAO::getInstance()->listAll();
+                                                foreach ($listaDiasAtendimento as $diaAtendimento) {
+                                                    if($diaAtendimento->getId() == 1) {
+                                                        echo
+                                                        "<div class='form-check me-3 '>".
+                                                            "<input class='form-check-input' type='checkbox' value='".$diaAtendimento->getId()."' id='ckbx".$diaAtendimento->getNomeEnglish()."' name='".$diaAtendimento->getNomeEnglish()."'>".
+                                                            "<label class='form-check-label' for='ckbx".$diaAtendimento->getNome()."'>".
+                                                                $diaAtendimento->getNome().
+                                                            "</label>
+                                                        </div>";
+                                                    } else {
+                                                        echo
+                                                        "<div class='form-check ms-4 me-4'>".
+                                                            "<input class='form-check-input' type='checkbox' value='".$diaAtendimento->getId()."' id='ckbx".$diaAtendimento->getNomeEnglish()."' name='".$diaAtendimento->getNomeEnglish()."'>".
+                                                            "<label class='form-check-label' for='ckbx".$diaAtendimento->getNome()."'>".
+                                                                $diaAtendimento->getNome().
+                                                            "</label>
+                                                        </div>";
+                                                    }
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                         
