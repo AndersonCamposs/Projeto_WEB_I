@@ -1,37 +1,27 @@
 export default function resizePhoto(arquivo, largura, altura) {
-        
+    const pica = window.pica();
     return new Promise((resolve, reject) => {
             const leitor = new FileReader();
             leitor.onload = (e) => {
-                const foto = new Image();
-                foto.onload = () => {
+                const img = new Image();
+                img.onload = async () => {
                     const canvas = document.createElement("canvas");
-                    const contexto = canvas.getContext("2d");
                     
                     // SETA AS DIMENSÕES DO CANVAS
                     canvas.width = largura;
                     canvas.height = altura;
-                    console.log(`Canvas criado com as dimensões: ${largura}x${altura}`)
-                    contexto.drawImage(foto, 0, 0, largura, altura);
-                    
-                    // CONVERTE O CANVAS PARA BLOB (DADO BINÁRIO)
-                    canvas.toBlob(
-                        (blob) => {
-                            if(blob) {
-                                console.log("blob criado")
-                                resolve(blob);
-                            } else {
-                                reject(new Error("Erro ao criar o blob da imagem"));
-                            }
-                        },
-                        arquivo.type,
-                        0.9
-                    );
+                    try {
+                        await pica.resize(img, canvas);
+                        const blob = await pica.toBlob(canvas, arquivo.type, 0.9);
+                        resolve(blob);
+                    } catch (err) {
+                        reject(err);
+                    }
                 };
-                foto.onerror = reject;
-                foto.src = e.target.result;
+                img.onerror = () => reject(new Error("Erro ao carregar a imagem."));
+                img.src = e.target.result; // DEFINE O SRC DA IMAGEM
             };
-            leitor.onerror = reject;
+            leitor.onerror = () => reject(new Error("Erro ao carregar o arquivo."))
             leitor.readAsDataURL(arquivo);
         });
 }

@@ -15,8 +15,9 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
     if(inputFoto.files[0]) {
         (async function() {
             const arquivo = inputFoto.files[0];
+            console.log(arquivo);
             try {
-                const blobRedimencionado = await resizePhoto(arquivo, 400, 400);
+                const blobRedimencionado = await resizePhoto(arquivo, 736, 736);
                 const imagemRedimencionada = new File([blobRedimencionado], arquivo.name, { type:blobRedimencionado.type });
                 // CRIA O DataTransfer PARA SUBSTITUIR O ARQUIVO DO INPUT
                 const transferidor = new DataTransfer();
@@ -46,7 +47,7 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
     }
     
     let cpf = inputCpf.value.replace(/\D/g, "");
-    if (inputCpf.value.length !== 11) {
+    if (cpf.length !== 11) {
         errors.push("O CPF precisa ter 11 dígitos.");
     }
     
