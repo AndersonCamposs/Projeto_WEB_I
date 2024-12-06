@@ -29,25 +29,71 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
             $extensoesPermitidas = ["jpg", "jpeg", "png"];
             $extensaoFoto = strtolower(pathinfo($foto["name"], PATHINFO_EXTENSION));
 
-            if(!in_array($extensaoFoto, $extensoesPermitidas)) {
+            if (!in_array($extensaoFoto, $extensoesPermitidas)) {
                 die("Erro: extensão de foto não permitida");
             } else {
-                $uploadDir = __DIR__."/../uploads/users/";
+                $uploadDir = __DIR__ . "/../uploads/users/";
                 if (!is_dir($uploadDir)) {
-                    // VERIFICA SE O DIRETÓRIO DE UPLOADS EXISTS, SENÃO CRIA
+                    // Verifica se o diretório de uploads existe, senão cria
                     mkdir($uploadDir, 0755, true);
                 }
-                $fileName = uniqid("img_").".".$extensaoFoto;
 
-                $fullUploadName = $uploadDir.$fileName;
+                $fileName = uniqid("img_") . "." . $extensaoFoto;
+                $fullUploadName = $uploadDir . $fileName;
 
-                if(move_uploaded_file($foto["tmp_name"], $fullUploadName)){
-                    $usuario->setFoto("./uploads/users/".$fileName);
-                } else {
-                    $usuario->setFoto(null);
+                // Dimensões fixas para a nova imagem
+                $novaLargura = 736;
+                $novaAltura = 736;
+
+                // Criar a imagem de destino com dimensões fixas
+                $imagemRedimensionada = imagecreatetruecolor($novaLargura, $novaAltura);
+
+                // Criar a imagem a partir do arquivo original
+                switch ($extensaoFoto) {
+                    case 'jpg':
+                    case 'jpeg':
+                        $imagemOriginal = imagecreatefromjpeg($foto["tmp_name"]);
+                        break;
+                    case 'png':
+                        $imagemOriginal = imagecreatefrompng($foto["tmp_name"]);
+                        break;
+                    default:
+                        die("Erro: formato de imagem não suportado.");
                 }
+
+                // Redimensionar diretamente para o tamanho desejado
+                imagecopyresampled(
+                    $imagemRedimensionada, // Imagem de destino
+                    $imagemOriginal,       // Imagem original
+                    0, 0,                  // Coordenadas de destino
+                    0, 0,                  // Coordenadas de origem
+                    $novaLargura,          // Largura de destino
+                    $novaAltura,           // Altura de destino
+                    imagesx($imagemOriginal), // Largura original
+                    imagesy($imagemOriginal)  // Altura original
+                );
+
+                // Salvar a imagem redimensionada
+                switch ($extensaoFoto) {
+                    case 'jpg':
+                    case 'jpeg':
+                        imagejpeg($imagemRedimensionada, $fullUploadName, 90); // Qualidade 90
+                        break;
+                    case 'png':
+                        imagepng($imagemRedimensionada, $fullUploadName, 8); // Compressão nível 8
+                        break;
+                }
+
+                // Liberar memória
+                imagedestroy($imagemRedimensionada);
+                imagedestroy($imagemOriginal);
+
+                // Atualizar o caminho da foto no objeto do usuário
+                $usuario->setFoto("./uploads/users/" . $fileName);
             }
         }
+
+
 
         $usuario->setNome($_POST["nome"]);
         $usuario->setEmail($_POST["email"]);

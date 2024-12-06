@@ -11,7 +11,7 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
     let inputCpf = document.getElementById("inputCpf");
     let inputSenha = document.getElementById("inputSenha");
     let inputRepetirSenha = document.getElementById("inputRepetirSenha");
-    let inputFoto = document.getElementById("inputFoto");
+    /*let inputFoto = document.getElementById("inputFoto");
     if(inputFoto.files[0]) {
         (async function() {
             const arquivo = inputFoto.files[0];
@@ -27,7 +27,7 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
                 console.log("Erro ao redimencionar a imagem: " + e);
             }
         })()
-    }
+    }*/
     
     
     let errors = [];
@@ -67,6 +67,5 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
         addEditValidationErrors.classList.remove("d-none");
         addEditValidationErrors.classList.add("d-flex");
     }
-    e.preventDefault();
 }
 
