@@ -59,6 +59,7 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
         errors.push("As senhas precisam ser iguais.");
     }
     
+    
     if (errors.length !== 0) {
         e.preventDefault();
 

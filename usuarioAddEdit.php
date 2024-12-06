@@ -206,7 +206,7 @@ if(isset($_GET["id"])) {
                                                 ?>
                                                 
                                                 <?php
-                                                if($usuario != null) {
+                                                if($usuario != null && $usuario->getId() == $_SESSION["usuarioLogado"]->getId()) {
                                                     echo
                                                     "<a class='btn btn-primary m-1' href='./usuarioAddEdit.php?id=".$usuario->getId()."&protocol=".uniqid()."'>
                                                        Editar Senha <i class='fa-solid fa-lock'></i>
@@ -234,9 +234,7 @@ if(isset($_GET["id"])) {
                             </div>
                         </div>
                         <?php
-                        $isAdmin = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario AND idPermissao = :idPermissao", array(0 => ":idUsuario", 1 => ":idPermissao"), array(0 => $_SESSION["usuarioLogado"]->getId(), 1 => 1));
-                        var_dump($isAdmin);
-                        if (isset($_GET['protocol']) && ($_SESSION['usuarioLogado']->getId() == $usuario->getId()) ) {
+                        if (isset($_GET['protocol']) && ($_SESSION['usuarioLogado']->getId() == $usuario->getId())) {
                             echo 
                             "<div class='card mb-4'>".
                             "<div class='card-header'>".
@@ -244,20 +242,20 @@ if(isset($_GET["id"])) {
                                 Alterar Senha".
                             "</div>".
                             "<div class='card-body'>".
-                                "<form action='./controller/usuarioController.php' method='POST'>".
+                                "<form id='usuarioAlterarSenhaForm' action='./controller/usuarioController.php' method='POST'>".
                                     "<div class='row mb-3 text-center'>".
                                         "<div class='d-flex justify-content-center'>".
                                             "<div class='col-3 m-1'>".
                                                 "Senha atual:
-                                                <input class='form-control' type='password' name='senhaAtual'/>".
+                                                <input id='inputSenhaAtual' class='form-control' type='password' name='senhaAtual'/>".
                                             "</div>".
                                             "<div class='col-3 m-1'>".
                                                 "Nova senha:
-                                                <input class='form-control' type='password' name='novaSenha'/>".
+                                                <input id='inputNovaSenha' class='form-control' type='password' name='novaSenha'/>".
                                             "</div>".
                                             "<div class='col-3 m-1'>".
                                                 "Repetir nova senha:
-                                                <input class='form-control' type='password' name='repetirNovaSenha'/>".
+                                                <input id='inputRepetirNovaSenha' class='form-control' type='password' name='repetirNovaSenha'/>".
                                             "</div>".
                                         "</div>".
                                     "</div>".
@@ -274,6 +272,9 @@ if(isset($_GET["id"])) {
                                                 </a>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div id='alterSenhaValidationErrors' class='d-none justify-content-center flex-wrap my-3'>
+
                                     </div>
                                 </form>
                             </div>";                     
