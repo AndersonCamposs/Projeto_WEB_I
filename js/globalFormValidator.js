@@ -11,7 +11,7 @@ const usuarioAddEditForm = document.getElementById("usuarioAddEditForm");
 const usuarioAlterarSenhaForm = document.getElementById("usuarioAlterarSenhaForm");
 
 const addEditValidationErrors = document.getElementById("addEditValidationErrors");
-const alterSenhaValidationErrors = document.getElementById()
+const alterSenhaValidationErrors = document.getElementById("alterSenhaValidationErrors");
 const  warningDiv = document.createElement("div");
 warningDiv.classList.add("alert");
 warningDiv.classList.add("alert-danger");

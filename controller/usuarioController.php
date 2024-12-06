@@ -8,14 +8,22 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoD
 
 
 if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A SENHA
+    $senhaAtual = $_POST["senhaAtual"];
+    $novaSenha = $_POST["novaSenha"];
+    
+    $hashSenhaAtual = password_hash($_POST["senhaAtual"], PASSWORD_DEFAULT);
+    if($hashSenhaAtual != $_SESSION["usuarioLogado"]->getSenha()) {
+        echo "Foi informada a senha errada";
+    }
+    
     $hash = password_hash($_POST["novaSenha"], PASSWORD_DEFAULT);
     
-    $_SESSION["usuarioLogado"]->setSenha($hash);
+    //$_SESSION["usuarioLogado"]->setSenha($hash);
     
-    UsuarioDAO::getInstance()->update($_SESSION["usuarioLogado"]);
+    //UsuarioDAO::getInstance()->update($_SESSION["usuarioLogado"]);
     
-    header("Location: ./logoutController.php");
-    exit;
+    //header("Location: ./logoutController.php");
+    //exit;
     
 } else { // SE NAO FOR PARA ALTERAR A SENHA
     if(isset($_POST['nome'])) {
@@ -154,5 +162,5 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
           UsuarioDAO::getInstance()->delete($_GET["id"]);  
         }
     }
-    header("Location: ../usuarioList.php");
+    //header("Location: ../usuarioList.php");
 }

@@ -10,7 +10,7 @@ export default function alterarSenhaFormValidator(e, alterSenhaValidationErrors,
     let errors = [];
     
     if(!inputSenhaAtual.value) {
-        errors.push("Informe a senha atual");
+        errors.push("Informe a senha atual.");
     }
     
     if(!inputNovaSenha.value) {
@@ -29,6 +29,5 @@ export default function alterarSenhaFormValidator(e, alterSenhaValidationErrors,
         alterSenhaValidationErrors.classList.remove("d-none");
         alterSenhaValidationErrors.classList.add("d-flex");
     }
-    e.preventDefault();
 }
 
