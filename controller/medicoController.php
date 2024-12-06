@@ -96,14 +96,27 @@ if(isset($_POST['nome'])) {
     if(isset($_POST['id'])) {
         $medico->setId($_POST['id']);
         
+        $medicoDiasAtendimento = MedicoDiaAtendimentoDAO::getInstance()->listWhere("WHERE idMedico = :idMedico", array(0 => ":idMedico"), array( 0 => $_POST["id"]));
+        $arrayDias = [];
+        foreach($medicoDiasAtendimento as $medicoDiaAtendimento) {
+            $arrayDias[] = $medicoDiaAtendimento->getDiaAtendimento();
+        }
+        
         MedicoDAO::getInstance()->update($medico);
+        
         // EM CASO DE ATUALIZAÇÃO E ADIÇÃO DE UM NOVO DIA DE ATENDIMENTO PARA AQUELE MÉDICO, INSERE NA TABELA ASSOCIATIVA
         foreach($arrayDiaAtendimento as $diaAtendimento) {
-            MedicoDiaAtendimentoDAO::getInstance()->insert(MedicoDAO::getInstance()->getById($_POST["id"]), $diaAtendimento);
+            // CASO NO ARRAY QUE TENHA OS DIAS EM QUE O MÉDICO ATENDE NÃO CONTENHA
+            // ALGUM DIA QUE TENHA SIDO MARCADO NO CHECKBOX, REGISTRA NA TABELA ASSOCIATIVA
+            if(!in_array($diaAtendimento, $arrayDias)) {
+                MedicoDiaAtendimentoDAO::getInstance()->insert(MedicoDAO::getInstance()->getById($_POST["id"]), $diaAtendimento);  
+            }
+            
         }
     } else {
         $novoMedico = MedicoDAO::getInstance()->insert($medico);
         // INSERE AS NA TABELA ASSOCIATIVA OS RESPECTIVOS DIAS DE ATENDIMENTO DO MÉDICO
+        
         foreach($arrayDiaAtendimento as $diaAtendimento) {
             MedicoDiaAtendimentoDAO::getInstance()->insert($novoMedico, $diaAtendimento);
         }
