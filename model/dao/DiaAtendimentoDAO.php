@@ -28,6 +28,27 @@ class DiaAtendimentoDAO {
  um LOG do mesmo, tente novamente mais tarde.";
         }
     }
+    
+    public function getByNomeEnglish($nomeEnglish) {
+        try {
+            $sql = "SELECT * FROM dia_atendimento WHERE nome_english = :nomeEnglish";
+            $p_sql = BDPDO::getInstance()->prepare($sql);
+            $p_sql->bindValue(":nomeEnglish", $nomeEnglish);
+            $p_sql->execute();
+            
+            $resultado = $p_sql->fetch(PDO::FETCH_ASSOC);
+            
+            if(!$resultado) {
+                echo "NENHUM RESULTADO PARA O NOME: $nome";
+                return null;
+            }
+            
+            return $this->converterLinhaDaBaseDeDadosParaObjeto($resultado);
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado
+ um LOG do mesmo, tente novamente mais tarde. ".$e->getMessage();
+        }
+    }
 
     private function converterLinhaDaBaseDeDadosParaObjeto($row) {
         
