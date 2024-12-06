@@ -23,7 +23,6 @@ if(isset($_GET["id"])) {
         die();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -126,9 +125,8 @@ if(isset($_GET["id"])) {
                                         </div>
                                     </div>
                                     <?php
-                                    if($usuario != null) {
                                     $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
-
+                                    if($usuario != null) {
 
                                     echo
                                     "<div class='row mb-3'>".
@@ -149,7 +147,6 @@ if(isset($_GET["id"])) {
                                     
                                     if($usuario == null){
                                     
-                                    $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
                                     echo
                                     "<div class='row mb-3'>".
                                         "<div class='col-8'>".
@@ -237,7 +234,9 @@ if(isset($_GET["id"])) {
                             </div>
                         </div>
                         <?php
-                        if (isset($_GET['protocol']) && ($_SESSION['usuarioLogado']->getId() == $usuario->getId())) {
+                        $isAdmin = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario AND idPermissao = :idPermissao", array(0 => ":idUsuario", 1 => ":idPermissao"), array(0 => $_SESSION["usuarioLogado"]->getId(), 1 => 1));
+                        var_dump($isAdmin);
+                        if (isset($_GET['protocol']) && ($_SESSION['usuarioLogado']->getId() == $usuario->getId()) ) {
                             echo 
                             "<div class='card mb-4'>".
                             "<div class='card-header'>".
@@ -248,6 +247,10 @@ if(isset($_GET["id"])) {
                                 "<form action='./controller/usuarioController.php' method='POST'>".
                                     "<div class='row mb-3 text-center'>".
                                         "<div class='d-flex justify-content-center'>".
+                                            "<div class='col-3 m-1'>".
+                                                "Senha atual:
+                                                <input class='form-control' type='password' name='senhaAtual'/>".
+                                            "</div>".
                                             "<div class='col-3 m-1'>".
                                                 "Nova senha:
                                                 <input class='form-control' type='password' name='novaSenha'/>".
