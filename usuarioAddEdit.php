@@ -217,6 +217,16 @@ if(isset($_GET["id"])) {
                                                 }    
                                                 ?>
                                                 
+                                                <?php
+                                                if($usuario != null) {
+                                                    if($usuario->getFoto() != null) {
+                                                       echo
+                                                       "<a href='./controller/usuarioController.php?id=".$usuario->getId()."&removerFoto=true' type='reset' class='btn btn-danger m-1'".(isset($_GET['protocol']) ? 'disabled' : '').">
+                                                            Remover Foto  <i class='fa-solid fa-trash'></i>
+                                                       </a>"; 
+                                                    }
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                     </div>

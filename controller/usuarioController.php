@@ -85,7 +85,26 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
             UsuarioPermissaoDAO::getInstance()->insert($novoUsuario, $permissao); // REGISTRA NA TABELA RELACIONAL
         }   
     } else {
-        if(checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+        if($_GET["removerFoto"]) {
+            if ($_SESSION["usuarioLogado"]->getId() == $_GET["id"] || checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
+                // CASO O USUÁRIO QUE ESTIVER 
+                // TENTANDO REMOVER A PRÓPRIA FOTO OU FOR ADMNISTRADOR
+                $usuarioExistente = UsuarioDAO::getInstance()->getById($_GET["id"]);
+                
+                if(isset($usuarioExistente) && file_exists("../".$usuarioExistente ->getFoto())) {
+                    if(unlink("../".$usuarioExistente ->getFoto())) {
+                      $usuarioExistente->setFoto(null); 
+                      var_dump($usuarioExistente);
+                      UsuarioDAO::getInstance()->update($usuarioExistente);
+                      if ($_SESSION["usuarioLogado"]->getId() == $_GET["id"]) {
+                          // CASO O USUÁRIO LOGADO REMOVA A PRÓPRIA FOTO
+                          // ATUALIZA OS DADOS NA SESSÃO IMEDIATAMENTE
+                          $_SESSION["usuarioLogado"]->setFoto(null);
+                      }
+                    }
+                }
+            }
+        } else if (checarAutorizacao(array(PermissaoDAO::getInstance()->getById(1)))) {
           UsuarioDAO::getInstance()->delete($_GET["id"]);  
         }
     }
