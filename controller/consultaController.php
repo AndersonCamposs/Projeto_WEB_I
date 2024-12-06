@@ -5,6 +5,7 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/vo/ConsultaVO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/ConsultaDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PacienteDAO.php';
+require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/MedicoDiaAtendimentoDAO.php';
 
 
 $erro = false;
@@ -22,6 +23,20 @@ if(isset($_POST['cpfMedico'])) {
         $erro = true;
     }
     
+    $medicoDiasAtendimento = MedicoDiaAtendimentoDAO::getInstance()->listWhere("WHERE idMedico = :idMedico", array(0 => ":idMedico"), array(0 => $medicoConsulta->getId()));
+    // ARRAY PARA ARMAZENAR SOMENTE OS OBJETOS DiaAtendimentoVO REFERENTE AOS DIAS DE ATENDIMENTO
+    $diasAtendimento = [];
+    foreach ($medicoDiasAtendimento as $medicoDiaAtendimento) {
+        $diasAtendimento[] = $medicoDiaAtendimento->getDiaAtendimento();
+    }
+    $dateTime = new DateTime($_POST["dataConsulta"]);
+    $consultaDiaSemana = DiaAtendimentoDAO::getInstance()->getByNomeEnglish($dateTime->format("l"));
+
+    if(!in_array($consultaDiaSemana, $diasAtendimento)) {
+        $dataConsultaErrorMessage = "O médico não atende nesta data, verifique e tente novamente.";
+        $erro = true;
+    }
+    
     if($erro) {
         $consultaArrayErros = [];
         $consultaArrayDados = [];
@@ -30,6 +45,9 @@ if(isset($_POST['cpfMedico'])) {
         }
         if(isset($medicoErrorMessage)) {
             $consultaArrayErros[] = $medicoErrorMessage;
+        }
+        if(isset($dataConsultaErrorMessage)) {
+            $consultaArrayErros[] = $dataConsultaErrorMessage;
         }
         $consultaArrayDados["cpfPaciente"] = $_POST["cpfPaciente"];
         $consultaArrayDados["cpfMedico"] = $_POST["cpfMedico"];
