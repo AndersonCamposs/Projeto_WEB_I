@@ -11,13 +11,14 @@ export default function resizePhoto(arquivo, largura, altura) {
                     // SETA AS DIMENSÕES DO CANVAS
                     canvas.width = largura;
                     canvas.height = altura;
-                    
+                    console.log(`Canvas criado com as dimensões: ${largura}x${altura}`)
                     contexto.drawImage(foto, 0, 0, largura, altura);
                     
                     // CONVERTE O CANVAS PARA BLOB (DADO BINÁRIO)
                     canvas.toBlob(
                         (blob) => {
                             if(blob) {
+                                console.log("blob criado")
                                 resolve(blob);
                             } else {
                                 reject(new Error("Erro ao criar o blob da imagem"));

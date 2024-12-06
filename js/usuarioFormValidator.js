@@ -14,9 +14,9 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
     let inputFoto = document.getElementById("inputFoto");
     if(inputFoto.files[0]) {
         (async function() {
-            let arquivo = inputFoto.files[0];
+            const arquivo = inputFoto.files[0];
             try {
-                const blobRedimencionado = await resizePhoto(arquivo, 736, 736);
+                const blobRedimencionado = await resizePhoto(arquivo, 400, 400);
                 const imagemRedimencionada = new File([blobRedimencionado], arquivo.name, { type:blobRedimencionado.type });
                 // CRIA O DataTransfer PARA SUBSTITUIR O ARQUIVO DO INPUT
                 const transferidor = new DataTransfer();
@@ -66,5 +66,6 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
         addEditValidationErrors.classList.remove("d-none");
         addEditValidationErrors.classList.add("d-flex");
     }
+    e.preventDefault();
 }
 
