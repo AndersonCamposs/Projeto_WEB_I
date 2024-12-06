@@ -7,6 +7,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/ConselhoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EstadoDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/EspecialidadeDAO.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/MedicoDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/DiaAtendimentoDAO.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/ac_clinic/model/dao/MedicoDiaAtendimentoDAO.php";
 
 $medico = null;
 
@@ -95,7 +97,10 @@ if(isset($_GET["id"])) {
                                             $listaEspecialidades = EspecialidadeDAO::getInstance()->listAll();
                                             foreach($listaEspecialidades as $especialidade) {
                                                 if ($medico != null && $medico->getEspecialidade()->getId() == $especialidade->getId()) {
-                                                        
+                                                    echo 
+                                                    "<option value='".$especialidade->getId()."' selected>".
+                                                        $especialidade->getNome().
+                                                    "</option>";
                                                 } else {
                                                     echo
                                                     "<option value='".$especialidade->getId()."'>".
@@ -136,6 +141,46 @@ if(isset($_GET["id"])) {
                                             .($medico == null ? '' : $medico->getDocumentoLicenca())."'>"
                                             ?>
                                         </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-12">
+                                            <label class="mb-1">Dias de atendimento:</label>
+                                            <div class="d-flex flex-row">
+                                                <?php
+                                                $listaDiasAtendimento = DiaAtendimentoDAO::getInstance()->listAll();
+                                                if(isset($medico)) {
+                                                    $listaMedicoDiasAtendimento = MedicoDiaAtendimentoDAO::getInstance()->listWhere("WHERE idMedico = :idMedico ORDER BY idDiaAtendimento ASC;", array(0 => ":idMedico"), array(0 => $medico->getId()));
+                                                    $diasAtendimento = [];
+                                                    foreach ($listaMedicoDiasAtendimento as $medicoDiaAtendimento) {
+                                                        $diasAtendimento[] = $medicoDiaAtendimento->getDiaAtendimento();
+                                                    }
+                                                    
+                                                }
+                                                foreach($listaDiasAtendimento as $diaAtendimento) {
+                                                    
+                                                    if($diaAtendimento->getId() == 1) {
+                                                        echo
+                                                        "<div class='form-check me-4 '>".
+                                                            "<input ".(isset($medico) ? (in_array($diaAtendimento, $diasAtendimento) ? 'checked' : '' ) : '')." class='form-check-input' type='checkbox' value='".$diaAtendimento->getId()."' id='ckbx".$diaAtendimento->getNomeEnglish()."' name='".$diaAtendimento->getNomeEnglish()."'>".
+                                                            "<label class='form-check-label' for='ckbx".$diaAtendimento->getNome()."'>".
+                                                                $diaAtendimento->getNome().
+                                                            "</label>
+                                                        </div>";
+                                                    } else {
+                                                        echo
+                                                        "<div class='form-check ms-4 me-4 '>".
+                                                                "<input ".(isset($medico) ? (in_array($diaAtendimento, $diasAtendimento) ? 'checked' : '' ) : '')." class='form-check-input' type='checkbox' value='".$diaAtendimento->getId()."' id='ckbx".$diaAtendimento->getNomeEnglish()."' name='".$diaAtendimento->getNomeEnglish()."'>".
+                                                                "<label class='form-check-label' for='ckbx".$diaAtendimento->getNome()."'>".
+                                                                $diaAtendimento->getNome().
+                                                            "</label>
+                                                        </div>";
+                                                    }
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                        
+                                        
                                     </div>
                                     <div class="row my-3">
                                         <div class="col-12">
