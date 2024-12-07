@@ -1,5 +1,9 @@
 <?php 
 include './authenticator.php';
+
+if(isset($_SESSION["usuarioLogado"])) {
+    header("Location: ./index.php");
+}
 ?>
 
 <!DOCTYPE html>

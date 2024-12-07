@@ -23,7 +23,6 @@ if(isset($_GET["id"])) {
         die();
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -126,9 +125,8 @@ if(isset($_GET["id"])) {
                                         </div>
                                     </div>
                                     <?php
-                                    if($usuario != null) {
                                     $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
-
+                                    if($usuario != null) {
 
                                     echo
                                     "<div class='row mb-3'>".
@@ -149,7 +147,6 @@ if(isset($_GET["id"])) {
                                     
                                     if($usuario == null){
                                     
-                                    $usuarioPermissoes = UsuarioPermissaoDAO::getInstance()->listWhere("WHERE idUsuario = :idUsuario", array(0 => ":idUsuario"), array(0 => $_SESSION["usuarioLogado"]->getId()));
                                     echo
                                     "<div class='row mb-3'>".
                                         "<div class='col-8'>".
@@ -209,10 +206,19 @@ if(isset($_GET["id"])) {
                                                 ?>
                                                 
                                                 <?php
-                                                if($usuario != null) {
+                                                if($usuario != null && $usuario->getId() == $_SESSION["usuarioLogado"]->getId()) {
                                                     echo
-                                                    "<a type='reset' class='btn btn-primary m-1' href='./usuarioAddEdit.php?id=".$usuario->getId()."&protocol=".uniqid()."'>
+                                                    "<a class='btn btn-primary m-1' href='./usuarioAddEdit.php?id=".$usuario->getId()."&protocol=".uniqid()."'>
                                                        Editar Senha <i class='fa-solid fa-lock'></i>
+                                                    </a>";
+                                                }    
+                                                ?>
+                                                
+                                                <?php
+                                                if($usuario != null && $usuario->getFoto() != null) {
+                                                    echo
+                                                    "<a class='btn btn-danger m-1' href='./controller/usuarioController.php?id=".$usuario->getId()."&removerFoto=true'>
+                                                       Remover foto <i class='fas fa-trash'></i>
                                                     </a>";
                                                 }    
                                                 ?>
@@ -229,23 +235,27 @@ if(isset($_GET["id"])) {
                         </div>
                         <?php
                         if (isset($_GET['protocol']) && ($_SESSION['usuarioLogado']->getId() == $usuario->getId())) {
-                            echo 
+                            echo
                             "<div class='card mb-4'>".
                             "<div class='card-header'>".
                                 "<i class='fa-regular fa-pen-to-square me-1'></i>
                                 Alterar Senha".
                             "</div>".
                             "<div class='card-body'>".
-                                "<form action='./controller/usuarioController.php' method='POST'>".
+                                "<form id='usuarioAlterarSenhaForm' action='./controller/usuarioController.php' method='POST'>".
                                     "<div class='row mb-3 text-center'>".
                                         "<div class='d-flex justify-content-center'>".
                                             "<div class='col-3 m-1'>".
+                                                "Senha atual:
+                                                <input id='inputSenhaAtual' class='form-control' type='password' name='senhaAtual' value='".(isset($_SESSION["alterarSenhaArrayDados"]) ? $_SESSION["alterarSenhaArrayDados"]["senhaAtual"] : '')."'/>".
+                                            "</div>".
+                                            "<div class='col-3 m-1'>".
                                                 "Nova senha:
-                                                <input class='form-control' type='password' name='novaSenha'/>".
+                                                <input id='inputNovaSenha' class='form-control' type='password' name='novaSenha' value='".(isset($_SESSION["alterarSenhaArrayDados"]) ? $_SESSION["alterarSenhaArrayDados"]["novaSenha"] : '')."'/>".
                                             "</div>".
                                             "<div class='col-3 m-1'>".
                                                 "Repetir nova senha:
-                                                <input class='form-control' type='password' name='repetirNovaSenha'/>".
+                                                <input id='inputRepetirNovaSenha' class='form-control' type='password' name='repetirNovaSenha' value='".(isset($_SESSION["alterarSenhaArrayDados"]) ? $_SESSION["alterarSenhaArrayDados"]["repetirNovaSenha"] : '')."'/>".
                                             "</div>".
                                         "</div>".
                                     "</div>".
@@ -263,7 +273,21 @@ if(isset($_GET["id"])) {
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                    <div id='alterSenhaValidationErrors' class='d-none justify-content-center flex-wrap my-3'>
+                                        
+                                    </div>";
+                                    if(isset($_SESSION["alterarSenhaArrayErros"])) {
+                                        echo 
+                                        "<div class='d-flex justify-content-center flex-wrap my-3'>".
+                                            "<div class='alert alert-danger text-center w-50'>".
+                                                $_SESSION["alterarSenhaArrayErros"][0];
+                                            "</div> 
+                                        </div>";
+
+                                        unset($_SESSION["alterarSenhaArrayErros"]);
+                                        unset($_SESSION["alterarSenhaArrayDados"]);
+                                    }
+                            echo "</form>
                             </div>";                     
                         }
                         ?>

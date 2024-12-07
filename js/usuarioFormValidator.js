@@ -11,10 +11,11 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
     let inputCpf = document.getElementById("inputCpf");
     let inputSenha = document.getElementById("inputSenha");
     let inputRepetirSenha = document.getElementById("inputRepetirSenha");
-    let inputFoto = document.getElementById("inputFoto");
+    /*let inputFoto = document.getElementById("inputFoto");
     if(inputFoto.files[0]) {
         (async function() {
-            let arquivo = inputFoto.files[0];
+            const arquivo = inputFoto.files[0];
+            console.log(arquivo);
             try {
                 const blobRedimencionado = await resizePhoto(arquivo, 736, 736);
                 const imagemRedimencionada = new File([blobRedimencionado], arquivo.name, { type:blobRedimencionado.type });
@@ -26,7 +27,7 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
                 console.log("Erro ao redimencionar a imagem: " + e);
             }
         })()
-    }
+    }*/
     
     
     let errors = [];
@@ -46,7 +47,7 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
     }
     
     let cpf = inputCpf.value.replace(/\D/g, "");
-    if (inputCpf.value.length !== 11) {
+    if (cpf.length !== 11) {
         errors.push("O CPF precisa ter 11 dígitos.");
     }
     
@@ -57,6 +58,7 @@ export default function usuarioFormValidator (e, addEditValidationErrors, warnin
     if (inputSenha.value != inputRepetirSenha.value) {
         errors.push("As senhas precisam ser iguais.");
     }
+    
     
     if (errors.length !== 0) {
         e.preventDefault();
