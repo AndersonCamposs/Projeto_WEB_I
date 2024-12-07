@@ -235,7 +235,7 @@ if(isset($_GET["id"])) {
                         </div>
                         <?php
                         if (isset($_GET['protocol']) && ($_SESSION['usuarioLogado']->getId() == $usuario->getId())) {
-                            echo 
+                            echo
                             "<div class='card mb-4'>".
                             "<div class='card-header'>".
                                 "<i class='fa-regular fa-pen-to-square me-1'></i>
@@ -247,15 +247,15 @@ if(isset($_GET["id"])) {
                                         "<div class='d-flex justify-content-center'>".
                                             "<div class='col-3 m-1'>".
                                                 "Senha atual:
-                                                <input id='inputSenhaAtual' class='form-control' type='password' name='senhaAtual'/>".
+                                                <input id='inputSenhaAtual' class='form-control' type='password' name='senhaAtual' value='".(isset($_SESSION["alterarSenhaArrayDados"]) ? $_SESSION["alterarSenhaArrayDados"]["senhaAtual"] : '')."'/>".
                                             "</div>".
                                             "<div class='col-3 m-1'>".
                                                 "Nova senha:
-                                                <input id='inputNovaSenha' class='form-control' type='password' name='novaSenha'/>".
+                                                <input id='inputNovaSenha' class='form-control' type='password' name='novaSenha' value='".(isset($_SESSION["alterarSenhaArrayDados"]) ? $_SESSION["alterarSenhaArrayDados"]["novaSenha"] : '')."'/>".
                                             "</div>".
                                             "<div class='col-3 m-1'>".
                                                 "Repetir nova senha:
-                                                <input id='inputRepetirNovaSenha' class='form-control' type='password' name='repetirNovaSenha'/>".
+                                                <input id='inputRepetirNovaSenha' class='form-control' type='password' name='repetirNovaSenha' value='".(isset($_SESSION["alterarSenhaArrayDados"]) ? $_SESSION["alterarSenhaArrayDados"]["repetirNovaSenha"] : '')."'/>".
                                             "</div>".
                                         "</div>".
                                     "</div>".
@@ -274,9 +274,20 @@ if(isset($_GET["id"])) {
                                         </div>
                                     </div>
                                     <div id='alterSenhaValidationErrors' class='d-none justify-content-center flex-wrap my-3'>
+                                        
+                                    </div>";
+                                    if(isset($_SESSION["alterarSenhaArrayErros"])) {
+                                        echo 
+                                        "<div class='d-flex justify-content-center flex-wrap my-3'>".
+                                            "<div class='alert alert-danger text-center w-50'>".
+                                                $_SESSION["alterarSenhaArrayErros"][0];
+                                            "</div> 
+                                        </div>";
 
-                                    </div>
-                                </form>
+                                        unset($_SESSION["alterarSenhaArrayErros"]);
+                                        unset($_SESSION["alterarSenhaArrayDados"]);
+                                    }
+                            echo "</form>
                             </div>";                     
                         }
                         ?>

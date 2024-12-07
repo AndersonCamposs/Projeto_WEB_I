@@ -6,24 +6,38 @@ require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/PermissaoDAO.php';
 require_once $_SERVER['DOCUMENT_ROOT'] . '/ac_clinic/model/dao/UsuarioPermissaoDAO.php';
 
+$erro = false;
 
 if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A SENHA
-    $senhaAtual = $_POST["senhaAtual"];
-    $novaSenha = $_POST["novaSenha"];
-    
-    $hashSenhaAtual = password_hash($_POST["senhaAtual"], PASSWORD_DEFAULT);
-    if($hashSenhaAtual != $_SESSION["usuarioLogado"]->getSenha()) {
-        echo "Foi informada a senha errada";
+    if(!password_verify($_POST["senhaAtual"], $_SESSION["usuarioLogado"]->getSenha())) {
+        $senhaAtualErrorMessage = "A senha atual informada é inválida.";
+        $erro = true;
+    }
+    if($erro) {
+        $alterarSenhaArrayErros = [];
+        $alterarSenhaArrayDados = [];
+        
+        $alterarSenhaArrayErros[] = $senhaAtualErrorMessage;
+        
+        $alterarSenhaArrayDados["senhaAtual"] = $_POST["senhaAtual"];
+        $alterarSenhaArrayDados["novaSenha"] = $_POST["novaSenha"];
+        $alterarSenhaArrayDados["repetirNovaSenha"] = $_POST["repetirNovaSenha"];
+        
+        $_SESSION["alterarSenhaArrayErros"] = $alterarSenhaArrayErros;
+        $_SESSION["alterarSenhaArrayDados"] = $alterarSenhaArrayDados;
+        
+        $idUsuarioLogado = $_SESSION["usuarioLogado"]->getId();
+        header("Location: ../usuarioAddEdit.php?id=".$idUsuarioLogado."&protocol=".uniqid("$idUsuarioLogado_")."#usuarioAlterarSenhaForm");
+        exit;
     }
     
     $hash = password_hash($_POST["novaSenha"], PASSWORD_DEFAULT);
     
-    //$_SESSION["usuarioLogado"]->setSenha($hash);
+    $_SESSION["usuarioLogado"]->setSenha($hash);
+    UsuarioDAO::getInstance()->update($_SESSION["usuarioLogado"]);
     
-    //UsuarioDAO::getInstance()->update($_SESSION["usuarioLogado"]);
-    
-    //header("Location: ./logoutController.php");
-    //exit;
+    header("Location: ./logoutController.php");
+    exit;
     
 } else { // SE NAO FOR PARA ALTERAR A SENHA
     if(isset($_POST['nome'])) {
@@ -162,5 +176,5 @@ if (isset($_POST["novaSenha"])) { // VERIFICA SE O FORM ENVIADO É DE ALTERAR A 
           UsuarioDAO::getInstance()->delete($_GET["id"]);  
         }
     }
-    //header("Location: ../usuarioList.php");
+    header("Location: ../usuarioList.php");
 }

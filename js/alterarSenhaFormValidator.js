@@ -17,6 +17,10 @@ export default function alterarSenhaFormValidator(e, alterSenhaValidationErrors,
         errors.push("Informe a nova senha.");
     }
     
+    if(inputNovaSenha.value.length < 6) {
+        errors.push("A senha precisa ter no mínimo 6 dígitos.");
+    }
+    
     if(inputNovaSenha.value !== inputRepetirNovaSenha.value) {
         errors.push("As senhas são diferentes.")
     }

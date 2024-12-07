@@ -111,16 +111,15 @@ if(isset($_GET['id'])) {
                                        
                                     </div>
                                     <?php
-                                        if(isset($_SESSION["consultaArrayErros"])) {
+                                        if(isset($_SESSION["alterarSenhaArrayErros"])) {
                                             echo 
                                             "<div class='d-flex justify-content-center flex-wrap my-3'>".
                                                 "<div class='alert alert-danger text-center w-50'>".
-                                                    $_SESSION["consultaArrayErros"][0];
+                                                    $_SESSION["alterarSenhaArrayErros"][0];
                                                 "</div>".
                                             "</div>";
                                                 
-                                            unset($_SESSION["consultaArrayErros"]);
-                                            unset($_SESSION["consultaArrayDados"]);
+                                            unset($_SESSION["alterarSenhaArrayErros"]);
                                         }
                                     ?>
                                 </form>

@@ -19,7 +19,9 @@ warningDiv.classList.add("text-center");
 warningDiv.classList.add("w-25");
 warningDiv.classList.add("mx-3");
 addEditValidationErrors.appendChild(warningDiv);
-alterSenhaValidationErrors.appendChild(warningDiv);
+if(alterSenhaValidationErrors) {
+   alterSenhaValidationErrors.appendChild(warningDiv); 
+}
 
 if(usuarioAddEditForm) {
     usuarioAddEditForm.addEventListener("submit", (e) => usuarioFormValidator(e, addEditValidationErrors, warningDiv));
