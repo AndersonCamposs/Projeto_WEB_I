@@ -40,14 +40,14 @@ class UsuarioDAO {
     
     public function update(UsuarioVO $usuario) {
         try {
-            $sql = "UPDATE usuario SET nome=:nome, email=:email, cpf=:cpf, "
+            // NÃO PERMITE AO USUÁRIO ATUALIZAR E-MAILS
+            $sql = "UPDATE usuario SET nome=:nome, cpf=:cpf, "
                     ."senha=:senha, foto=:foto"
                     ." WHERE id=:id";
             
             $p_sql = BDPDO::getInstance() -> prepare($sql);
             $p_sql->bindValue(":nome", $usuario->getNome());
             $p_sql->bindValue(":cpf", $usuario->getCpf());
-            $p_sql->bindValue(":email", $usuario->getEmail());
             $p_sql->bindValue(":senha", $usuario->getSenha());
             $p_sql->bindValue(":foto", $usuario->getFoto());
             $p_sql->bindValue(":id", $usuario->getId());

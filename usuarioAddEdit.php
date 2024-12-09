@@ -79,7 +79,7 @@ if(isset($_GET["id"])) {
                                             <?php
                                             echo
                                             "<input id='inputEmail' class='form-control' type='text' name='email' placeholder='example@email.com' value='"
-                                            .($usuario == null ? '' : $usuario->getEmail()) . "'>"
+                                            .($usuario == null ? '' : $usuario->getEmail()) . "' ".($usuario != null ? "disabled" : "").">"
                                             ?>
                                         </div>
                                     </div>
