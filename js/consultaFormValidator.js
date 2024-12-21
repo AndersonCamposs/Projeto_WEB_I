@@ -63,12 +63,12 @@ export default function consultaFormValidator (e, addEditValidationErrors, warni
     if(!inputDataConsulta.value) {
         errors.push("A data da consulta é obrigatória.")
     }
-    
-    let dataConsulta = inputDataConsulta.value.split("-");
+    console.log(inputDataConsulta.value);
+    /*let dataConsulta = inputDataConsulta.value.split("-");
     dataConsulta = new Date(dataConsulta[0], dataConsulta[1]-1, dataConsulta[2]);
     if (dataConsulta > new Date()) {
-        errors.push("Data inválida inválida");
-    }
+        errors.push("Data inválida");
+    }*/
     
     if (errors.length !== 0) {
         e.preventDefault();
