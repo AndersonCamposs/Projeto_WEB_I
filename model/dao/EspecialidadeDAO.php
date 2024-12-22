@@ -81,4 +81,31 @@ class EspecialidadeDAO {
  um LOG do mesmo, tente novamente mais tarde.".$e->getMessage();
         }
     }
+    
+    public function listTopEspecialidades () {
+        try {
+            $sql = "SELECT e.nome, COUNT(*) AS qtd FROM especialidade e
+            INNER JOIN medico m ON e.id = m.idEspecialidade
+            INNER JOIN consulta c ON m.id = c.idMedico
+            GROUP BY e.id
+            ORDER BY qtd DESC
+            LIMIT 5;";
+            $p_sql = BDPDO::getInstance()->prepare($sql);
+            $p_sql->execute();
+            $obj = new stdClass();
+            $obj->labels = array();
+            $obj->data = array();
+            $row = $p_sql->fetch(PDO::FETCH_ASSOC);
+            while($row) {
+                $obj->labels[] = $row["nome"];
+                $obj->data[] = $row["qtd"];
+                $row = $p_sql->fetch(PDO::FETCH_ASSOC);
+            }
+            return $obj;
+            
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado
+ um LOG do mesmo, tente novamente mais tarde.".$e->getMessage();
+        }
+    }
 }
