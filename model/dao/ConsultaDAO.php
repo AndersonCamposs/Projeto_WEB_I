@@ -133,4 +133,35 @@ class ConsultaDAO {
  um LOG do mesmo, tente novamente mais tarde.".$e->getMessage();
         }
     }
+    
+    public function listFaturamentoMensal($anoAtual) {
+        try {
+            $sql = "SELECT MONTH(dataConsulta) AS mes, SUM(valor) AS soma
+            FROM consulta
+            WHERE YEAR(dataConsulta) = :anoAtual
+            GROUP BY mes
+            ORDER BY MONTH(dataConsulta) ASC;";
+            $p_sql = BDPDO::getInstance()->prepare($sql);
+            $p_sql->bindValue(":anoAtual", $anoAtual);
+            $obj = new stdClass();
+            $obj -> months = array();
+            $obj -> values = array();
+            $p_sql->execute();
+            $row = $p_sql->fetch(PDO::FETCH_ASSOC);
+            while ($row) {
+                $obj->months[] = $row["mes"];
+                $obj->values[] = $row["soma"];
+                $row = $p_sql->fetch(PDO::FETCH_ASSOC);
+            }
+            
+            return $obj;
+            
+            
+            
+            
+        } catch (Exception $e) {
+            print "Ocorreu um erro ao tentar executar esta ação, foi gerado
+ um LOG do mesmo, tente novamente mais tarde.".$e->getMessage();
+        }
+    }
 }
