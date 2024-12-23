@@ -5,7 +5,6 @@ Chart.defaults.global.defaultFontColor = '#292b2c';
 document.addEventListener("DOMContentLoaded", async () => {
     let res = await fetch("http://localhost/ac_clinic/api/faturamentoMensalChartData.php");
     let json = await res.json();
-    console.log(json);
     
     var ctx = document.getElementById("myAreaChart");
     var myLineChart = new Chart(ctx, {
@@ -43,7 +42,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         yAxes: [{
           ticks: {
             min: 0,
-            max: 10000,
+            max: Math.max(...json.data) + 2000,
             maxTicksLimit: 5
           },
           gridLines: {

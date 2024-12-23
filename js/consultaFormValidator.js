@@ -11,7 +11,6 @@ export default function consultaFormValidator (e, addEditValidationErrors, warni
     let inputValor = document.getElementById("inputValor");
     let inputDataConsulta = document.getElementById("inputDataConsulta");
     let checkBoxDataConsulta = document.getElementById("checkBoxDataConsulta");
-    
     if (checkBoxDataConsulta.checked) {
         let dataAtual = new Date();
         /*DIMINUINDO A HORA ATUAL PORQUE NO MOMENTO DE CONVERTER PARA
@@ -63,12 +62,11 @@ export default function consultaFormValidator (e, addEditValidationErrors, warni
     if(!inputDataConsulta.value) {
         errors.push("A data da consulta é obrigatória.")
     }
-    console.log(inputDataConsulta.value);
-    /*let dataConsulta = inputDataConsulta.value.split("-");
-    dataConsulta = new Date(dataConsulta[0], dataConsulta[1]-1, dataConsulta[2]);
-    if (dataConsulta > new Date()) {
-        errors.push("Data inválida");
-    }*/
+    
+    let dataPattern = new RegExp("^\\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$");
+    if (!dataPattern.test(inputDataConsulta.value)) {
+        errors.push("Data inválida.");
+    }
     
     if (errors.length !== 0) {
         e.preventDefault();
