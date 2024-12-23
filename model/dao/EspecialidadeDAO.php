@@ -88,7 +88,7 @@ class EspecialidadeDAO {
             INNER JOIN medico m ON e.id = m.idEspecialidade
             INNER JOIN consulta c ON m.id = c.idMedico
             GROUP BY e.id
-            ORDER BY qtd DESC
+            ORDER BY qtd ASC
             LIMIT 5;";
             $p_sql = BDPDO::getInstance()->prepare($sql);
             $p_sql->execute();
