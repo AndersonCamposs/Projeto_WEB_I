@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     data: {
       labels: json.labels,
       datasets: [{
-        label: "Sessions",
+        label: "Reais(R$)",
         lineTension: 0.3,
         backgroundColor: "rgba(2,117,216,0.2)",
         borderColor: "rgba(2,117,216,1)",
